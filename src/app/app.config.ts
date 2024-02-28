@@ -8,6 +8,7 @@ import {
 
 import { routes } from './app.routes';
 import { Title } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @Injectable({ providedIn: 'root' })
 export class TemplatePageTitleStrategy extends TitleStrategy {
@@ -26,5 +27,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
+    provideAnimationsAsync(),
   ],
 };
