@@ -1,9 +1,6 @@
 // file taken from https://github.com/angular-architects/ngrx-toolkit/
 
-import {
-  patchState as originalPatchState,
-  SignalStoreFeature,
-} from '@ngrx/signals';
+import { SignalStoreFeature } from '@ngrx/signals';
 import { SignalStoreFeatureResult } from '@ngrx/signals/src/signal-store-models';
 import { effect, inject, PLATFORM_ID, signal, Signal } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
@@ -121,15 +118,3 @@ export function withDevtools<Input extends SignalStoreFeatureResult>(
     return store;
   };
 }
-
-type PatchFn = typeof originalPatchState extends (
-  arg1: infer First,
-  ...args: infer Rest
-) => infer Returner
-  ? (state: First, action: string, ...rest: Rest) => Returner
-  : never;
-
-export const patchState: PatchFn = (state, action, ...rest) => {
-  currentActionNames.add(action);
-  return originalPatchState(state, ...rest);
-};
