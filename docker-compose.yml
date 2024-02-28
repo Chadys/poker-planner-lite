@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  vernemq:
+    image: vernemq/vernemq:1.13.0-alpine
+    ports:
+      - '1883:1883' # MQTT
+      - '8080:8080' # MQTT over websocket
+    # you can exec `vmq-admin trace client client-id=<client-id>` if you want more tracing on what's happening
+    environment:
+      DOCKER_VERNEMQ_ACCEPT_EULA: 'yes'
+      DOCKER_VERNEMQ_USER_user: 'password'
+      DOCKER_VERNEMQ_VMQ_PASSWD.password_reload_interval: 0
+      DOCKER_VERNEMQ_LISTENER.tcp.allowed_protocol_versions: 3,4,5
+      DOCKER_VERNEMQ_LOG.console.level: debug
+    volumes:
+      - vernemq-data:/vernemq/data/
+
+volumes:
+  vernemq-data:
