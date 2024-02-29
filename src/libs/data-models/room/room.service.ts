@@ -1,11 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Observable, map, tap, retry } from 'rxjs';
+import { IMqttMessage, MqttService } from 'ngx-mqtt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
-  listAll(): Observable<string[]> {
-    return of(['toto', 'tata']);
+  readonly mqttService = inject(MqttService);
+  listAll(): Observable<string> {
+    return this.mqttService.observe('test', { qos: 0 }).pipe(
+      tap((message: IMqttMessage) => console.debug(message)),
+      map((message: IMqttMessage) => message.payload.toString())
+    );
+  }
+  createRoom(roomName: string): void {
+    this.mqttService
+      .publish('test', roomName, { qos: 1 })
+      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
+      .subscribe({ error: console.debug });
   }
 }

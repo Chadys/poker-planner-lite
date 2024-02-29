@@ -31,8 +31,10 @@ export const RoomStore = signalStore(
       exhaustMap(() => {
         return roomService.listAll().pipe(
           tapResponse({
-            next: (availableRooms: string[]) =>
-              patchState(store, { availableRooms }),
+            next: (availableRoom: string) =>
+              patchState(store, state => ({
+                availableRooms: [...state.availableRooms, availableRoom],
+              })),
             error: console.error,
           })
         );

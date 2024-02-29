@@ -41,7 +41,8 @@ export class LobbyComponent {
     const DialogComponent =
       dialogType == 'create' ? RoomCreateComponent : RoomJoinComponent;
     this.dialog.open(DialogComponent, {
-      data: { availableRooms: this.store.availableRooms() },
+      data: this.store,
+      maxHeight: '80vh',
     });
   }
 }

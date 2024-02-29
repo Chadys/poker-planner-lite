@@ -6,6 +6,9 @@ services:
       - '1883:1883' # MQTT
       - '8080:8080' # MQTT over websocket
     # you can exec `vmq-admin trace client client-id=<client-id>` if you want more tracing on what's happening
+    # other useful commands are found here:
+    #   https://docs.vernemq.com/live-administration/managing-sessions
+    #   https://docs.vernemq.com/live-administration/retained-store
     environment:
       DOCKER_VERNEMQ_ACCEPT_EULA: 'yes'
       DOCKER_VERNEMQ_USER_user: 'password'
