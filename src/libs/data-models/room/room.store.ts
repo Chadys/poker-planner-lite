@@ -13,7 +13,7 @@ import { exhaustMap } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 
-type RoomState = {
+export type RoomState = {
   currentRoom?: RoomModel;
   availableRooms: string[];
 };
