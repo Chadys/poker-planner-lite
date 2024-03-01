@@ -15,8 +15,15 @@ export class RoomService {
   }
   createRoom(roomName: string): void {
     this.mqttService
-      .publish('test', roomName, { qos: 1 })
+      .publish('test', roomName, {
+        qos: 1,
+        retain: true,
+        properties: {
+          payloadFormatIndicator: true,
+          messageExpiryInterval: 21600,
+        },
+      })
       .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
-      .subscribe({ error: console.debug });
+      .subscribe({ error: console.error });
   }
 }
