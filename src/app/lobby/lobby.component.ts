@@ -4,19 +4,23 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomListDialogComponent } from './room-list-dialog/room-list-dialog.component';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-lobby',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [NgOptimizedImage, MatCardModule, MatButtonModule],
   template: `
     <div class="p-4">
       <div class="flex gap-1 items-center place-content-center">
         <img
           class="max-w-28"
-          src="assets/logo.svg"
-          alt="Poker Planner Lite logo" />
+          ngSrc="assets/logo.svg"
+          alt="Poker Planner Lite logo"
+          width="289.25"
+          height="284.7"
+          priority />
         <h1>Poker Planner Lite</h1>
       </div>
       <div class="flex justify-evenly pt-10">
