@@ -13,7 +13,10 @@ export class RoomService {
       map((message: IMqttMessage) => message.payload.toString())
     );
   }
-  createRoom(roomName: string): void {
+  createRoom(
+    roomName: string,
+    onComplete: (() => void) | undefined = undefined
+  ): void {
     this.mqttService
       .publish('test', roomName, {
         qos: 1,
@@ -24,6 +27,6 @@ export class RoomService {
         },
       })
       .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
-      .subscribe({ error: console.error });
+      .subscribe({ complete: onComplete, error: console.error });
   }
 }

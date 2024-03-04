@@ -4,38 +4,41 @@ import {
   computed,
   inject,
 } from '@angular/core';
-import { RoomService, RoomStore } from '@poker/data-models';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { RoomStore } from '@poker/data-models';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatError, MatFormField, MatInput } from '@angular/material/input';
 import { forbiddenValuesValidator } from '@poker/utils';
 import { MatButton } from '@angular/material/button';
 import { JsonPipe } from '@angular/common';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-room-create',
+  selector: 'app-room-list-dialog',
   standalone: true,
   imports: [
-    MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule,
+    MatInput,
     MatButton,
     JsonPipe,
+    MatListItem,
+    MatNavList,
+    MatError,
+    MatFormField,
   ],
   template: `
-    <div class="w-96 p-3">
+    <div class="min-w-96 p-3">
       <h2>Create a room</h2>
-
       <form
         [formGroup]="newRoomForm()"
-        (ngSubmit)="createRoom()"
-        class="flex flex-col gap-2">
+        class="flex flex-row gap-4"
+        (ngSubmit)="createRoom()">
         <mat-form-field>
           <input
             type="text"
@@ -65,21 +68,29 @@ import { JsonPipe } from '@angular/common';
         </mat-form-field>
         <button
           mat-flat-button
-          color="primary"
+          color="accent"
           type="submit"
-          class="self-end"
           [disabled]="!newRoomForm().valid">
           Create
         </button>
       </form>
+
+      <p>or</p>
+      <h2>Join an active room</h2>
+      <mat-nav-list>
+        @for (roomName of dialogData.availableRooms(); track roomName) {
+          <a mat-list-item href="/room/{{ roomName }}">{{ roomName }}</a>
+        }
+      </mat-nav-list>
     </div>
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoomCreateComponent {
+export class RoomListDialogComponent {
   readonly dialogData: RoomStore = inject(MAT_DIALOG_DATA);
-  readonly roomService = inject(RoomService);
+  readonly dialogRef = inject(MatDialogRef<RoomListDialogComponent>);
+  readonly router = inject(Router);
 
   newRoomForm = computed(() => {
     return new FormGroup({
@@ -95,9 +106,10 @@ export class RoomCreateComponent {
     return this.newRoomForm().get('name');
   }
 
-  createRoom() {
+  async createRoom() {
     if (this.name?.value) {
-      this.roomService.createRoom(this.name.value);
+      await this.router.navigate(['room', this.name.value]);
+      this.dialogRef.close();
     }
   }
 }

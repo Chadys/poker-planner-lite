@@ -3,8 +3,7 @@ import { RoomStore } from '@poker/data-models';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { RoomCreateComponent } from './room-create/room-create.component';
-import { RoomJoinComponent } from './room-join/room-join.component';
+import { RoomListDialogComponent } from './room-list-dialog/room-list-dialog.component';
 
 @Component({
   selector: 'app-lobby',
@@ -21,10 +20,7 @@ import { RoomJoinComponent } from './room-join/room-join.component';
         <h1>Poker Planner Lite</h1>
       </div>
       <div class="flex justify-evenly pt-10">
-        <button mat-flat-button color="primary" (click)="openDialog('create')">
-          Create a room
-        </button>
-        <button mat-flat-button color="accent" (click)="openDialog('join')">
+        <button mat-flat-button color="primary" (click)="openDialog()">
           Join a room
         </button>
       </div>
@@ -37,10 +33,8 @@ export class LobbyComponent {
   readonly store = inject(RoomStore);
   readonly dialog = inject(MatDialog);
 
-  openDialog(dialogType: 'create' | 'join'): void {
-    const DialogComponent =
-      dialogType == 'create' ? RoomCreateComponent : RoomJoinComponent;
-    this.dialog.open(DialogComponent, {
+  openDialog(): void {
+    this.dialog.open(RoomListDialogComponent, {
       data: this.store,
       maxHeight: '80vh',
     });
