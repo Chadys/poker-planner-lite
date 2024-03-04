@@ -14,12 +14,12 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 
 export type RoomState = {
-  currentRoom?: RoomModel;
+  currentRoom: RoomModel | null;
   availableRooms: string[];
 };
 
 const initialState: RoomState = {
-  currentRoom: undefined,
+  currentRoom: null,
   availableRooms: [],
 };
 

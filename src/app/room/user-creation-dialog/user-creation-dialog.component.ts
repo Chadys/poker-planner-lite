@@ -5,7 +5,7 @@ import {
   inject,
   Signal,
 } from '@angular/core';
-import { RoomService, UserRoleEnum } from '@poker/data-models';
+import { RoomService, UserRoleEnum, UserStore } from '@poker/data-models';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FormControl,
@@ -58,7 +58,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 
         <mat-form-field>
           <mat-label>Your role</mat-label>
-          <mat-select formControlName="role">
+          <mat-select formControlName="role" required>
             @for (role of roles; track role) {
               <mat-option [value]="role">{{ UserRoleEnum[role] }}</mat-option>
             }
@@ -77,17 +77,23 @@ import { MatOption, MatSelect } from '@angular/material/select';
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UserStore],
 })
 export class UserCreationDialogComponent {
   readonly dialogData: Signal<string> = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);
   readonly roomService = inject(RoomService);
   readonly roles = [UserRoleEnum.Player, UserRoleEnum.Observer];
+  readonly store = inject(UserStore);
 
   newUserForm = computed(() => {
     return new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      role: new FormControl(UserRoleEnum.Player, [Validators.required]),
+      name: new FormControl(this.store.user()?.name || '', [
+        Validators.required,
+      ]),
+      role: new FormControl(this.store.user()?.role || UserRoleEnum.Player, [
+        Validators.required,
+      ]),
     });
   });
 
@@ -100,9 +106,12 @@ export class UserCreationDialogComponent {
   }
 
   joinRoom(): void {
-    this.roomService.createRoom(this.dialogData(), () =>
-      this.dialogRef.close()
-    );
+    if (this.name?.value && this.role?.value) {
+      this.store.setUser({ name: this.name.value, role: this.role.value });
+      this.roomService.createRoom(this.dialogData(), () =>
+        this.dialogRef.close()
+      );
+    }
   }
 
   protected readonly UserRoleEnum = UserRoleEnum;
