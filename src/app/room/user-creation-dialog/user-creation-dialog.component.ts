@@ -3,9 +3,13 @@ import {
   Component,
   computed,
   inject,
-  Signal,
 } from '@angular/core';
-import { RoomService, UserRoleEnum, UserStore } from '@poker/data-models';
+import {
+  RoomStore,
+  UserRoleEnum,
+  UserRoleEnumChoices,
+  UserStore,
+} from '@poker/data-models';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FormControl,
@@ -53,13 +57,19 @@ import { MatOption, MatSelect } from '@angular/material/select';
             @if (name.errors?.['required']) {
               <mat-error> You must enter a value. </mat-error>
             }
+            @if (name.errors?.['pattern']) {
+              <mat-error>
+                You must only use unaccented letter, number, underscore or dash
+                characters.
+              </mat-error>
+            }
           }
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Your role</mat-label>
           <mat-select formControlName="role" required>
-            @for (role of roles; track role) {
+            @for (role of UserRoleEnumChoices; track role) {
               <mat-option [value]="role">{{ UserRoleEnum[role] }}</mat-option>
             }
           </mat-select>
@@ -77,23 +87,22 @@ import { MatOption, MatSelect } from '@angular/material/select';
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UserStore],
 })
 export class UserCreationDialogComponent {
-  readonly dialogData: Signal<string> = inject(MAT_DIALOG_DATA);
+  readonly dialogData: { roomStore: RoomStore; userStore: UserStore } =
+    inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);
-  readonly roomService = inject(RoomService);
-  readonly roles = [UserRoleEnum.Player, UserRoleEnum.Observer];
-  readonly store = inject(UserStore);
 
   newUserForm = computed(() => {
     return new FormGroup({
-      name: new FormControl(this.store.user()?.name || '', [
+      name: new FormControl(this.dialogData.userStore.user()?.name || '', [
         Validators.required,
+        Validators.pattern(/^[-\w]+$/),
       ]),
-      role: new FormControl(this.store.user()?.role || UserRoleEnum.Player, [
-        Validators.required,
-      ]),
+      role: new FormControl(
+        this.dialogData.userStore.user()?.role || UserRoleEnum.Player,
+        [Validators.required]
+      ),
     });
   });
 
@@ -106,13 +115,23 @@ export class UserCreationDialogComponent {
   }
 
   joinRoom(): void {
-    if (this.name?.value && this.role?.value) {
-      this.store.setUser({ name: this.name.value, role: this.role.value });
-      this.roomService.createRoom(this.dialogData(), () =>
-        this.dialogRef.close()
-      );
+    if (this.name?.value && this.role?.value != null) {
+      this.dialogData.userStore.setUser({
+        name: this.name.value,
+        role: this.role.value,
+      });
+      if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {
+        this.dialogData.roomStore.addPlayerToRoom(
+          this.dialogData.roomStore.currentRoom().name,
+          this.name.value,
+          () => this.dialogRef.close()
+        );
+      } else {
+        this.dialogRef.close();
+      }
     }
   }
 
   protected readonly UserRoleEnum = UserRoleEnum;
+  protected readonly UserRoleEnumChoices = UserRoleEnumChoices;
 }

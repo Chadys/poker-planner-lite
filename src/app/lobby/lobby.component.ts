@@ -37,6 +37,10 @@ export class LobbyComponent {
   readonly store = inject(RoomStore);
   readonly dialog = inject(MatDialog);
 
+  constructor() {
+    this.store.listAll();
+  }
+
   openDialog(): void {
     this.dialog.open(RoomListDialogComponent, {
       data: this.store,

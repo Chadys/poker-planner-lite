@@ -7,11 +7,20 @@ export const voteChoices = [
   '5',
   '8',
   '13+',
+  '?',
 ] as const;
 export type VoteChoice = (typeof voteChoices)[number];
 
 export type RoomModel = {
   name: string;
   currentRound: number;
-  votePerPlayer: { [key: string]: VoteChoice };
+  votePerRoundPerPlayer: {
+    [round: number]: { [player: string]: VoteChoice | null };
+  };
 };
+
+export const roomDefault = {
+  currentRound: 0,
+  votePerRoundPerPlayer: { 0: {} },
+  name: '',
+} as RoomModel;
