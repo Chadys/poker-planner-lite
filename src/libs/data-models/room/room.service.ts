@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, retry, tap } from 'rxjs';
+import { distinct, map, Observable, retry, tap } from 'rxjs';
 import { IMqttMessage, MqttService } from 'ngx-mqtt';
 import { VoteChoice } from './room.model';
 import { UserModel, UserRoleEnum } from '../user';
@@ -10,10 +10,16 @@ import { UserModel, UserRoleEnum } from '../user';
 export class RoomService {
   readonly mqttService = inject(MqttService);
   listAll(): Observable<string> {
-    return this.mqttService.observe('rooms/#', { qos: 0 }).pipe(
-      tap((message: IMqttMessage) => console.debug(message)),
-      map((message: IMqttMessage) => message.payload.toString())
-    );
+    return this.mqttService
+      .observe('rooms/+/connected-players/+', { qos: 0 })
+      .pipe(
+        tap((message: IMqttMessage) => console.debug(message)),
+        map((message: IMqttMessage) => {
+          const result = /^rooms\/([-\w]+)\//.exec(message.topic);
+          return result ? result[1] : '';
+        }),
+        distinct()
+      );
   }
   addPlayerToRoom(
     roomName: string,
@@ -37,7 +43,7 @@ export class RoomService {
     roomName: string
   ): Observable<{ player: string; isDeleted: boolean }> {
     return this.mqttService
-      .observe(`rooms/${roomName}/connected-players/#`, { qos: 0 })
+      .observe(`rooms/${roomName}/connected-players/+`, { qos: 0 })
       .pipe(
         tap((message: IMqttMessage) => console.debug(message)),
         map((message: IMqttMessage) => {

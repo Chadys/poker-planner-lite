@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
     MatFormField,
   ],
   template: `
-    <div class="min-w-96 p-3">
+    <div class="min-w-96 w-full p-3">
       <h2>Create a room</h2>
       <form
         [formGroup]="newRoomForm()"

@@ -39,7 +39,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatOption,
   ],
   template: `
-    <div class="min-w-96 p-3">
+    <div class="min-w-96 w-full p-3">
       <h2>Welcome</h2>
       <form
         [formGroup]="newUserForm()"
