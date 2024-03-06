@@ -16,13 +16,13 @@ import {
   VoteChoice,
   voteChoices,
 } from '@poker/data-models';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, KeyValuePipe } from '@angular/common';
 import {
   MatAnchor,
   MatButton,
   MatMiniFabButton,
 } from '@angular/material/button';
-import { MatListItem } from '@angular/material/list';
+import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -34,6 +34,7 @@ import {
   MatCardContent,
 } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { PokerCardComponent } from './poker-card/poker-card.component';
 
 @Component({
   selector: 'app-room',
@@ -51,6 +52,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatCardActions,
     MatCardContent,
     MatProgressSpinner,
+    MatNavList,
+    PokerCardComponent,
+    KeyValuePipe,
   ],
   template: `
     <div class="p-4">
@@ -76,6 +80,14 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
           <button
             mat-mini-fab
             color="primary"
+            matTooltip="Open vote history"
+            aria-label="Button to open vote history"
+            (click)="openBottomSheet('HISTORY')">
+            <mat-icon>history</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="accent"
             matTooltip="Open sharing options"
             aria-label="Button to open sharing options"
             (click)="openBottomSheet('SHARE')">
@@ -90,7 +102,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
           class="fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6">
           <mat-card-content class="bg-gray-100">
             <div class="flex flex-row justify-between items-center">
-              <p class="!mb-0">This room has no player yet</p>
+              <span>This room has no player yet</span>
               <button
                 mat-flat-button
                 color="accent"
@@ -113,9 +125,17 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
           {{ timerValue() }}
         </div>
       </div>
+      <div class="flex gap-1 place-content-center">
+        @for (item of roomStore.currentVotes() | keyvalue; track item.key) {
+          <div class="flex flex-col">
+            <app-poker-card [content]="item.value"></app-poker-card>
+            <span class="text-center">{{ item.key }}</span>
+          </div>
+        }
+      </div>
       <p>votes: {{ roomStore.currentRoom().votePerRoundPerPlayer | json }}</p>
       <p>players: {{ roomStore.currentPlayers() | json }}</p>
-      <div class="flex gap-1 items-center place-content-center">
+      <div class="flex gap-1 place-content-center">
         @for (voteOption of voteChoices; track voteOption) {
           <button mat-flat-button color="primary" (click)="vote(voteOption)">
             {{ voteOption }}
@@ -152,7 +172,7 @@ export class RoomComponent {
     });
   }
 
-  openBottomSheet(sheetType: 'USER' | 'SHARE') {
+  openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {
     const panelClass = ['h-4/5'];
     if (sheetType == 'USER') {
       this.bottomSheet.open(UserProfileComponent, {
@@ -166,6 +186,10 @@ export class RoomComponent {
         data: this.roomName,
         panelClass,
       });
+      return;
+    }
+    if (sheetType == 'HISTORY') {
+      // TODO history view
       return;
     }
   }

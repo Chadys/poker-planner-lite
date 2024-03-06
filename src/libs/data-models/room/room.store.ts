@@ -28,6 +28,9 @@ export const RoomStore = signalStore(
   withDevtools('rooms'),
   withState<RoomState>(initialState),
   withComputed(({ currentRoom }) => ({
+    currentVotes: computed(
+      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]
+    ),
     currentPlayers: computed(() =>
       Object.keys(
         currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]
