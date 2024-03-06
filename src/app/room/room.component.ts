@@ -1,8 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
+  Signal,
+  signal,
+  WritableSignal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';
@@ -24,6 +28,12 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
 import { ShareRoomComponent } from './share-room/share-room.component';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+} from '@angular/material/card';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-room',
@@ -37,6 +47,10 @@ import { ShareRoomComponent } from './share-room/share-room.component';
     MatIcon,
     MatMiniFabButton,
     MatTooltip,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatProgressSpinner,
   ],
   template: `
     <div class="p-4">
@@ -45,7 +59,10 @@ import { ShareRoomComponent } from './share-room/share-room.component';
           <mat-icon>home</mat-icon> Back to lobby
         </a>
 
-        <h1>Room {{ roomName() }}</h1>
+        <div class="text-center">
+          <h1>Room {{ roomName() }}</h1>
+          <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>
+        </div>
 
         <div class="flex gap-3">
           <button
@@ -67,9 +84,37 @@ import { ShareRoomComponent } from './share-room/share-room.component';
         </div>
       </div>
 
-      <p>room {{ roomName() }} works!</p>
-      <p>{{ roomStore.currentRoom() | json }}</p>
-      <p>{{ roomStore.currentPlayers() | json }}</p>
+      @if (!roomStore.currentPlayers().length) {
+        <mat-card
+          tabindex="-1"
+          class="fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6">
+          <mat-card-content class="bg-gray-100">
+            <div class="flex flex-row justify-between items-center">
+              <p class="!mb-0">This room has no player yet</p>
+              <button
+                mat-flat-button
+                color="accent"
+                (click)="openBottomSheet('SHARE')">
+                <mat-icon>ios_share</mat-icon> Share it
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+      <div class="relative w-min">
+        <mat-progress-spinner
+          [color]="timerColor()"
+          mode="determinate"
+          [value]="timerValue()">
+          test
+        </mat-progress-spinner>
+        <div
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mat-headline-4">
+          {{ timerValue() }}
+        </div>
+      </div>
+      <p>votes: {{ roomStore.currentRoom().votePerRoundPerPlayer | json }}</p>
+      <p>players: {{ roomStore.currentPlayers() | json }}</p>
       <div class="flex gap-1 items-center place-content-center">
         @for (voteOption of voteChoices; track voteOption) {
           <button mat-flat-button color="primary" (click)="vote(voteOption)">
@@ -88,6 +133,11 @@ export class RoomComponent {
   readonly userStore = inject(UserStore);
   readonly dialog = inject(MatDialog);
   readonly bottomSheet = inject(MatBottomSheet);
+
+  timerValue: WritableSignal<number> = signal(70);
+  timerColor: Signal<string> = computed(() =>
+    this.timerValue() < 30 ? 'warn' : 'primary'
+  );
 
   constructor() {
     this.roomStore.getOne(this.roomName);
