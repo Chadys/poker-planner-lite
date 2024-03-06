@@ -24,6 +24,7 @@
     "@angular/router": "^17.1.0",
     "@ngrx/operators": "^17.1.1",
     "@ngrx/signals": "^17.1.1",
+    "angularx-qrcode": "^17.0.0",
     "ngx-mqtt": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

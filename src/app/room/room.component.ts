@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserCreationDialogComponent } from './user-creation-dialog/user-creation-dialog.component';
+import { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';
 import {
   RoomStore,
   UserStore,
@@ -13,17 +13,60 @@ import {
   voteChoices,
 } from '@poker/data-models';
 import { JsonPipe } from '@angular/common';
-import { MatAnchor, MatButton } from '@angular/material/button';
+import {
+  MatAnchor,
+  MatButton,
+  MatMiniFabButton,
+} from '@angular/material/button';
 import { MatListItem } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { UserProfileComponent } from '../user/user-profile/user-profile.component';
+import { ShareRoomComponent } from './share-room/share-room.component';
 
 @Component({
   selector: 'app-room',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [JsonPipe, MatButton, MatAnchor, MatListItem],
+  imports: [
+    JsonPipe,
+    MatButton,
+    MatAnchor,
+    MatListItem,
+    MatIcon,
+    MatMiniFabButton,
+    MatTooltip,
+  ],
   template: `
     <div class="p-4">
-      <a mat-stroked-button href="/lobby"> Back to lobby </a>
+      <div class="flex w-full justify-between">
+        <a mat-stroked-button href="/lobby">
+          <mat-icon>home</mat-icon> Back to lobby
+        </a>
+
+        <h1>Room {{ roomName() }}</h1>
+
+        <div class="flex gap-3">
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltip="User info"
+            aria-label="Button to open user info"
+            (click)="openBottomSheet('USER')">
+            <mat-icon>person</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="primary"
+            matTooltip="Open sharing options"
+            aria-label="Button to open sharing options"
+            (click)="openBottomSheet('SHARE')">
+            <mat-icon>ios_share</mat-icon>
+          </button>
+        </div>
+      </div>
+
       <p>room {{ roomName() }} works!</p>
       <p>{{ roomStore.currentRoom() | json }}</p>
       <p>{{ roomStore.currentPlayers() | json }}</p>
@@ -44,6 +87,7 @@ export class RoomComponent {
   readonly roomStore = inject(RoomStore);
   readonly userStore = inject(UserStore);
   readonly dialog = inject(MatDialog);
+  readonly bottomSheet = inject(MatBottomSheet);
 
   constructor() {
     this.roomStore.getOne(this.roomName);
@@ -58,7 +102,23 @@ export class RoomComponent {
     });
   }
 
-  protected readonly voteChoices = voteChoices;
+  openBottomSheet(sheetType: 'USER' | 'SHARE') {
+    const panelClass = ['h-4/5'];
+    if (sheetType == 'USER') {
+      this.bottomSheet.open(UserProfileComponent, {
+        data: this.userStore,
+        panelClass,
+      });
+      return;
+    }
+    if (sheetType == 'SHARE') {
+      this.bottomSheet.open(ShareRoomComponent, {
+        data: this.roomName,
+        panelClass,
+      });
+      return;
+    }
+  }
 
   vote(voteOption: VoteChoice) {
     this.roomStore.vote(
@@ -67,4 +127,6 @@ export class RoomComponent {
       voteOption
     );
   }
+
+  protected readonly voteChoices = voteChoices;
 }
