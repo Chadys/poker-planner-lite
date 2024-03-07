@@ -31,6 +31,13 @@ export const RoomStore = signalStore(
     currentVotes: computed(
       () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]
     ),
+    historyVotes: computed(() => {
+      return Object.fromEntries(
+        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(
+          ([round]) => Number(round) != currentRoom.currentRound()
+        )
+      );
+    }),
     currentPlayers: computed(() =>
       Object.keys(
         currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]

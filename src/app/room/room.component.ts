@@ -22,7 +22,6 @@ import {
   MatButton,
   MatMiniFabButton,
 } from '@angular/material/button';
-import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -35,6 +34,7 @@ import {
 } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { PokerCardComponent } from './poker-card/poker-card.component';
+import { VoteHistoryComponent } from './vote-history/vote-history.component';
 
 @Component({
   selector: 'app-room',
@@ -44,7 +44,6 @@ import { PokerCardComponent } from './poker-card/poker-card.component';
     JsonPipe,
     MatButton,
     MatAnchor,
-    MatListItem,
     MatIcon,
     MatMiniFabButton,
     MatTooltip,
@@ -52,7 +51,6 @@ import { PokerCardComponent } from './poker-card/poker-card.component';
     MatCardActions,
     MatCardContent,
     MatProgressSpinner,
-    MatNavList,
     PokerCardComponent,
     KeyValuePipe,
   ],
@@ -189,7 +187,10 @@ export class RoomComponent {
       return;
     }
     if (sheetType == 'HISTORY') {
-      // TODO history view
+      this.bottomSheet.open(VoteHistoryComponent, {
+        data: this.roomStore,
+        panelClass,
+      });
       return;
     }
   }

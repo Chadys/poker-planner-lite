@@ -12,16 +12,20 @@ import {
 } from '@poker/data-models';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { forbiddenValuesValidator } from '@poker/utils';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-creation-dialog',
@@ -32,11 +36,10 @@ import { MatOption, MatSelect } from '@angular/material/select';
     MatFormField,
     MatInput,
     MatLabel,
-    MatListItem,
-    MatNavList,
     ReactiveFormsModule,
     MatSelect,
     MatOption,
+    JsonPipe,
   ],
   template: `
     <div class="min-w-96 w-full p-3">
@@ -74,6 +77,12 @@ import { MatOption, MatSelect } from '@angular/material/select';
             }
           </mat-select>
         </mat-form-field>
+        @if (newUserForm().errors?.['forbiddenValue']) {
+          <mat-error>
+            There is already a Player with that name, change your role if that's
+            you, else change your name
+          </mat-error>
+        }
 
         <button
           mat-flat-button
@@ -94,16 +103,25 @@ export class UserCreationDialogComponent {
   readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);
 
   newUserForm = computed(() => {
-    return new FormGroup({
-      name: new FormControl(this.dialogData.userStore.user()?.name || '', [
-        Validators.required,
-        Validators.pattern(/^[-\w]+$/),
-      ]),
-      role: new FormControl(
-        this.dialogData.userStore.user()?.role || UserRoleEnum.Player,
-        [Validators.required]
-      ),
-    });
+    return new FormGroup(
+      {
+        name: new FormControl(this.dialogData.userStore.user()?.name || '', [
+          Validators.required,
+          Validators.pattern(/^[-\w]+$/),
+        ]),
+        role: new FormControl(
+          this.dialogData.userStore.user()?.role || UserRoleEnum.Player,
+          [Validators.required]
+        ),
+      },
+      {
+        validators: [
+          this.observerWithPlayerName(
+            this.dialogData.roomStore.currentPlayers()
+          ),
+        ],
+      }
+    );
   });
 
   get name() {
@@ -112,6 +130,21 @@ export class UserCreationDialogComponent {
 
   get role() {
     return this.newUserForm().get('role');
+  }
+
+  observerWithPlayerName(forbiddenValues: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const name = control.get('name');
+      const role = control.get('role');
+
+      return (
+        (role &&
+          name &&
+          role.value === UserRoleEnum.Observer &&
+          forbiddenValuesValidator(forbiddenValues)(name)) ||
+        null
+      );
+    };
   }
 
   joinRoom(): void {

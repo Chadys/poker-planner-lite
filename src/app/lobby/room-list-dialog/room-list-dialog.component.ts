@@ -16,7 +16,7 @@ import { MatError, MatFormField, MatInput } from '@angular/material/input';
 import { forbiddenValuesValidator } from '@poker/utils';
 import { MatButton } from '@angular/material/button';
 import { JsonPipe } from '@angular/common';
-import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,8 +27,7 @@ import { Router } from '@angular/router';
     MatInput,
     MatButton,
     JsonPipe,
-    MatListItem,
-    MatNavList,
+    MatListModule,
     MatError,
     MatFormField,
   ],
