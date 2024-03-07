@@ -31,6 +31,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { PokerCardComponent } from './poker-card/poker-card.component';
 import { VoteHistoryComponent } from './vote-history/vote-history.component';
 import { UserDeckComponent } from '../user/user-deck/user-deck.component';
+import { PokerTableComponent } from './poker-table/poker-table.component';
 
 @Component({
   selector: 'app-room',
@@ -50,6 +51,7 @@ import { UserDeckComponent } from '../user/user-deck/user-deck.component';
     PokerCardComponent,
     KeyValuePipe,
     UserDeckComponent,
+    PokerTableComponent,
   ],
   template: `
     <div class="p-4 h-svh flex flex-col">
@@ -121,19 +123,7 @@ import { UserDeckComponent } from '../user/user-deck/user-deck.component';
             {{ timerValue() }}
           </div>
         </div>
-        <div class="flex gap-3 place-content-center">
-          @for (item of roomStore.currentVotes() | keyvalue; track item.key) {
-            <div class="flex flex-col">
-              <app-poker-card
-                [content]="item.value"
-                size="S"
-                [disabled]="true"
-                [private]="true"
-                [active]="item.value !== null"></app-poker-card>
-              <span class="text-center">{{ item.key }}</span>
-            </div>
-          }
-        </div>
+        <app-poker-table></app-poker-table>
       </div>
       <div class="mt-auto">
         <app-user-deck></app-user-deck>

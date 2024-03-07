@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Signal,
+} from '@angular/core';
 import {
   RoomStore,
   UserRoleEnum,
@@ -32,6 +38,9 @@ import { PokerCardComponent } from '../../room/poker-card/poker-card.component';
             [content]="voteOption"
             size="L"
             class="hover:pb-2 pt-2 hover:pt-0"
+            [class.pb-2]="voteOption === userVote()"
+            [class.pt-0]="voteOption === userVote()"
+            [active]="voteOption === userVote()"
             (click)="vote(voteOption)"></app-poker-card>
         }
       </div>
@@ -45,6 +54,14 @@ export class UserDeckComponent {
   readonly userStore = inject(UserStore);
   protected readonly UserRoleEnum = UserRoleEnum;
   protected readonly voteChoices = voteChoices;
+
+  readonly userVote: Signal<VoteChoice | null> = computed(() => {
+    const user = this.userStore.user();
+    if (user !== null) {
+      return this.roomStore.currentVotes()[user.name];
+    }
+    return null;
+  });
 
   vote(voteOption: VoteChoice) {
     this.roomStore.vote(
