@@ -1,6 +1,10 @@
 {
   "root": true,
   "ignorePatterns": ["projects/**/*"],
+
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
   "overrides": [
     {
       "files": ["*.ts"],

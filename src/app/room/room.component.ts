@@ -10,12 +10,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';
-import {
-  RoomStore,
-  UserStore,
-  VoteChoice,
-  voteChoices,
-} from '@poker/data-models';
+import { RoomStore, UserStore } from '@poker/data-models';
 import { JsonPipe, KeyValuePipe } from '@angular/common';
 import {
   MatAnchor,
@@ -35,6 +30,7 @@ import {
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { PokerCardComponent } from './poker-card/poker-card.component';
 import { VoteHistoryComponent } from './vote-history/vote-history.component';
+import { UserDeckComponent } from '../user/user-deck/user-deck.component';
 
 @Component({
   selector: 'app-room',
@@ -53,92 +49,94 @@ import { VoteHistoryComponent } from './vote-history/vote-history.component';
     MatProgressSpinner,
     PokerCardComponent,
     KeyValuePipe,
+    UserDeckComponent,
   ],
   template: `
-    <div class="p-4">
-      <div class="flex w-full justify-between">
-        <a mat-stroked-button href="/lobby">
-          <mat-icon>home</mat-icon> Back to lobby
-        </a>
+    <div class="p-4 h-svh flex flex-col">
+      <div>
+        <div class="flex w-full justify-between">
+          <a mat-stroked-button href="/lobby">
+            <mat-icon>home</mat-icon> Back to lobby
+          </a>
 
-        <div class="text-center">
-          <h1>Room {{ roomName() }}</h1>
-          <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>
-        </div>
-
-        <div class="flex gap-3">
-          <button
-            mat-mini-fab
-            color="primary"
-            matTooltip="User info"
-            aria-label="Button to open user info"
-            (click)="openBottomSheet('USER')">
-            <mat-icon>person</mat-icon>
-          </button>
-          <button
-            mat-mini-fab
-            color="primary"
-            matTooltip="Open vote history"
-            aria-label="Button to open vote history"
-            (click)="openBottomSheet('HISTORY')">
-            <mat-icon>history</mat-icon>
-          </button>
-          <button
-            mat-mini-fab
-            color="accent"
-            matTooltip="Open sharing options"
-            aria-label="Button to open sharing options"
-            (click)="openBottomSheet('SHARE')">
-            <mat-icon>ios_share</mat-icon>
-          </button>
-        </div>
-      </div>
-
-      @if (!roomStore.currentPlayers().length) {
-        <mat-card
-          tabindex="-1"
-          class="fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6">
-          <mat-card-content class="bg-gray-100">
-            <div class="flex flex-row justify-between items-center">
-              <span>This room has no player yet</span>
-              <button
-                mat-flat-button
-                color="accent"
-                (click)="openBottomSheet('SHARE')">
-                <mat-icon>ios_share</mat-icon> Share it
-              </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      }
-      <div class="relative w-min">
-        <mat-progress-spinner
-          [color]="timerColor()"
-          mode="determinate"
-          [value]="timerValue()">
-          test
-        </mat-progress-spinner>
-        <div
-          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mat-headline-4">
-          {{ timerValue() }}
-        </div>
-      </div>
-      <div class="flex gap-1 place-content-center">
-        @for (item of roomStore.currentVotes() | keyvalue; track item.key) {
-          <div class="flex flex-col">
-            <app-poker-card [content]="item.value"></app-poker-card>
-            <span class="text-center">{{ item.key }}</span>
+          <div class="text-center">
+            <h1>Room {{ roomName() }}</h1>
+            <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>
           </div>
+
+          <div class="flex gap-3">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="User info"
+              aria-label="Button to open user info"
+              (click)="openBottomSheet('USER')">
+              <mat-icon>person</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="Open vote history"
+              aria-label="Button to open vote history"
+              (click)="openBottomSheet('HISTORY')">
+              <mat-icon>history</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Open sharing options"
+              aria-label="Button to open sharing options"
+              (click)="openBottomSheet('SHARE')">
+              <mat-icon>ios_share</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        @if (!roomStore.currentPlayers().length) {
+          <mat-card
+            tabindex="-1"
+            class="fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6">
+            <mat-card-content class="bg-gray-100">
+              <div class="flex flex-row justify-between items-center">
+                <span>This room has no player yet</span>
+                <button
+                  mat-flat-button
+                  color="accent"
+                  (click)="openBottomSheet('SHARE')">
+                  <mat-icon>ios_share</mat-icon> Share it
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
         }
+        <div class="relative w-min">
+          <mat-progress-spinner
+            [color]="timerColor()"
+            mode="determinate"
+            [value]="timerValue()">
+            test
+          </mat-progress-spinner>
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl">
+            {{ timerValue() }}
+          </div>
+        </div>
+        <div class="flex gap-3 place-content-center">
+          @for (item of roomStore.currentVotes() | keyvalue; track item.key) {
+            <div class="flex flex-col">
+              <app-poker-card
+                [content]="item.value"
+                size="S"
+                [disabled]="true"
+                [private]="true"
+                [active]="item.value !== null"></app-poker-card>
+              <span class="text-center">{{ item.key }}</span>
+            </div>
+          }
+        </div>
       </div>
-      <p>votes: {{ roomStore.currentRoom().votePerRoundPerPlayer | json }}</p>
-      <p>players: {{ roomStore.currentPlayers() | json }}</p>
-      <div class="flex gap-1 place-content-center">
-        @for (voteOption of voteChoices; track voteOption) {
-          <button mat-flat-button color="primary" (click)="vote(voteOption)">
-            {{ voteOption }}
-          </button>
-        }
+      <div class="mt-auto">
+        <app-user-deck></app-user-deck>
       </div>
     </div>
   `,
@@ -194,14 +192,4 @@ export class RoomComponent {
       return;
     }
   }
-
-  vote(voteOption: VoteChoice) {
-    this.roomStore.vote(
-      this.roomStore.currentRoom(),
-      this.userStore.user(),
-      voteOption
-    );
-  }
-
-  protected readonly voteChoices = voteChoices;
 }
