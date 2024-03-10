@@ -155,6 +155,7 @@ export class RoomComponent {
       disableClose: true,
       data: { roomStore: this.roomStore, userStore: this.userStore },
       maxHeight: '80vh',
+      panelClass: 'w-full',
     });
   }
 

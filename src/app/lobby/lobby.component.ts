@@ -45,6 +45,7 @@ export class LobbyComponent {
     this.dialog.open(RoomListDialogComponent, {
       data: this.store,
       maxHeight: '80vh',
+      panelClass: 'w-full',
     });
   }
 }
