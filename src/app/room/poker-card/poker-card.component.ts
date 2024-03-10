@@ -7,17 +7,17 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
   template: `
     <button
-      class="p-3 shadow group border-4 rounded-lg border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300"
-      [ngClass]="
+      class="poker-card p-3 shadow group border-4 rounded-lg"
+      [class]="
         size() === 'S' ? ['w-16', 'h-20', 'p-2'] : ['w-20', 'h-28', 'p-3']
       "
       [class.private]="private()"
       [class.active]="active()"
-      [disabled]="disabled()">
+      [disabled]="disabled() || private()">
       @if (private()) {
         <div
           class="h-full w-full bg-stripes"
-          [ngClass]="
+          [class]="
             active()
               ? ['bg-emerald-500', 'bg-stripes-emerald-300']
               : ['bg-gray-400', 'bg-stripes-gray-200']
@@ -25,14 +25,16 @@ import { NgClass } from '@angular/common';
       } @else {
         <div
           class="h-full w-full flex flex-col place-content-center rounded-md border"
-          [ngClass]="
+          [class]="
             active()
-              ? [
-                  'border-emerald-500',
-                  'bg-slate-100',
-                  'group-hover:bg-slate-50',
-                  'group-hover:border-emerald-400'
-                ]
+              ? disabled()
+                ? ['border-emerald-500', 'bg-slate-100']
+                : [
+                    'border-emerald-500',
+                    'bg-slate-100',
+                    'group-hover:bg-slate-50',
+                    'group-hover:border-emerald-400'
+                  ]
               : [
                   'border-blue-400',
                   'bg-slate-100',
@@ -40,7 +42,7 @@ import { NgClass } from '@angular/common';
                   'group-hover:border-blue-300'
                 ]
           ">
-          <span class="" [ngClass]="{ 'text-2xl': size() === 'L' }">
+          <span class="" [class]="{ 'text-2xl': size() === 'L' }">
             {{ content() }}
           </span>
         </div>
@@ -49,13 +51,16 @@ import { NgClass } from '@angular/common';
   `,
   styles: `
     .private {
-      @apply bg-gray-200 hover:bg-gray-200 border-gray-400;
+      @apply bg-gray-200 border-gray-400;
     }
     .active {
-      @apply bg-emerald-300 hover:bg-emerald-300 border-emerald-500;
+      @apply bg-emerald-300 border-emerald-500;
     }
-    .active:not(.private) {
+    .active:not([disabled]) {
       @apply hover:bg-emerald-200 hover:border-emerald-400;
+    }
+    .poker-card:not(.active, .private) {
+      @apply border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
