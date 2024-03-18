@@ -3,12 +3,12 @@
   "interfaces": [
     {
       "name": "EnvironmentConfig",
-      "id": "interface-EnvironmentConfig-0cf18ec6f89b0c17c38951a70170d4eeba0ffa8ac927891d1313d95745b90b53fc35e8bf631960479a8e6cfc94309b773746a5a912b39418b79aee175e805d48",
+      "id": "interface-EnvironmentConfig-d246026a0e4f28a7e34f8012c95c01d5779819e369d7ebcce578806cf9ff9e84b4f72ce28a7db2014ee0ec764bfb582dd847786c03170cc23d138ba87b07bf67",
       "file": "src/environments/environment-type.ts",
       "deprecated": false,
       "deprecationMessage": "",
       "type": "interface",
-      "sourceCode": "import { InjectionToken } from '@angular/core';\nimport { IMqttServiceOptions } from 'ngx-mqtt';\n\nexport const ENVIRONMENT_CONFIG = new InjectionToken('ENVIRONMENT_CONFIG');\n\nexport interface EnvironmentConfig {\n  appVersion: string;\n  production: boolean;\n  env: 'dev' | 'staging' | 'production';\n\n  mqttConfigOptions: IMqttServiceOptions;\n}\n\nexport const mqttDefaults: IMqttServiceOptions = {\n  port: 8080,\n  path: '/mqtt',\n  protocolVersion: 5,\n};\n",
+      "sourceCode": "import { InjectionToken } from '@angular/core';\nimport { IMqttServiceOptions } from 'ngx-mqtt';\n\nexport const ENVIRONMENT_CONFIG = new InjectionToken('ENVIRONMENT_CONFIG');\n\nexport interface EnvironmentConfig {\n  appVersion: string;\n  production: boolean;\n  env: 'dev' | 'staging' | 'production';\n\n  defaultCountdown: number; // in seconds\n  mqttConfigOptions: IMqttServiceOptions;\n}\n\nexport const mqttDefaults: IMqttServiceOptions = {\n  port: 8080,\n  path: '/mqtt',\n  protocolVersion: 5,\n};\n",
       "properties": [
         {
           "name": "appVersion",
@@ -18,6 +18,15 @@
           "optional": false,
           "description": "",
           "line": 7
+        },
+        {
+          "name": "defaultCountdown",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "number",
+          "optional": false,
+          "description": "",
+          "line": 11
         },
         {
           "name": "env",
@@ -35,7 +44,7 @@
           "type": "IMqttServiceOptions",
           "optional": false,
           "description": "",
-          "line": 11
+          "line": 12
         },
         {
           "name": "production",
@@ -80,7 +89,7 @@
   "injectables": [
     {
       "name": "RoomService",
-      "id": "injectable-RoomService-18213722ba3865e687ecb5072ea9eee1d0fd508d2066cf8a6b9f4fe8299dda1f908ac7de6f24579012edc822867d69671d813fd5a946e5590ca92e2382ebb415",
+      "id": "injectable-RoomService-d2ed5626b610d159e12fd3a362feddaddbbe86bbe3ed4c9abe84ebbc1440dd7c6457b5441953f874066c29b6081363840394c7d533b1dbcba4a93ac2857ec2f2",
       "file": "src/libs/data-models/room/room.service.ts",
       "properties": [
         {
@@ -169,7 +178,7 @@
           "optional": false,
           "returnType": "any",
           "typeParameters": [],
-          "line": 60,
+          "line": 74,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -197,7 +206,7 @@
           "optional": false,
           "returnType": "Observable<literal type>",
           "typeParameters": [],
-          "line": 42,
+          "line": 56,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -225,7 +234,7 @@
           "optional": false,
           "returnType": "Observable<literal type>",
           "typeParameters": [],
-          "line": 69,
+          "line": 83,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -249,6 +258,92 @@
           "line": 12,
           "deprecated": false,
           "deprecationMessage": ""
+        },
+        {
+          "name": "removePlayerFromRoom",
+          "args": [
+            {
+              "name": "roomName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": ""
+            },
+            {
+              "name": "playerName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 42,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "roomName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "playerName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        },
+        {
+          "name": "setRound",
+          "args": [
+            {
+              "name": "roomName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": ""
+            },
+            {
+              "name": "newRound",
+              "type": "number",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 132,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "roomName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            },
+            {
+              "name": "newRound",
+              "type": "number",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
         },
         {
           "name": "vote",
@@ -281,7 +376,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 92,
+          "line": 106,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -328,7 +423,7 @@
       "deprecationMessage": "",
       "description": "",
       "rawdescription": "\n",
-      "sourceCode": "import { inject, Injectable } from '@angular/core';\nimport { distinct, map, Observable, retry, tap } from 'rxjs';\nimport { IMqttMessage, MqttService } from 'ngx-mqtt';\nimport { VoteChoice } from './room.model';\nimport { UserModel, UserRoleEnum } from '../user';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class RoomService {\n  readonly mqttService = inject(MqttService);\n  listAll(): Observable<string> {\n    return this.mqttService\n      .observe('rooms/+/connected-players/+', { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /^rooms\\/([-\\w]+)\\//.exec(message.topic);\n          return result ? result[1] : '';\n        }),\n        distinct()\n      );\n  }\n  addPlayerToRoom(\n    roomName: string,\n    playerName: string,\n    onComplete: (() => void) | undefined = undefined\n  ): void {\n    this.mqttService\n      .publish(`rooms/${roomName}/connected-players/${playerName}`, '1', {\n        qos: 1,\n        retain: true,\n        properties: {\n          payloadFormatIndicator: true,\n          messageExpiryInterval: 21600, // 6 hours\n        },\n      })\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ complete: onComplete, error: console.error });\n  }\n\n  getPlayers(\n    roomName: string\n  ): Observable<{ player: string; isDeleted: boolean }> {\n    return this.mqttService\n      .observe(`rooms/${roomName}/connected-players/+`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /([-\\w]+)$/.exec(message.topic);\n          const playerName = result ? result[1] : '';\n          return {\n            player: playerName,\n            isDeleted: message.payload.toString() !== '1',\n          };\n        })\n      );\n  }\n\n  getCurrentRound(roomName: string) {\n    return this.mqttService\n      .observe(`rooms/${roomName}/current-round/`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => Number(message.payload.toString()))\n      );\n  }\n\n  getVotes(roomName: string): Observable<{\n    roundNumber: number;\n    player: string;\n    voteOption: VoteChoice;\n  }> {\n    return this.mqttService\n      .observe(`rooms/${roomName}/votes/#`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /(\\d+)\\/([-\\w]+)$/.exec(message.topic);\n          console.debug(result);\n          const roundNumber = result ? Number(result[1]) : 0;\n          const player = result ? result[2] : '';\n          return {\n            roundNumber: roundNumber,\n            player: player,\n            voteOption: message.payload.toString() as VoteChoice,\n          };\n        })\n      );\n  }\n\n  vote(\n    roomName: string,\n    currentRound: number,\n    user: UserModel | null,\n    voteOption: VoteChoice\n  ): void {\n    if (!user || user.role == UserRoleEnum.Observer) {\n      return;\n    }\n    this.mqttService\n      .publish(\n        `rooms/${roomName}/votes/${currentRound}/${user.name}`,\n        voteOption,\n        {\n          qos: 1,\n          retain: true,\n          properties: {\n            payloadFormatIndicator: true,\n            messageExpiryInterval: 300, // 5min\n          },\n        }\n      )\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ error: console.error });\n  }\n}\n",
+      "sourceCode": "import { inject, Injectable } from '@angular/core';\nimport { distinct, map, Observable, retry, tap } from 'rxjs';\nimport { IMqttMessage, MqttService } from 'ngx-mqtt';\nimport { VoteChoice } from './room.model';\nimport { UserModel, UserRoleEnum } from '../user';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class RoomService {\n  readonly mqttService = inject(MqttService);\n  listAll(): Observable<string> {\n    return this.mqttService\n      .observe('rooms/+/connected-players/+', { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /^rooms\\/([-\\w]+)\\//.exec(message.topic);\n          return result ? result[1] : '';\n        }),\n        distinct()\n      );\n  }\n  addPlayerToRoom(\n    roomName: string,\n    playerName: string,\n    onComplete: (() => void) | undefined = undefined\n  ): void {\n    this.mqttService\n      .publish(`rooms/${roomName}/connected-players/${playerName}`, '1', {\n        qos: 1,\n        retain: true,\n        properties: {\n          payloadFormatIndicator: true,\n          messageExpiryInterval: 21600, // 6 hours\n        },\n      })\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ complete: onComplete, error: console.error });\n  }\n\n  removePlayerFromRoom(roomName: string, playerName: string) {\n    this.mqttService\n      .publish(`rooms/${roomName}/connected-players/${playerName}`, '', {\n        qos: 1,\n        retain: true,\n        properties: {\n          payloadFormatIndicator: true,\n          messageExpiryInterval: 21600, // 6 hours\n        },\n      })\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ error: console.error });\n  }\n\n  getPlayers(\n    roomName: string\n  ): Observable<{ player: string; isDeleted: boolean }> {\n    return this.mqttService\n      .observe(`rooms/${roomName}/connected-players/+`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /([-\\w]+)$/.exec(message.topic);\n          const playerName = result ? result[1] : '';\n          return {\n            player: playerName,\n            isDeleted: message.payload.toString() !== '1',\n          };\n        })\n      );\n  }\n\n  getCurrentRound(roomName: string) {\n    return this.mqttService\n      .observe(`rooms/${roomName}/current-round/`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => Number(message.payload.toString()))\n      );\n  }\n\n  getVotes(roomName: string): Observable<{\n    roundNumber: number;\n    player: string;\n    voteOption: VoteChoice;\n  }> {\n    return this.mqttService\n      .observe(`rooms/${roomName}/votes/#`, { qos: 0 })\n      .pipe(\n        tap((message: IMqttMessage) => console.debug(message)),\n        map((message: IMqttMessage) => {\n          const result = /(\\d+)\\/([-\\w]+)$/.exec(message.topic);\n          console.debug(result);\n          const roundNumber = result ? Number(result[1]) : 0;\n          const player = result ? result[2] : '';\n          return {\n            roundNumber: roundNumber,\n            player: player,\n            voteOption: message.payload.toString() as VoteChoice,\n          };\n        })\n      );\n  }\n\n  vote(\n    roomName: string,\n    currentRound: number,\n    user: UserModel | null,\n    voteOption: VoteChoice\n  ): void {\n    if (!user || user.role == UserRoleEnum.Observer) {\n      return;\n    }\n    this.mqttService\n      .publish(\n        `rooms/${roomName}/votes/${currentRound}/${user.name}`,\n        voteOption,\n        {\n          qos: 1,\n          retain: true,\n          properties: {\n            payloadFormatIndicator: true,\n            messageExpiryInterval: 300, // 5min\n          },\n        }\n      )\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ error: console.error });\n  }\n\n  setRound(roomName: string, newRound: number) {\n    this.mqttService\n      .publish(`rooms/${roomName}/current-round/`, newRound.toString(), {\n        qos: 1,\n        retain: true,\n        properties: {\n          payloadFormatIndicator: true,\n          messageExpiryInterval: 21600, // 6h\n        },\n      })\n      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))\n      .subscribe({ error: console.error });\n  }\n}\n",
       "extends": [],
       "type": "injectable"
     },
@@ -698,7 +793,7 @@
     },
     {
       "name": "PokerTableComponent",
-      "id": "component-PokerTableComponent-3d2c73fee19f18399b731be712d650414534c0fcd10823fbaaefed28612ac5d48f9f67a608dee3fd62830c6945425492845143a9455d8151936337b3cf57cbfc",
+      "id": "component-PokerTableComponent-639078d2d940bc7781d9afc42d1029aeb834c4cd5d9239391d667db762447001e0f51e7fd5985b47a6b5d06cd7d4f76efaff2b60622e1dc6084707e2c019daa8",
       "file": "src/app/room/poker-table/poker-table.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -709,7 +804,7 @@
       "selector": "app-poker-table",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"flex gap-3 place-content-center\">\n  @for (item of roomStore.currentVotes() | keyvalue; track item.key) {\n    @if (item.key !== userStore.user()?.name) {\n      <div class=\"flex flex-col\">\n        <app-poker-card\n          [content]=\"item.value\"\n          size=\"S\"\n          [disabled]=\"true\"\n          [private]=\"true\"\n          [active]=\"item.value !== null\"></app-poker-card>\n        <span class=\"text-center\">{{ item.key }}</span>\n      </div>\n    }\n  }\n</div>\n",
+      "template": "<div class=\"flex gap-3 place-content-center\">\n  @for (item of roomStore.currentVotes() | keyvalue; track item.key) {\n    @if (item.key !== userStore.user()?.name) {\n      <div class=\"flex flex-col\">\n        <app-poker-card\n          [content]=\"item.value\"\n          size=\"S\"\n          [disabled]=\"true\"\n          [private]=\"roomStore.countdown() !== 0\"\n          [active]=\"item.value !== null\"></app-poker-card>\n        <span class=\"text-center\">{{ item.key }}</span>\n      </div>\n    }\n  }\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -758,7 +853,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { KeyValuePipe } from '@angular/common';\nimport { PokerCardComponent } from '../poker-card/poker-card.component';\nimport { RoomStore, UserStore } from '@poker/data-models';\n\n@Component({\n  selector: 'app-poker-table',\n  standalone: true,\n  imports: [KeyValuePipe, PokerCardComponent],\n  template: `\n    <div class=\"flex gap-3 place-content-center\">\n      @for (item of roomStore.currentVotes() | keyvalue; track item.key) {\n        @if (item.key !== userStore.user()?.name) {\n          <div class=\"flex flex-col\">\n            <app-poker-card\n              [content]=\"item.value\"\n              size=\"S\"\n              [disabled]=\"true\"\n              [private]=\"true\"\n              [active]=\"item.value !== null\"></app-poker-card>\n            <span class=\"text-center\">{{ item.key }}</span>\n          </div>\n        }\n      }\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PokerTableComponent {\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n}\n",
+      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { KeyValuePipe } from '@angular/common';\nimport { PokerCardComponent } from '../poker-card/poker-card.component';\nimport { RoomStore, UserStore } from '@poker/data-models';\n\n@Component({\n  selector: 'app-poker-table',\n  standalone: true,\n  imports: [KeyValuePipe, PokerCardComponent],\n  template: `\n    <div class=\"flex gap-3 place-content-center\">\n      @for (item of roomStore.currentVotes() | keyvalue; track item.key) {\n        @if (item.key !== userStore.user()?.name) {\n          <div class=\"flex flex-col\">\n            <app-poker-card\n              [content]=\"item.value\"\n              size=\"S\"\n              [disabled]=\"true\"\n              [private]=\"roomStore.countdown() !== 0\"\n              [active]=\"item.value !== null\"></app-poker-card>\n            <span class=\"text-center\">{{ item.key }}</span>\n          </div>\n        }\n      }\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PokerTableComponent {\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -766,7 +861,7 @@
     },
     {
       "name": "RoomComponent",
-      "id": "component-RoomComponent-904b2af951005df1b88ce99e80fe4085ef58c5537655e39c48e1c663ee368197a75d107cb623607b7982e8ecf512de6ae3c2433e9e4e8f292734474e016c1616",
+      "id": "component-RoomComponent-f031233f29a894f322f4bacbf8dc44bdd376f40670bb065948589c021c0432260cc4d66f5c941363062382fc02c53fd70b5a2f734638189a378f92796fe1682d",
       "file": "src/app/room/room.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -784,7 +879,7 @@
       "selector": "app-room",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"p-4 h-svh flex flex-col\">\n  <div>\n    <div class=\"flex w-full justify-between\">\n      <a mat-stroked-button href=\"/lobby\">\n        <mat-icon>home</mat-icon> Back to lobby\n      </a>\n\n      <div class=\"text-center\">\n        <h1>Room {{ roomName() }}</h1>\n        <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n      </div>\n\n      <div class=\"flex gap-3\">\n        <button\n          mat-mini-fab\n          color=\"primary\"\n          matTooltip=\"User info\"\n          aria-label=\"Button to open user info\"\n          (click)=\"openBottomSheet('USER')\">\n          <mat-icon>person</mat-icon>\n        </button>\n        <button\n          mat-mini-fab\n          color=\"primary\"\n          matTooltip=\"Open vote history\"\n          aria-label=\"Button to open vote history\"\n          (click)=\"openBottomSheet('HISTORY')\">\n          <mat-icon>history</mat-icon>\n        </button>\n        <button\n          mat-mini-fab\n          color=\"accent\"\n          matTooltip=\"Open sharing options\"\n          aria-label=\"Button to open sharing options\"\n          (click)=\"openBottomSheet('SHARE')\">\n          <mat-icon>ios_share</mat-icon>\n        </button>\n      </div>\n    </div>\n\n    @if (!roomStore.currentPlayers().length) {\n      <mat-card\n        tabindex=\"-1\"\n        class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n        <mat-card-content class=\"bg-gray-100\">\n          <div class=\"flex flex-row justify-between items-center\">\n            <span>This room has no player yet</span>\n            <button\n              mat-flat-button\n              color=\"accent\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon> Share it\n            </button>\n          </div>\n        </mat-card-content>\n      </mat-card>\n    }\n    <div class=\"relative w-min\">\n      <mat-progress-spinner\n        [color]=\"timerColor()\"\n        mode=\"determinate\"\n        [value]=\"timerValue()\">\n        test\n      </mat-progress-spinner>\n      <div\n        class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n        {{ timerValue() }}\n      </div>\n    </div>\n    <app-poker-table></app-poker-table>\n  </div>\n  <div class=\"mt-auto\">\n    <app-user-deck></app-user-deck>\n  </div>\n</div>\n",
+      "template": "<div class=\"p-4 h-svh flex flex-col\">\n  <div>\n    <div class=\"flex w-full justify-between\">\n      <a mat-stroked-button routerLink=\"/lobby\">\n        <mat-icon>home</mat-icon> Back to lobby\n      </a>\n\n      <div class=\"text-center\">\n        <h1>Room {{ roomName() }}</h1>\n        <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n      </div>\n\n      <div class=\"flex gap-3\">\n        <button\n          mat-mini-fab\n          color=\"primary\"\n          matTooltip=\"User & players settings\"\n          aria-label=\"Button to open user & players settings\"\n          (click)=\"openBottomSheet('USER')\">\n          <mat-icon>manage_accounts</mat-icon>\n        </button>\n        <button\n          mat-mini-fab\n          color=\"primary\"\n          matTooltip=\"Open vote history\"\n          aria-label=\"Button to open vote history\"\n          (click)=\"openBottomSheet('HISTORY')\">\n          <mat-icon>history</mat-icon>\n        </button>\n        <button\n          mat-mini-fab\n          color=\"accent\"\n          matTooltip=\"Open sharing options\"\n          aria-label=\"Button to open sharing options\"\n          (click)=\"openBottomSheet('SHARE')\">\n          <mat-icon>ios_share</mat-icon>\n        </button>\n      </div>\n    </div>\n\n    @if (!roomStore.currentPlayers().length) {\n      <mat-card\n        tabindex=\"-1\"\n        class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n        <mat-card-content class=\"bg-gray-100\">\n          <div class=\"flex flex-row justify-between items-center\">\n            <span>This room has no player yet</span>\n            <button\n              mat-flat-button\n              color=\"accent\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon> Share it\n            </button>\n          </div>\n        </mat-card-content>\n      </mat-card>\n    }\n    <app-room-timer [countdown]=\"roomStore.countdown()\"></app-room-timer>\n    <app-poker-table></app-poker-table>\n    @if (\n      userStore.user()?.role === UserRoleEnum.Player &&\n      roomStore.countdown() === 0\n    ) {\n      <div class=\"flex w-full justify-center mt-8\">\n        <button mat-fab extended color=\"primary\" (click)=\"nextRound()\">\n          <mat-icon>arrow_forward_ios</mat-icon> Next round\n        </button>\n      </div>\n    }\n  </div>\n  <div class=\"mt-auto\">\n    <app-user-deck></app-user-deck>\n  </div>\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -799,7 +894,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 141,
+          "line": 142,
           "modifierKind": [148]
         },
         {
@@ -810,7 +905,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 140,
+          "line": 141,
           "modifierKind": [148]
         },
         {
@@ -821,7 +916,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 137
+          "line": 138
         },
         {
           "name": "roomStore",
@@ -831,28 +926,19 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 138,
+          "line": 139,
           "modifierKind": [148]
         },
         {
-          "name": "timerColor",
-          "defaultValue": "computed(() =>\n    this.timerValue() < 30 ? 'warn' : 'primary'\n  )",
+          "name": "UserRoleEnum",
+          "defaultValue": "UserRoleEnum",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "Signal<string>",
+          "type": "",
           "optional": false,
           "description": "",
-          "line": 144
-        },
-        {
-          "name": "timerValue",
-          "defaultValue": "signal(70)",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "WritableSignal<number>",
-          "optional": false,
-          "description": "",
-          "line": 143
+          "line": 196,
+          "modifierKind": [124, 148]
         },
         {
           "name": "userStore",
@@ -862,11 +948,38 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 139,
+          "line": 140,
           "modifierKind": [148]
         }
       ],
       "methodsClass": [
+        {
+          "name": "nextRound",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 184,
+          "deprecated": false,
+          "deprecationMessage": ""
+        },
+        {
+          "name": "ngOnDestroy",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 189,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "decorators": [
+            {
+              "name": "HostListener",
+              "stringifiedArguments": "'window:beforeunload'"
+            }
+          ],
+          "modifierKind": [170]
+        },
         {
           "name": "openBottomSheet",
           "args": [
@@ -880,7 +993,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 162,
+          "line": 159,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -901,7 +1014,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 153,
+          "line": 150,
           "deprecated": false,
           "deprecationMessage": ""
         }
@@ -909,7 +1022,16 @@
       "deprecated": false,
       "deprecationMessage": "",
       "hostBindings": [],
-      "hostListeners": [],
+      "hostListeners": [
+        {
+          "name": "window:beforeunload",
+          "args": [],
+          "argsDecorator": [],
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 189
+        }
+      ],
       "standalone": true,
       "imports": [
         {
@@ -941,9 +1063,6 @@
           "name": "MatCardContent"
         },
         {
-          "name": "MatProgressSpinner"
-        },
-        {
           "name": "PokerCardComponent",
           "type": "component"
         },
@@ -958,12 +1077,22 @@
         {
           "name": "PokerTableComponent",
           "type": "component"
+        },
+        {
+          "name": "RoomTimerComponent",
+          "type": "component"
+        },
+        {
+          "name": "MatFabButton"
+        },
+        {
+          "name": "RouterLink"
         }
       ],
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  Signal,\n  signal,\n  WritableSignal,\n} from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';\nimport { RoomStore, UserStore } from '@poker/data-models';\nimport { JsonPipe, KeyValuePipe } from '@angular/common';\nimport {\n  MatAnchor,\n  MatButton,\n  MatMiniFabButton,\n} from '@angular/material/button';\nimport { MatIcon } from '@angular/material/icon';\nimport { MatTooltip } from '@angular/material/tooltip';\nimport { MatBottomSheet } from '@angular/material/bottom-sheet';\nimport { UserProfileComponent } from '../user/user-profile/user-profile.component';\nimport { ShareRoomComponent } from './share-room/share-room.component';\nimport {\n  MatCard,\n  MatCardActions,\n  MatCardContent,\n} from '@angular/material/card';\nimport { MatProgressSpinner } from '@angular/material/progress-spinner';\nimport { PokerCardComponent } from './poker-card/poker-card.component';\nimport { VoteHistoryComponent } from './vote-history/vote-history.component';\nimport { UserDeckComponent } from '../user/user-deck/user-deck.component';\nimport { PokerTableComponent } from './poker-table/poker-table.component';\n\n@Component({\n  selector: 'app-room',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    JsonPipe,\n    MatButton,\n    MatAnchor,\n    MatIcon,\n    MatMiniFabButton,\n    MatTooltip,\n    MatCard,\n    MatCardActions,\n    MatCardContent,\n    MatProgressSpinner,\n    PokerCardComponent,\n    KeyValuePipe,\n    UserDeckComponent,\n    PokerTableComponent,\n  ],\n  template: `\n    <div class=\"p-4 h-svh flex flex-col\">\n      <div>\n        <div class=\"flex w-full justify-between\">\n          <a mat-stroked-button href=\"/lobby\">\n            <mat-icon>home</mat-icon> Back to lobby\n          </a>\n\n          <div class=\"text-center\">\n            <h1>Room {{ roomName() }}</h1>\n            <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n          </div>\n\n          <div class=\"flex gap-3\">\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"User info\"\n              aria-label=\"Button to open user info\"\n              (click)=\"openBottomSheet('USER')\">\n              <mat-icon>person</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"Open vote history\"\n              aria-label=\"Button to open vote history\"\n              (click)=\"openBottomSheet('HISTORY')\">\n              <mat-icon>history</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"accent\"\n              matTooltip=\"Open sharing options\"\n              aria-label=\"Button to open sharing options\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon>\n            </button>\n          </div>\n        </div>\n\n        @if (!roomStore.currentPlayers().length) {\n          <mat-card\n            tabindex=\"-1\"\n            class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n            <mat-card-content class=\"bg-gray-100\">\n              <div class=\"flex flex-row justify-between items-center\">\n                <span>This room has no player yet</span>\n                <button\n                  mat-flat-button\n                  color=\"accent\"\n                  (click)=\"openBottomSheet('SHARE')\">\n                  <mat-icon>ios_share</mat-icon> Share it\n                </button>\n              </div>\n            </mat-card-content>\n          </mat-card>\n        }\n        <div class=\"relative w-min\">\n          <mat-progress-spinner\n            [color]=\"timerColor()\"\n            mode=\"determinate\"\n            [value]=\"timerValue()\">\n            test\n          </mat-progress-spinner>\n          <div\n            class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n            {{ timerValue() }}\n          </div>\n        </div>\n        <app-poker-table></app-poker-table>\n      </div>\n      <div class=\"mt-auto\">\n        <app-user-deck></app-user-deck>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore, UserStore],\n})\nexport class RoomComponent {\n  roomName = input.required<string>();\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  readonly dialog = inject(MatDialog);\n  readonly bottomSheet = inject(MatBottomSheet);\n\n  timerValue: WritableSignal<number> = signal(70);\n  timerColor: Signal<string> = computed(() =>\n    this.timerValue() < 30 ? 'warn' : 'primary'\n  );\n\n  constructor() {\n    this.roomStore.getOne(this.roomName);\n    this.openDialog();\n  }\n\n  openDialog(): void {\n    this.dialog.open(UserCreationDialogComponent, {\n      disableClose: true,\n      data: { roomStore: this.roomStore, userStore: this.userStore },\n      maxHeight: '80vh',\n      panelClass: 'w-full',\n    });\n  }\n\n  openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {\n    const panelClass = ['h-4/5'];\n    if (sheetType == 'USER') {\n      this.bottomSheet.open(UserProfileComponent, {\n        data: this.userStore,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'SHARE') {\n      this.bottomSheet.open(ShareRoomComponent, {\n        data: this.roomName,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'HISTORY') {\n      this.bottomSheet.open(VoteHistoryComponent, {\n        data: this.roomStore,\n        panelClass,\n      });\n      return;\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  HostListener,\n  inject,\n  input,\n  OnDestroy,\n} from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';\nimport { RoomStore, UserRoleEnum, UserStore } from '@poker/data-models';\nimport { JsonPipe, KeyValuePipe } from '@angular/common';\nimport {\n  MatAnchor,\n  MatButton,\n  MatFabButton,\n  MatMiniFabButton,\n} from '@angular/material/button';\nimport { MatIcon } from '@angular/material/icon';\nimport { MatTooltip } from '@angular/material/tooltip';\nimport { MatBottomSheet } from '@angular/material/bottom-sheet';\nimport { UserSettingsComponent } from '../user/user-profile/user-settings.component';\nimport { ShareRoomComponent } from './share-room/share-room.component';\nimport {\n  MatCard,\n  MatCardActions,\n  MatCardContent,\n} from '@angular/material/card';\nimport { PokerCardComponent } from './poker-card/poker-card.component';\nimport { VoteHistoryComponent } from './vote-history/vote-history.component';\nimport { UserDeckComponent } from '../user/user-deck/user-deck.component';\nimport { PokerTableComponent } from './poker-table/poker-table.component';\nimport { RoomTimerComponent } from './room-timer/room-timer.component';\nimport { RouterLink } from '@angular/router';\n\n@Component({\n  selector: 'app-room',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    JsonPipe,\n    MatButton,\n    MatAnchor,\n    MatIcon,\n    MatMiniFabButton,\n    MatTooltip,\n    MatCard,\n    MatCardActions,\n    MatCardContent,\n    PokerCardComponent,\n    KeyValuePipe,\n    UserDeckComponent,\n    PokerTableComponent,\n    RoomTimerComponent,\n    MatFabButton,\n    RouterLink,\n  ],\n  template: `\n    <div class=\"p-4 h-svh flex flex-col\">\n      <div>\n        <div class=\"flex w-full justify-between\">\n          <a mat-stroked-button routerLink=\"/lobby\">\n            <mat-icon>home</mat-icon> Back to lobby\n          </a>\n\n          <div class=\"text-center\">\n            <h1>Room {{ roomName() }}</h1>\n            <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n          </div>\n\n          <div class=\"flex gap-3\">\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"User & players settings\"\n              aria-label=\"Button to open user & players settings\"\n              (click)=\"openBottomSheet('USER')\">\n              <mat-icon>manage_accounts</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"Open vote history\"\n              aria-label=\"Button to open vote history\"\n              (click)=\"openBottomSheet('HISTORY')\">\n              <mat-icon>history</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"accent\"\n              matTooltip=\"Open sharing options\"\n              aria-label=\"Button to open sharing options\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon>\n            </button>\n          </div>\n        </div>\n\n        @if (!roomStore.currentPlayers().length) {\n          <mat-card\n            tabindex=\"-1\"\n            class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n            <mat-card-content class=\"bg-gray-100\">\n              <div class=\"flex flex-row justify-between items-center\">\n                <span>This room has no player yet</span>\n                <button\n                  mat-flat-button\n                  color=\"accent\"\n                  (click)=\"openBottomSheet('SHARE')\">\n                  <mat-icon>ios_share</mat-icon> Share it\n                </button>\n              </div>\n            </mat-card-content>\n          </mat-card>\n        }\n        <app-room-timer [countdown]=\"roomStore.countdown()\"></app-room-timer>\n        <app-poker-table></app-poker-table>\n        @if (\n          userStore.user()?.role === UserRoleEnum.Player &&\n          roomStore.countdown() === 0\n        ) {\n          <div class=\"flex w-full justify-center mt-8\">\n            <button mat-fab extended color=\"primary\" (click)=\"nextRound()\">\n              <mat-icon>arrow_forward_ios</mat-icon> Next round\n            </button>\n          </div>\n        }\n      </div>\n      <div class=\"mt-auto\">\n        <app-user-deck></app-user-deck>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore, UserStore],\n})\nexport class RoomComponent implements OnDestroy {\n  roomName = input.required<string>();\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  readonly dialog = inject(MatDialog);\n  readonly bottomSheet = inject(MatBottomSheet);\n\n  constructor() {\n    this.roomStore.getOne(this.roomName);\n    this.openDialog();\n    this.roomStore.stopCountdown();\n  }\n\n  openDialog(): void {\n    this.dialog.open(UserCreationDialogComponent, {\n      disableClose: true,\n      data: { roomStore: this.roomStore, userStore: this.userStore },\n      maxHeight: '80vh',\n      panelClass: 'w-full',\n    });\n  }\n\n  openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {\n    const panelClass = ['h-4/5'];\n    if (sheetType == 'USER') {\n      this.bottomSheet.open(UserSettingsComponent, {\n        data: { roomStore: this.roomStore, userStore: this.userStore },\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'SHARE') {\n      this.bottomSheet.open(ShareRoomComponent, {\n        data: this.roomName,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'HISTORY') {\n      this.bottomSheet.open(VoteHistoryComponent, {\n        data: this.roomStore,\n        panelClass,\n      });\n      return;\n    }\n  }\n\n  nextRound() {\n    this.roomStore.incrementRound();\n  }\n\n  @HostListener('window:beforeunload')\n  ngOnDestroy() {\n    const user = this.userStore.user();\n    if (user?.role == UserRoleEnum.Player) {\n      this.roomStore.removePlayerFromRoom(user.name);\n    }\n  }\n\n  protected readonly UserRoleEnum = UserRoleEnum;\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -973,13 +1102,14 @@
         "deprecated": false,
         "deprecationMessage": "",
         "args": [],
-        "line": 146
+        "line": 142
       },
-      "extends": []
+      "extends": [],
+      "implements": ["OnDestroy"]
     },
     {
       "name": "RoomListDialogComponent",
-      "id": "component-RoomListDialogComponent-ca3c40e4e627b039de286b62fb9f60fd6a1f79ba75f8b10bb152d699dc6a38b0e6b618e3d8d89d7c93c213d905d8c2a7f3824ee3585164e3da8b4c488474745d",
+      "id": "component-RoomListDialogComponent-d96e6f0fe3c82be01b18b4d417669dce112ea3245c2b13e7e567213472c1ab6442138b1f50c6fd48c63adbdb8991d291443f09396e115af5a4380e250f9da54f",
       "file": "src/app/lobby/room-list-dialog/room-list-dialog.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -990,7 +1120,7 @@
       "selector": "app-room-list-dialog",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"w-full p-3\">\n  <h2>Create a room</h2>\n  <form\n    [formGroup]=\"newRoomForm()\"\n    class=\"flex flex-row gap-4\"\n    (ngSubmit)=\"createRoom()\">\n    <mat-form-field class=\"grow\">\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter the name of the room\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n        @if (name.errors?.['forbiddenValue']) {\n          <mat-error>\n            Name cannot be an existing room.\n            <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n            instead?\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newRoomForm().valid\">\n      Create\n    </button>\n  </form>\n\n  <p>or</p>\n  <h2>Join an active room</h2>\n  <mat-nav-list>\n    @for (roomName of dialogData.availableRooms(); track roomName) {\n      <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n    }\n  </mat-nav-list>\n</div>\n",
+      "template": "<div class=\"w-full p-3\">\n  <h2>Create a room</h2>\n  <form\n    [formGroup]=\"newRoomForm()\"\n    class=\"flex flex-row gap-4\"\n    (ngSubmit)=\"createRoom()\">\n    <mat-form-field class=\"grow\">\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter the name of the room\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n        @if (name.errors?.['forbiddenValue']) {\n          <mat-error>\n            Name cannot be an existing room.\n            <a\n              class=\"underline\"\n              routerLink=\"/room/{{ name.value }}\"\n              matDialogClose\n              >Join it</a\n            >\n            instead?\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newRoomForm().valid\">\n      Create\n    </button>\n  </form>\n\n  <p>or</p>\n  <h2>Join an active room</h2>\n  <mat-nav-list>\n    @for (roomName of dialogData.availableRooms(); track roomName) {\n      <a mat-list-item routerLink=\"/room/{{ roomName }}\" matDialogClose>{{\n        roomName\n      }}</a>\n    }\n  </mat-nav-list>\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -1005,7 +1135,7 @@
           "type": "RoomStore",
           "optional": false,
           "description": "",
-          "line": 90,
+          "line": 103,
           "modifierKind": [148]
         },
         {
@@ -1016,7 +1146,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 91,
+          "line": 104,
           "modifierKind": [148]
         },
         {
@@ -1027,7 +1157,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 94
+          "line": 107
         },
         {
           "name": "router",
@@ -1037,7 +1167,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 92,
+          "line": 105,
           "modifierKind": [148]
         }
       ],
@@ -1048,7 +1178,7 @@
           "optional": false,
           "returnType": "any",
           "typeParameters": [],
-          "line": 108,
+          "line": 121,
           "deprecated": false,
           "deprecationMessage": "",
           "modifierKind": [134]
@@ -1083,12 +1213,18 @@
         },
         {
           "name": "MatFormField"
+        },
+        {
+          "name": "RouterLink"
+        },
+        {
+          "name": "MatDialogClose"
         }
       ],
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  Validators,\n} from '@angular/forms';\nimport { MatError, MatFormField, MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { MatButton } from '@angular/material/button';\nimport { JsonPipe } from '@angular/common';\nimport { MatListModule } from '@angular/material/list';\nimport { Router } from '@angular/router';\n\n@Component({\n  selector: 'app-room-list-dialog',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    MatInput,\n    MatButton,\n    JsonPipe,\n    MatListModule,\n    MatError,\n    MatFormField,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Create a room</h2>\n      <form\n        [formGroup]=\"newRoomForm()\"\n        class=\"flex flex-row gap-4\"\n        (ngSubmit)=\"createRoom()\">\n        <mat-form-field class=\"grow\">\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter the name of the room\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n            @if (name.errors?.['forbiddenValue']) {\n              <mat-error>\n                Name cannot be an existing room.\n                <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n                instead?\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newRoomForm().valid\">\n          Create\n        </button>\n      </form>\n\n      <p>or</p>\n      <h2>Join an active room</h2>\n      <mat-nav-list>\n        @for (roomName of dialogData.availableRooms(); track roomName) {\n          <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n        }\n      </mat-nav-list>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class RoomListDialogComponent {\n  readonly dialogData: RoomStore = inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<RoomListDialogComponent>);\n  readonly router = inject(Router);\n\n  newRoomForm = computed(() => {\n    return new FormGroup({\n      name: new FormControl('', [\n        Validators.required,\n        Validators.pattern(/^[-\\w]+$/),\n        forbiddenValuesValidator(this.dialogData.availableRooms()),\n      ]),\n    });\n  });\n\n  get name() {\n    return this.newRoomForm().get('name');\n  }\n\n  async createRoom() {\n    if (this.name?.value) {\n      await this.router.navigate(['room', this.name.value]);\n      this.dialogRef.close();\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport {\n  MAT_DIALOG_DATA,\n  MatDialogClose,\n  MatDialogRef,\n} from '@angular/material/dialog';\nimport {\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  Validators,\n} from '@angular/forms';\nimport { MatError, MatFormField, MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { MatButton } from '@angular/material/button';\nimport { JsonPipe } from '@angular/common';\nimport { MatListModule } from '@angular/material/list';\nimport { Router, RouterLink } from '@angular/router';\n\n@Component({\n  selector: 'app-room-list-dialog',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    MatInput,\n    MatButton,\n    JsonPipe,\n    MatListModule,\n    MatError,\n    MatFormField,\n    RouterLink,\n    MatDialogClose,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Create a room</h2>\n      <form\n        [formGroup]=\"newRoomForm()\"\n        class=\"flex flex-row gap-4\"\n        (ngSubmit)=\"createRoom()\">\n        <mat-form-field class=\"grow\">\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter the name of the room\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n            @if (name.errors?.['forbiddenValue']) {\n              <mat-error>\n                Name cannot be an existing room.\n                <a\n                  class=\"underline\"\n                  routerLink=\"/room/{{ name.value }}\"\n                  matDialogClose\n                  >Join it</a\n                >\n                instead?\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newRoomForm().valid\">\n          Create\n        </button>\n      </form>\n\n      <p>or</p>\n      <h2>Join an active room</h2>\n      <mat-nav-list>\n        @for (roomName of dialogData.availableRooms(); track roomName) {\n          <a mat-list-item routerLink=\"/room/{{ roomName }}\" matDialogClose>{{\n            roomName\n          }}</a>\n        }\n      </mat-nav-list>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class RoomListDialogComponent {\n  readonly dialogData: RoomStore = inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<RoomListDialogComponent>);\n  readonly router = inject(Router);\n\n  newRoomForm = computed(() => {\n    return new FormGroup({\n      name: new FormControl('', [\n        Validators.required,\n        Validators.pattern(/^[-\\w]+$/),\n        forbiddenValuesValidator(this.dialogData.availableRooms()),\n      ]),\n    });\n  });\n\n  get name() {\n    return this.newRoomForm().get('name');\n  }\n\n  async createRoom() {\n    if (this.name?.value) {\n      await this.router.navigate(['room', this.name.value]);\n      this.dialogRef.close();\n    }\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -1100,10 +1236,85 @@
             "name": "name",
             "type": "",
             "returnType": "",
-            "line": 104
+            "line": 117
           }
         }
       }
+    },
+    {
+      "name": "RoomTimerComponent",
+      "id": "component-RoomTimerComponent-eea4be072a3c73cf37dd5c1d49d98b64716f4df20b5ef6777805621bd2b4ce5104f5052df4233b97c08cc9ea7b5e317a8073c10adfc17f3309c334a6f0b95e1c",
+      "file": "src/app/room/room-timer/room-timer.component.ts",
+      "changeDetection": "ChangeDetectionStrategy.OnPush",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "app-room-timer",
+      "styleUrls": [],
+      "styles": [""],
+      "template": "<div class=\"relative w-min\">\n  <mat-progress-spinner\n    [color]=\"timerColor()\"\n    mode=\"determinate\"\n    [value]=\"timerValue()\">\n    test\n  </mat-progress-spinner>\n  @if (countdown()) {\n    <div\n      class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n      {{ countdown() }}\n    </div>\n  }\n</div>\n",
+      "templateUrl": [],
+      "viewProviders": [],
+      "hostDirectives": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [
+        {
+          "name": "countdown",
+          "defaultValue": "input.required<number | null>()",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "optional": false,
+          "description": "",
+          "line": 36
+        },
+        {
+          "name": "timerColor",
+          "defaultValue": "computed(() =>\n    this.timerValue() < 40 ? 'warn' : 'accent'\n  )",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Signal<string>",
+          "optional": false,
+          "description": "",
+          "line": 41
+        },
+        {
+          "name": "timerValue",
+          "defaultValue": "computed(\n    () => ((this.countdown() || 0) / environment.defaultCountdown) * 100\n  )",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Signal<number>",
+          "optional": false,
+          "description": "",
+          "line": 38
+        }
+      ],
+      "methodsClass": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "standalone": true,
+      "imports": [
+        {
+          "name": "MatProgressSpinner"
+        },
+        {
+          "name": "JsonPipe",
+          "type": "pipe"
+        }
+      ],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  Signal,\n} from '@angular/core';\nimport { MatProgressSpinner } from '@angular/material/progress-spinner';\nimport { environment } from '../../../environments/environment';\nimport { JsonPipe } from '@angular/common';\n\n@Component({\n  selector: 'app-room-timer',\n  standalone: true,\n  imports: [MatProgressSpinner, JsonPipe],\n  template: `\n    <div class=\"relative w-min\">\n      <mat-progress-spinner\n        [color]=\"timerColor()\"\n        mode=\"determinate\"\n        [value]=\"timerValue()\">\n        test\n      </mat-progress-spinner>\n      @if (countdown()) {\n        <div\n          class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n          {{ countdown() }}\n        </div>\n      }\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class RoomTimerComponent {\n  countdown = input.required<number | null>(); // InputSignal<string>\n\n  timerValue: Signal<number> = computed(\n    () => ((this.countdown() || 0) / environment.defaultCountdown) * 100\n  );\n  timerColor: Signal<string> = computed(() =>\n    this.timerValue() < 40 ? 'warn' : 'accent'\n  );\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": "",
+      "stylesData": "\n",
+      "extends": []
     },
     {
       "name": "ShareRoomComponent",
@@ -1231,7 +1442,7 @@
     },
     {
       "name": "UserCreationDialogComponent",
-      "id": "component-UserCreationDialogComponent-e32e76a6151bbf1d702f5de9b11b6fd06f5d08e3566489154c182698237dc62922d11331953402a618e48d342cdb56d013ca2f2d0e6b2349ae6cb3361176fda1",
+      "id": "component-UserCreationDialogComponent-f3b17447a4e46783befe54dd2008d4365b5253abacfd33e30c91f8d73f1995a300e1de5d6f1c48c3ed61b09388c77f5ca7b128085f8618951e090f2eaeb64414",
       "file": "src/app/user/user-creation-dialog/user-creation-dialog.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1289,7 +1500,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 168,
+          "line": 166,
           "modifierKind": [124, 148]
         },
         {
@@ -1300,7 +1511,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 169,
+          "line": 167,
           "modifierKind": [124, 148]
         }
       ],
@@ -1383,7 +1594,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserRoleEnumChoices,\n  UserStore,\n} from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  AbstractControl,\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  ValidationErrors,\n  ValidatorFn,\n  Validators,\n} from '@angular/forms';\nimport { MatButton } from '@angular/material/button';\nimport { MatError, MatFormField, MatLabel } from '@angular/material/form-field';\nimport { MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { JsonPipe } from '@angular/common';\nimport { MatRadioButton, MatRadioGroup } from '@angular/material/radio';\n\n@Component({\n  selector: 'app-user-creation-dialog',\n  standalone: true,\n  imports: [\n    MatButton,\n    MatError,\n    MatFormField,\n    MatInput,\n    MatLabel,\n    ReactiveFormsModule,\n    JsonPipe,\n    MatRadioButton,\n    MatRadioGroup,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Welcome</h2>\n      <form\n        [formGroup]=\"newUserForm()\"\n        class=\"flex flex-col gap-2\"\n        (ngSubmit)=\"joinRoom()\">\n        <mat-form-field>\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter your name\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n\n        <mat-radio-group formControlName=\"role\" required>\n          <mat-label>Your role</mat-label>\n          @for (role of UserRoleEnumChoices; track role) {\n            <mat-radio-button [value]=\"role\">{{\n              UserRoleEnum[role]\n            }}</mat-radio-button>\n          }\n        </mat-radio-group>\n        @if (newUserForm().errors?.['forbiddenValue']) {\n          <mat-error>\n            There is already a Player with that name, change your role if that's\n            you, else change your name\n          </mat-error>\n        }\n\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newUserForm().valid\">\n          Join\n        </button>\n      </form>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserCreationDialogComponent {\n  readonly dialogData: { roomStore: RoomStore; userStore: UserStore } =\n    inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);\n\n  newUserForm = computed(() => {\n    return new FormGroup(\n      {\n        name: new FormControl(this.dialogData.userStore.user()?.name || '', [\n          Validators.required,\n          Validators.pattern(/^[-\\w]+$/),\n        ]),\n        role: new FormControl(\n          this.dialogData.userStore.user()?.role || UserRoleEnum.Player,\n          [Validators.required]\n        ),\n      },\n      {\n        validators: [\n          this.observerWithPlayerName(\n            this.dialogData.roomStore.currentPlayers()\n          ),\n        ],\n      }\n    );\n  });\n\n  get name() {\n    return this.newUserForm().get('name');\n  }\n\n  get role() {\n    return this.newUserForm().get('role');\n  }\n\n  observerWithPlayerName(forbiddenValues: string[]): ValidatorFn {\n    return (control: AbstractControl): ValidationErrors | null => {\n      const name = control.get('name');\n      const role = control.get('role');\n\n      return (\n        (role &&\n          name &&\n          role.value === UserRoleEnum.Observer &&\n          forbiddenValuesValidator(forbiddenValues)(name)) ||\n        null\n      );\n    };\n  }\n\n  joinRoom(): void {\n    if (this.name?.value && this.role?.value != null) {\n      this.dialogData.userStore.setUser({\n        name: this.name.value,\n        role: this.role.value,\n      });\n      if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {\n        this.dialogData.roomStore.addPlayerToRoom(\n          this.dialogData.roomStore.currentRoom().name,\n          this.name.value,\n          () => this.dialogRef.close()\n        );\n      } else {\n        this.dialogRef.close();\n      }\n    }\n  }\n\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly UserRoleEnumChoices = UserRoleEnumChoices;\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserRoleEnumChoices,\n  UserStore,\n} from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  AbstractControl,\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  ValidationErrors,\n  ValidatorFn,\n  Validators,\n} from '@angular/forms';\nimport { MatButton } from '@angular/material/button';\nimport { MatError, MatFormField, MatLabel } from '@angular/material/form-field';\nimport { MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { JsonPipe } from '@angular/common';\nimport { MatRadioButton, MatRadioGroup } from '@angular/material/radio';\n\n@Component({\n  selector: 'app-user-creation-dialog',\n  standalone: true,\n  imports: [\n    MatButton,\n    MatError,\n    MatFormField,\n    MatInput,\n    MatLabel,\n    ReactiveFormsModule,\n    JsonPipe,\n    MatRadioButton,\n    MatRadioGroup,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Welcome</h2>\n      <form\n        [formGroup]=\"newUserForm()\"\n        class=\"flex flex-col gap-2\"\n        (ngSubmit)=\"joinRoom()\">\n        <mat-form-field>\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter your name\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n\n        <mat-radio-group formControlName=\"role\" required>\n          <mat-label>Your role</mat-label>\n          @for (role of UserRoleEnumChoices; track role) {\n            <mat-radio-button [value]=\"role\">{{\n              UserRoleEnum[role]\n            }}</mat-radio-button>\n          }\n        </mat-radio-group>\n        @if (newUserForm().errors?.['forbiddenValue']) {\n          <mat-error>\n            There is already a Player with that name, change your role if that's\n            you, else change your name\n          </mat-error>\n        }\n\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newUserForm().valid\">\n          Join\n        </button>\n      </form>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserCreationDialogComponent {\n  readonly dialogData: { roomStore: RoomStore; userStore: UserStore } =\n    inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);\n\n  newUserForm = computed(() => {\n    return new FormGroup(\n      {\n        name: new FormControl(this.dialogData.userStore.user()?.name || '', [\n          Validators.required,\n          Validators.pattern(/^[-\\w]+$/),\n        ]),\n        role: new FormControl(\n          this.dialogData.userStore.user()?.role || UserRoleEnum.Player,\n          [Validators.required]\n        ),\n      },\n      {\n        validators: [\n          this.observerWithPlayerName(\n            this.dialogData.roomStore.currentPlayers()\n          ),\n        ],\n      }\n    );\n  });\n\n  get name() {\n    return this.newUserForm().get('name');\n  }\n\n  get role() {\n    return this.newUserForm().get('role');\n  }\n\n  observerWithPlayerName(forbiddenValues: string[]): ValidatorFn {\n    return (control: AbstractControl): ValidationErrors | null => {\n      const name = control.get('name');\n      const role = control.get('role');\n\n      return (\n        (role &&\n          name &&\n          role.value === UserRoleEnum.Observer &&\n          forbiddenValuesValidator(forbiddenValues)(name)) ||\n        null\n      );\n    };\n  }\n\n  joinRoom(): void {\n    if (this.name?.value && this.role?.value != null) {\n      this.dialogData.userStore.setUser({\n        name: this.name.value,\n        role: this.role.value,\n      });\n      if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {\n        this.dialogData.roomStore.addPlayerToRoom(this.name.value, () =>\n          this.dialogRef.close()\n        );\n      } else {\n        this.dialogRef.close();\n      }\n    }\n  }\n\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly UserRoleEnumChoices = UserRoleEnumChoices;\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -1411,7 +1622,7 @@
     },
     {
       "name": "UserDeckComponent",
-      "id": "component-UserDeckComponent-9ceda5915c95e7f64f343394c2b7d9d6836dcadba1d2450ad048cd8969f31ded19045b7bcc69c7aacaf28faf514e18741de949117f988425cd61127faa461e65",
+      "id": "component-UserDeckComponent-493313d07fce3c7653dcf7465b6d687c039b6d3ad9f4ffb85fd1edd45b3f002242acd0cde409c04ee1b3990b062dfb384e83114b049ecff92432e6018e8e5f68",
       "file": "src/app/user/user-deck/user-deck.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1422,7 +1633,7 @@
       "selector": "app-user-deck",
       "styleUrls": [],
       "styles": [""],
-      "template": "<h3 class=\"text-center font-bold !mb-0\">{{ userStore.user()?.name }}</h3>\n@if (userStore.user()?.role === UserRoleEnum.Observer) {\n  <div>\n    <h4 class=\"text-center font-bold\">\n      You are in\n      <mat-icon class=\"align-middle\">visibility</mat-icon> observer mode\n    </h4>\n    <p class=\"text-center caption font-thin\">\n      Reload page to change your role\n    </p>\n  </div>\n} @else if (userStore.user()?.role === UserRoleEnum.Player) {\n  <div class=\"flex gap-1 place-content-center\">\n    @for (voteOption of voteChoices; track voteOption) {\n      <app-poker-card\n        [content]=\"voteOption\"\n        size=\"L\"\n        class=\"hover:pb-2 pt-2 hover:pt-0\"\n        [class.pb-2]=\"voteOption === userVote()\"\n        [class.pt-0]=\"voteOption === userVote()\"\n        [active]=\"voteOption === userVote()\"\n        (click)=\"vote(voteOption)\"></app-poker-card>\n    }\n  </div>\n}\n",
+      "template": "<h3 class=\"text-center font-bold !mb-0\">{{ userStore.user()?.name }}</h3>\n@if (userStore.user()?.role === UserRoleEnum.Observer) {\n  <div>\n    <h4 class=\"text-center font-bold\">\n      You are in\n      <mat-icon class=\"align-middle\">visibility</mat-icon> observer mode\n    </h4>\n    <p class=\"text-center caption font-thin\">\n      Reload page to change your role\n    </p>\n  </div>\n} @else if (userStore.user()?.role === UserRoleEnum.Player) {\n  <div class=\"flex gap-1 place-content-center\">\n    @for (voteOption of voteChoices; track voteOption) {\n      <app-poker-card\n        [content]=\"voteOption\"\n        size=\"L\"\n        [class]=\"\n          voteOption === userVote()\n            ? ['pb-2', 'pt-0']\n            : roomStore.countdown() === 0\n              ? ['pt-2']\n              : ['hover:pb-2', 'hover:pt-0', 'pt-2']\n        \"\n        [disabled]=\"roomStore.countdown() === 0\"\n        [active]=\"voteOption === userVote()\"\n        (click)=\"vote(voteOption)\"></app-poker-card>\n    }\n  </div>\n}\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -1437,7 +1648,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 53,
+          "line": 58,
           "modifierKind": [148]
         },
         {
@@ -1448,7 +1659,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 55,
+          "line": 60,
           "modifierKind": [124, 148]
         },
         {
@@ -1459,7 +1670,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 54,
+          "line": 59,
           "modifierKind": [148]
         },
         {
@@ -1470,7 +1681,7 @@
           "type": "Signal<VoteChoice | null>",
           "optional": false,
           "description": "",
-          "line": 58,
+          "line": 63,
           "modifierKind": [148]
         },
         {
@@ -1481,7 +1692,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 56,
+          "line": 61,
           "modifierKind": [124, 148]
         }
       ],
@@ -1499,7 +1710,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 66,
+          "line": 71,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -1532,16 +1743,16 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  Signal,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserStore,\n  VoteChoice,\n  voteChoices,\n} from '@poker/data-models';\nimport { MatIcon } from '@angular/material/icon';\nimport { PokerCardComponent } from '../../room/poker-card/poker-card.component';\n\n@Component({\n  selector: 'app-user-deck',\n  standalone: true,\n  imports: [MatIcon, PokerCardComponent],\n  template: `\n    <h3 class=\"text-center font-bold !mb-0\">{{ userStore.user()?.name }}</h3>\n    @if (userStore.user()?.role === UserRoleEnum.Observer) {\n      <div>\n        <h4 class=\"text-center font-bold\">\n          You are in\n          <mat-icon class=\"align-middle\">visibility</mat-icon> observer mode\n        </h4>\n        <p class=\"text-center caption font-thin\">\n          Reload page to change your role\n        </p>\n      </div>\n    } @else if (userStore.user()?.role === UserRoleEnum.Player) {\n      <div class=\"flex gap-1 place-content-center\">\n        @for (voteOption of voteChoices; track voteOption) {\n          <app-poker-card\n            [content]=\"voteOption\"\n            size=\"L\"\n            class=\"hover:pb-2 pt-2 hover:pt-0\"\n            [class.pb-2]=\"voteOption === userVote()\"\n            [class.pt-0]=\"voteOption === userVote()\"\n            [active]=\"voteOption === userVote()\"\n            (click)=\"vote(voteOption)\"></app-poker-card>\n        }\n      </div>\n    }\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserDeckComponent {\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly voteChoices = voteChoices;\n\n  readonly userVote: Signal<VoteChoice | null> = computed(() => {\n    const user = this.userStore.user();\n    if (user !== null) {\n      return this.roomStore.currentVotes()[user.name];\n    }\n    return null;\n  });\n\n  vote(voteOption: VoteChoice) {\n    this.roomStore.vote(\n      this.roomStore.currentRoom(),\n      this.userStore.user(),\n      voteOption\n    );\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  Signal,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserStore,\n  VoteChoice,\n  voteChoices,\n} from '@poker/data-models';\nimport { MatIcon } from '@angular/material/icon';\nimport { PokerCardComponent } from '../../room/poker-card/poker-card.component';\n\n@Component({\n  selector: 'app-user-deck',\n  standalone: true,\n  imports: [MatIcon, PokerCardComponent],\n  template: `\n    <h3 class=\"text-center font-bold !mb-0\">{{ userStore.user()?.name }}</h3>\n    @if (userStore.user()?.role === UserRoleEnum.Observer) {\n      <div>\n        <h4 class=\"text-center font-bold\">\n          You are in\n          <mat-icon class=\"align-middle\">visibility</mat-icon> observer mode\n        </h4>\n        <p class=\"text-center caption font-thin\">\n          Reload page to change your role\n        </p>\n      </div>\n    } @else if (userStore.user()?.role === UserRoleEnum.Player) {\n      <div class=\"flex gap-1 place-content-center\">\n        @for (voteOption of voteChoices; track voteOption) {\n          <app-poker-card\n            [content]=\"voteOption\"\n            size=\"L\"\n            [class]=\"\n              voteOption === userVote()\n                ? ['pb-2', 'pt-0']\n                : roomStore.countdown() === 0\n                  ? ['pt-2']\n                  : ['hover:pb-2', 'hover:pt-0', 'pt-2']\n            \"\n            [disabled]=\"roomStore.countdown() === 0\"\n            [active]=\"voteOption === userVote()\"\n            (click)=\"vote(voteOption)\"></app-poker-card>\n        }\n      </div>\n    }\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserDeckComponent {\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly voteChoices = voteChoices;\n\n  readonly userVote: Signal<VoteChoice | null> = computed(() => {\n    const user = this.userStore.user();\n    if (user !== null) {\n      return this.roomStore.currentVotes()[user.name];\n    }\n    return null;\n  });\n\n  vote(voteOption: VoteChoice) {\n    this.roomStore.vote(this.userStore.user(), voteOption);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
       "extends": []
     },
     {
-      "name": "UserProfileComponent",
-      "id": "component-UserProfileComponent-f20d2d13767491b752d72c2dc26aa961ea96bfcfb03211686ca7d8aaffc942fe4f8c940bd94ec1f6dc30260c293174bae5873cb692bdee41d4f3b50a7526aecc",
-      "file": "src/app/user/user-profile/user-profile.component.ts",
+      "name": "UserSettingsComponent",
+      "id": "component-UserSettingsComponent-870e85500e68b18d15de80d52d201c17ff7f6da96b1446bb12780b0d99229e8f1d7eb47c8d267ccaa04ba12a654ed5d15919e37d728f82f0eb0f15ce677c3d5d",
+      "file": "src/app/user/user-profile/user-settings.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
       "entryComponents": [],
@@ -1551,7 +1762,7 @@
       "selector": "app-user-profile",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"text-center flex flex-col place-content-center h-full\">\n  <h2>\n    You are user <strong>{{ sheetData.user()?.name }}</strong>\n  </h2>\n  <h2>\n    You have the role\n    <strong>\n      <mat-icon class=\"align-middle\">{{ roleIcon }}</mat-icon>\n      {{ sheetData.userDisplayRole() }}</strong\n    >\n  </h2>\n</div>\n",
+      "template": "<div class=\"text-center flex flex-col justify-between h-full\">\n  <h2>\n    You are user <strong>{{ sheetData.userStore.user()?.name }}</strong>\n  </h2>\n  <h2>\n    You have the role\n    <strong>\n      <mat-icon class=\"align-middle\">{{ roleIcon }}</mat-icon>\n      {{ sheetData.userStore.userDisplayRole() }}</strong\n    >\n  </h2>\n  <mat-divider></mat-divider>\n  <div>\n    <h3 class=\"mt-4\">Other players debug</h3>\n    <mat-action-list>\n      @for (\n        playerName of sheetData.roomStore.currentPlayers();\n        track playerName\n      ) {\n        @if (playerName !== sheetData.userStore.user()?.name) {\n          <button\n            mat-list-item\n            (click)=\"deletePlayer(playerName)\"\n            [attr.aria-label]=\"'Button to delete player ' + playerName\">\n            <mat-icon matListItemIcon>delete</mat-icon>\n            <div matListItemTitle>{{ playerName }}</div>\n          </button>\n        }\n      }\n    </mat-action-list>\n  </div>\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -1560,24 +1771,24 @@
       "propertiesClass": [
         {
           "name": "roleIcon",
-          "defaultValue": "this.sheetData.user()?.role == UserRoleEnum.Observer\n      ? 'visibility'\n      : 'videogame_asset'",
+          "defaultValue": "this.sheetData.userStore.user()?.role == UserRoleEnum.Observer\n      ? 'visibility'\n      : 'videogame_asset'",
           "deprecated": false,
           "deprecationMessage": "",
           "type": "",
           "optional": false,
           "description": "",
-          "line": 29,
+          "line": 69,
           "modifierKind": [148]
         },
         {
           "name": "sheetData",
-          "defaultValue": "inject(MAT_BOTTOM_SHEET_DATA)",
+          "defaultValue": "inject(\n    MAT_BOTTOM_SHEET_DATA\n  )",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "UserStore",
+          "type": "literal type",
           "optional": false,
           "description": "",
-          "line": 28,
+          "line": 66,
           "modifierKind": [148]
         },
         {
@@ -1588,11 +1799,40 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 33,
+          "line": 73,
           "modifierKind": [124, 148]
         }
       ],
-      "methodsClass": [],
+      "methodsClass": [
+        {
+          "name": "deletePlayer",
+          "args": [
+            {
+              "name": "playerName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": ""
+            }
+          ],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 75,
+          "deprecated": false,
+          "deprecationMessage": "",
+          "jsdoctags": [
+            {
+              "name": "playerName",
+              "type": "string",
+              "deprecated": false,
+              "deprecationMessage": "",
+              "tagName": {
+                "text": "param"
+              }
+            }
+          ]
+        }
+      ],
       "deprecated": false,
       "deprecationMessage": "",
       "hostBindings": [],
@@ -1601,12 +1841,33 @@
       "imports": [
         {
           "name": "MatIcon"
+        },
+        {
+          "name": "MatActionList"
+        },
+        {
+          "name": "MatListItem"
+        },
+        {
+          "name": "MatDialogClose"
+        },
+        {
+          "name": "MatListItemIcon"
+        },
+        {
+          "name": "MatListItemTitle"
+        },
+        {
+          "name": "RouterLink"
+        },
+        {
+          "name": "MatDivider"
         }
       ],
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';\nimport { UserRoleEnum, UserStore } from '@poker/data-models';\nimport { MatIcon } from '@angular/material/icon';\n\n@Component({\n  selector: 'app-user-profile',\n  standalone: true,\n  template: `\n    <div class=\"text-center flex flex-col place-content-center h-full\">\n      <h2>\n        You are user <strong>{{ sheetData.user()?.name }}</strong>\n      </h2>\n      <h2>\n        You have the role\n        <strong>\n          <mat-icon class=\"align-middle\">{{ roleIcon }}</mat-icon>\n          {{ sheetData.userDisplayRole() }}</strong\n        >\n      </h2>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [MatIcon],\n})\nexport class UserProfileComponent {\n  readonly sheetData: UserStore = inject(MAT_BOTTOM_SHEET_DATA);\n  readonly roleIcon =\n    this.sheetData.user()?.role == UserRoleEnum.Observer\n      ? 'visibility'\n      : 'videogame_asset';\n  protected readonly UserRoleEnum = UserRoleEnum;\n}\n",
+      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';\nimport { RoomStore, UserRoleEnum, UserStore } from '@poker/data-models';\nimport { MatIcon } from '@angular/material/icon';\nimport {\n  MatActionList,\n  MatListItem,\n  MatListItemIcon,\n  MatListItemTitle,\n} from '@angular/material/list';\nimport { MatDialogClose } from '@angular/material/dialog';\nimport { RouterLink } from '@angular/router';\nimport { MatDivider } from '@angular/material/divider';\n\n@Component({\n  selector: 'app-user-profile',\n  standalone: true,\n  template: `\n    <div class=\"text-center flex flex-col justify-between h-full\">\n      <h2>\n        You are user <strong>{{ sheetData.userStore.user()?.name }}</strong>\n      </h2>\n      <h2>\n        You have the role\n        <strong>\n          <mat-icon class=\"align-middle\">{{ roleIcon }}</mat-icon>\n          {{ sheetData.userStore.userDisplayRole() }}</strong\n        >\n      </h2>\n      <mat-divider></mat-divider>\n      <div>\n        <h3 class=\"mt-4\">Other players debug</h3>\n        <mat-action-list>\n          @for (\n            playerName of sheetData.roomStore.currentPlayers();\n            track playerName\n          ) {\n            @if (playerName !== sheetData.userStore.user()?.name) {\n              <button\n                mat-list-item\n                (click)=\"deletePlayer(playerName)\"\n                [attr.aria-label]=\"'Button to delete player ' + playerName\">\n                <mat-icon matListItemIcon>delete</mat-icon>\n                <div matListItemTitle>{{ playerName }}</div>\n              </button>\n            }\n          }\n        </mat-action-list>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    MatIcon,\n    MatActionList,\n    MatListItem,\n    MatDialogClose,\n    MatListItemIcon,\n    MatListItemTitle,\n    RouterLink,\n    MatDivider,\n  ],\n})\nexport class UserSettingsComponent {\n  readonly sheetData: { roomStore: RoomStore; userStore: UserStore } = inject(\n    MAT_BOTTOM_SHEET_DATA\n  );\n  readonly roleIcon =\n    this.sheetData.userStore.user()?.role == UserRoleEnum.Observer\n      ? 'visibility'\n      : 'videogame_asset';\n  protected readonly UserRoleEnum = UserRoleEnum;\n\n  deletePlayer(playerName: string) {\n    this.sheetData.roomStore.removePlayerFromRoom(playerName);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -1724,7 +1985,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "EnvironmentConfig",
-        "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: false,\n  env: 'production',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
+        "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: false,\n  env: 'production',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
       },
       {
         "name": "environment",
@@ -1734,7 +1995,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "EnvironmentConfig",
-        "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: true,\n  env: 'staging',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
+        "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: true,\n  env: 'staging',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
       },
       {
         "name": "environment",
@@ -1744,7 +2005,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "EnvironmentConfig",
-        "defaultValue": "{\n  appVersion: 'dev',\n  production: false,\n  env: 'dev',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: 'localhost',\n    username: 'user',\n    password: 'password',\n  },\n}"
+        "defaultValue": "{\n  appVersion: 'dev',\n  production: false,\n  env: 'dev',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: 'localhost',\n    username: 'user',\n    password: 'password',\n  },\n}"
       },
       {
         "name": "ENVIRONMENT_CONFIG",
@@ -1760,21 +2021,21 @@
         "name": "initialState",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/libs/data-models/room/room.store.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "RoomState",
-        "defaultValue": "{\n  currentRoom: roomDefault,\n  availableRooms: [],\n}"
-      },
-      {
-        "name": "initialState",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
         "file": "src/libs/data-models/user/user.store.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "UserState",
         "defaultValue": "{\n  user: null,\n}"
+      },
+      {
+        "name": "initialState",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/libs/data-models/room/room.store.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "RoomState",
+        "defaultValue": "{\n  currentRoom: roomDefault,\n  availableRooms: [],\n  countdown: null,\n}"
       },
       {
         "name": "meta",
@@ -1834,7 +2095,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "",
-        "defaultValue": "signalStore(\n  withDevtools('rooms'),\n  withState<RoomState>(initialState),\n  withComputed(({ currentRoom }) => ({\n    currentVotes: computed(\n      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n    ),\n    historyVotes: computed(() => {\n      return Object.fromEntries(\n        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(\n          ([round]) => Number(round) != currentRoom.currentRound()\n        )\n      );\n    }),\n    currentPlayers: computed(() =>\n      Object.keys(\n        currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n      )\n    ),\n  })),\n  withMethods((store, roomService = inject(RoomService)) => {\n    function getCurrentRound(name: string) {\n      console.debug('getCurrentRound', name);\n      return roomService.getCurrentRound(name).pipe(\n        tapResponse({\n          next: (currentRound: number) => {\n            console.debug('service getCurrentRound', name, currentRound);\n            patchState(store, state => {\n              if (state.currentRoom.currentRound !== currentRound) {\n                const currentPlayers = Object.keys(\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ]\n                );\n                // update round, clone player\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    currentRound,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [currentRound]: Object.fromEntries(\n                        currentPlayers.map(player => [player, null])\n                      ),\n                    },\n                  } as RoomModel,\n                };\n              } else {\n                return {};\n              }\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getPlayers(name: string) {\n      console.debug('getPlayers', name);\n      return roomService.getPlayers(name).pipe(\n        tapResponse({\n          next: ({ player, isDeleted }) => {\n            console.debug('service getPlayers', name, player, isDeleted);\n            patchState(store, state => {\n              if (isDeleted) {\n                const { [player]: removedKey, ...roundVoteWithoutPlayer } =\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ];\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [state.currentRoom.currentRound]: roundVoteWithoutPlayer,\n                    },\n                  } as RoomModel,\n                };\n              }\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [state.currentRoom.currentRound]: {\n                      ...state.currentRoom.votePerRoundPerPlayer[\n                        state.currentRoom.currentRound\n                      ],\n                      [player]: null,\n                    },\n                  },\n                },\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getVotes(name: string) {\n      console.debug('getVotes', name);\n      return roomService.getVotes(name).pipe(\n        tapResponse({\n          next: ({ roundNumber, player, voteOption }) => {\n            console.debug(\n              'service getVotes',\n              name,\n              roundNumber,\n              player,\n              voteOption\n            );\n            patchState(store, state => ({\n              currentRoom: {\n                ...state.currentRoom,\n                votePerRoundPerPlayer: {\n                  ...state.currentRoom.votePerRoundPerPlayer,\n                  [roundNumber]: {\n                    ...state.currentRoom.votePerRoundPerPlayer[roundNumber],\n                    [player]: voteOption,\n                  },\n                },\n              } as RoomModel,\n            }));\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    return {\n      listAll: rxMethod<void>(\n        exhaustMap(() => {\n          console.debug('listAll');\n          return roomService.listAll().pipe(\n            tapResponse({\n              next: (availableRoom: string) =>\n                patchState(store, state => ({\n                  availableRooms: [...state.availableRooms, availableRoom],\n                })),\n              error: console.error,\n            })\n          );\n        })\n      ),\n\n      addPlayerToRoom(\n        roomName: string,\n        playerName: string,\n        onComplete: (() => void) | undefined = undefined\n      ): void {\n        console.debug('addPlayerToRoom', roomName, playerName);\n        roomService.addPlayerToRoom(roomName, playerName, onComplete);\n      },\n\n      vote(\n        currentRoom: RoomModel,\n        user: UserModel | null,\n        voteOption: VoteChoice\n      ): void {\n        console.debug('vote', currentRoom, user, voteOption);\n        return roomService.vote(\n          currentRoom.name,\n          currentRoom.currentRound,\n          user,\n          voteOption\n        );\n      },\n\n      getOne: rxMethod<string>(\n        exhaustMap((name: string) => {\n          console.debug('getOne', name);\n          patchState(store, state => ({\n            currentRoom: {\n              ...state.currentRoom,\n              name,\n            } as RoomModel,\n          }));\n          return merge(getPlayers(name), getCurrentRound(name), getVotes(name));\n        })\n      ),\n    };\n  })\n)"
+        "defaultValue": "signalStore(\n  withDevtools('rooms'),\n  withState<RoomState>(initialState),\n  withComputed(({ currentRoom }) => ({\n    currentVotes: computed(\n      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n    ),\n    historyVotes: computed(() => {\n      return Object.fromEntries(\n        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(\n          ([round]) => Number(round) != currentRoom.currentRound()\n        )\n      );\n    }),\n    currentPlayers: computed(() =>\n      Object.keys(\n        currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n      )\n    ),\n  })),\n  withMethods((store, roomService = inject(RoomService)) => {\n    const launchCountdown = rxMethod<number | null>(\n      switchMap(countdownSeconds => {\n        console.debug('launchCountdown', countdownSeconds);\n        if (countdownSeconds === null) {\n          return EMPTY;\n        }\n        return timer(0, 1000).pipe(\n          scan(acc => --acc, countdownSeconds + 1),\n          take(countdownSeconds + 1),\n          tap(countdown => {\n            console.debug('countdown', countdown);\n            patchState(store, () => ({\n              countdown,\n            }));\n          })\n        );\n      })\n    );\n    const stopCountdown = rxMethod<void>(\n      switchMap(() => {\n        // workaround to make countdown stop instead of using launchCountdown.unsubscribe\n        // because it seems to prevent countdown from being started ever again afterward\n        launchCountdown(null);\n        // no idea why this is necessary instead of synchronously calling patchState...\n        return timer(0, 1000).pipe(\n          take(1),\n          tap(() =>\n            patchState(store, () => ({\n              countdown: null,\n            }))\n          )\n        );\n      })\n    );\n\n    function getCurrentRound(name: string) {\n      console.debug('getCurrentRound', name);\n      return roomService.getCurrentRound(name).pipe(\n        tapResponse({\n          next: (currentRound: number) => {\n            console.debug('service getCurrentRound', name, currentRound);\n            patchState(store, state => {\n              if (state.currentRoom.currentRound !== currentRound) {\n                const currentPlayers = Object.keys(\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ]\n                );\n                // update round, clone player\n                return {\n                  countdown: null,\n                  currentRoom: {\n                    ...state.currentRoom,\n                    currentRound,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [currentRound]: Object.fromEntries(\n                        currentPlayers.map(player => [player, null])\n                      ),\n                    },\n                  } as RoomModel,\n                };\n              } else {\n                return {};\n              }\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getPlayers(name: string) {\n      console.debug('getPlayers', name);\n      return roomService.getPlayers(name).pipe(\n        tapResponse({\n          next: ({ player, isDeleted }) => {\n            console.debug('service getPlayers', name, player, isDeleted);\n            patchState(store, state => {\n              if (isDeleted) {\n                const { [player]: removedKey, ...roundVoteWithoutPlayer } =\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ];\n                if (\n                  Object.values(roundVoteWithoutPlayer).every(\n                    voteOption => voteOption !== null\n                  )\n                ) {\n                  // without that player, all votes have been received\n                  launchCountdown(environment.defaultCountdown);\n                }\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [state.currentRoom.currentRound]: roundVoteWithoutPlayer,\n                    },\n                  } as RoomModel,\n                };\n              }\n              stopCountdown();\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [state.currentRoom.currentRound]: {\n                      ...state.currentRoom.votePerRoundPerPlayer[\n                        state.currentRoom.currentRound\n                      ],\n                      [player]: null,\n                    },\n                  },\n                },\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getVotes(name: string) {\n      console.debug('getVotes', name);\n      return roomService.getVotes(name).pipe(\n        tapResponse({\n          next: ({ roundNumber, player, voteOption }) => {\n            console.debug(\n              'service getVotes',\n              name,\n              roundNumber,\n              player,\n              voteOption\n            );\n            patchState(store, state => {\n              const newResult = {\n                ...state.currentRoom.votePerRoundPerPlayer[roundNumber],\n                [player]: voteOption,\n              };\n              if (\n                Object.values(newResult).every(\n                  voteOption => voteOption !== null\n                )\n              ) {\n                // all votes have been received\n                launchCountdown(environment.defaultCountdown);\n              }\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [roundNumber]: newResult,\n                  },\n                } as RoomModel,\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    return {\n      listAll: rxMethod<void>(\n        exhaustMap(() => {\n          console.debug('listAll');\n          return roomService.listAll().pipe(\n            tapResponse({\n              next: (availableRoom: string) =>\n                patchState(store, state => ({\n                  availableRooms: [...state.availableRooms, availableRoom],\n                })),\n              error: console.error,\n            })\n          );\n        })\n      ),\n\n      addPlayerToRoom(\n        playerName: string,\n        onComplete: (() => void) | undefined = undefined\n      ): void {\n        const state = getState(store);\n        console.debug('addPlayerToRoom', state.currentRoom.name, playerName);\n        roomService.addPlayerToRoom(\n          state.currentRoom.name,\n          playerName,\n          onComplete\n        );\n      },\n\n      removePlayerFromRoom(playerName: string): void {\n        const state = getState(store);\n        console.debug(\n          'removePlayerFromRoom',\n          state.currentRoom.name,\n          playerName\n        );\n        roomService.removePlayerFromRoom(state.currentRoom.name, playerName);\n      },\n\n      vote(user: UserModel | null, voteOption: VoteChoice): void {\n        const state = getState(store);\n        console.debug('vote', state.currentRoom, user, voteOption);\n        roomService.vote(\n          state.currentRoom.name,\n          state.currentRoom.currentRound,\n          user,\n          voteOption\n        );\n      },\n\n      incrementRound(): void {\n        const state = getState(store);\n        console.debug('incrementRound', state.currentRoom.currentRound);\n        roomService.setRound(\n          state.currentRoom.name,\n          state.currentRoom.currentRound + 1\n        );\n      },\n\n      getOne: rxMethod<string>(\n        exhaustMap((name: string) => {\n          console.debug('getOne', name);\n          patchState(store, state => ({\n            currentRoom: {\n              ...state.currentRoom,\n              name,\n            } as RoomModel,\n          }));\n          return merge(getPlayers(name), getCurrentRound(name), getVotes(name));\n        })\n      ),\n\n      launchCountdown,\n      stopCountdown,\n    };\n  })\n)"
       },
       {
         "name": "storeRegistry",
@@ -2328,7 +2589,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "EnvironmentConfig",
-          "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: false,\n  env: 'production',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
+          "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: false,\n  env: 'production',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
         }
       ],
       "src/environments/environment.staging.ts": [
@@ -2340,7 +2601,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "EnvironmentConfig",
-          "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: true,\n  env: 'staging',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
+          "defaultValue": "{\n  appVersion: '#RELEASE_VERSION',\n  production: true,\n  env: 'staging',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: '#MQTT_HOST',\n    username: '#MQTT_USER',\n    password: '#MQTT_PWD',\n  },\n}"
         }
       ],
       "src/environments/environment.ts": [
@@ -2352,7 +2613,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "EnvironmentConfig",
-          "defaultValue": "{\n  appVersion: 'dev',\n  production: false,\n  env: 'dev',\n\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: 'localhost',\n    username: 'user',\n    password: 'password',\n  },\n}"
+          "defaultValue": "{\n  appVersion: 'dev',\n  production: false,\n  env: 'dev',\n\n  defaultCountdown: 3,\n  mqttConfigOptions: {\n    ...mqttDefaults,\n    hostname: 'localhost',\n    username: 'user',\n    password: 'password',\n  },\n}"
         }
       ],
       "src/environments/environment-type.ts": [
@@ -2377,28 +2638,6 @@
           "defaultValue": "{\n  port: 8080,\n  path: '/mqtt',\n  protocolVersion: 5,\n}"
         }
       ],
-      "src/libs/data-models/room/room.store.ts": [
-        {
-          "name": "initialState",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/libs/data-models/room/room.store.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "RoomState",
-          "defaultValue": "{\n  currentRoom: roomDefault,\n  availableRooms: [],\n}"
-        },
-        {
-          "name": "RoomStore",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/libs/data-models/room/room.store.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "",
-          "defaultValue": "signalStore(\n  withDevtools('rooms'),\n  withState<RoomState>(initialState),\n  withComputed(({ currentRoom }) => ({\n    currentVotes: computed(\n      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n    ),\n    historyVotes: computed(() => {\n      return Object.fromEntries(\n        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(\n          ([round]) => Number(round) != currentRoom.currentRound()\n        )\n      );\n    }),\n    currentPlayers: computed(() =>\n      Object.keys(\n        currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n      )\n    ),\n  })),\n  withMethods((store, roomService = inject(RoomService)) => {\n    function getCurrentRound(name: string) {\n      console.debug('getCurrentRound', name);\n      return roomService.getCurrentRound(name).pipe(\n        tapResponse({\n          next: (currentRound: number) => {\n            console.debug('service getCurrentRound', name, currentRound);\n            patchState(store, state => {\n              if (state.currentRoom.currentRound !== currentRound) {\n                const currentPlayers = Object.keys(\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ]\n                );\n                // update round, clone player\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    currentRound,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [currentRound]: Object.fromEntries(\n                        currentPlayers.map(player => [player, null])\n                      ),\n                    },\n                  } as RoomModel,\n                };\n              } else {\n                return {};\n              }\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getPlayers(name: string) {\n      console.debug('getPlayers', name);\n      return roomService.getPlayers(name).pipe(\n        tapResponse({\n          next: ({ player, isDeleted }) => {\n            console.debug('service getPlayers', name, player, isDeleted);\n            patchState(store, state => {\n              if (isDeleted) {\n                const { [player]: removedKey, ...roundVoteWithoutPlayer } =\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ];\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [state.currentRoom.currentRound]: roundVoteWithoutPlayer,\n                    },\n                  } as RoomModel,\n                };\n              }\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [state.currentRoom.currentRound]: {\n                      ...state.currentRoom.votePerRoundPerPlayer[\n                        state.currentRoom.currentRound\n                      ],\n                      [player]: null,\n                    },\n                  },\n                },\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getVotes(name: string) {\n      console.debug('getVotes', name);\n      return roomService.getVotes(name).pipe(\n        tapResponse({\n          next: ({ roundNumber, player, voteOption }) => {\n            console.debug(\n              'service getVotes',\n              name,\n              roundNumber,\n              player,\n              voteOption\n            );\n            patchState(store, state => ({\n              currentRoom: {\n                ...state.currentRoom,\n                votePerRoundPerPlayer: {\n                  ...state.currentRoom.votePerRoundPerPlayer,\n                  [roundNumber]: {\n                    ...state.currentRoom.votePerRoundPerPlayer[roundNumber],\n                    [player]: voteOption,\n                  },\n                },\n              } as RoomModel,\n            }));\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    return {\n      listAll: rxMethod<void>(\n        exhaustMap(() => {\n          console.debug('listAll');\n          return roomService.listAll().pipe(\n            tapResponse({\n              next: (availableRoom: string) =>\n                patchState(store, state => ({\n                  availableRooms: [...state.availableRooms, availableRoom],\n                })),\n              error: console.error,\n            })\n          );\n        })\n      ),\n\n      addPlayerToRoom(\n        roomName: string,\n        playerName: string,\n        onComplete: (() => void) | undefined = undefined\n      ): void {\n        console.debug('addPlayerToRoom', roomName, playerName);\n        roomService.addPlayerToRoom(roomName, playerName, onComplete);\n      },\n\n      vote(\n        currentRoom: RoomModel,\n        user: UserModel | null,\n        voteOption: VoteChoice\n      ): void {\n        console.debug('vote', currentRoom, user, voteOption);\n        return roomService.vote(\n          currentRoom.name,\n          currentRoom.currentRound,\n          user,\n          voteOption\n        );\n      },\n\n      getOne: rxMethod<string>(\n        exhaustMap((name: string) => {\n          console.debug('getOne', name);\n          patchState(store, state => ({\n            currentRoom: {\n              ...state.currentRoom,\n              name,\n            } as RoomModel,\n          }));\n          return merge(getPlayers(name), getCurrentRound(name), getVotes(name));\n        })\n      ),\n    };\n  })\n)"
-        }
-      ],
       "src/libs/data-models/user/user.store.ts": [
         {
           "name": "initialState",
@@ -2419,6 +2658,28 @@
           "deprecationMessage": "",
           "type": "",
           "defaultValue": "signalStore(\n  withDevtools('users'),\n  withState<UserState>(initialState),\n  withComputed(({ user }) => ({\n    userDisplayRole: computed(() => {\n      const currentUser = user();\n      if (currentUser != null) {\n        return UserRoleEnum[currentUser.role];\n      }\n      return null;\n    }),\n  })),\n  withMethods(store => ({\n    syncCachedUser(): void {\n      const savedUser: string | null = localStorage.getItem('user');\n      if (savedUser) {\n        const user: UserModel = JSON.parse(savedUser);\n        patchState(store, () => ({ user }));\n      }\n    },\n    setUser(user: UserModel): void {\n      patchState(store, () => ({ user }));\n      localStorage.setItem('user', JSON.stringify(user));\n    },\n  })),\n  withHooks({\n    onInit(store) {\n      store.syncCachedUser();\n    },\n  })\n)"
+        }
+      ],
+      "src/libs/data-models/room/room.store.ts": [
+        {
+          "name": "initialState",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/libs/data-models/room/room.store.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "RoomState",
+          "defaultValue": "{\n  currentRoom: roomDefault,\n  availableRooms: [],\n  countdown: null,\n}"
+        },
+        {
+          "name": "RoomStore",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/libs/data-models/room/room.store.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "signalStore(\n  withDevtools('rooms'),\n  withState<RoomState>(initialState),\n  withComputed(({ currentRoom }) => ({\n    currentVotes: computed(\n      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n    ),\n    historyVotes: computed(() => {\n      return Object.fromEntries(\n        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(\n          ([round]) => Number(round) != currentRoom.currentRound()\n        )\n      );\n    }),\n    currentPlayers: computed(() =>\n      Object.keys(\n        currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n      )\n    ),\n  })),\n  withMethods((store, roomService = inject(RoomService)) => {\n    const launchCountdown = rxMethod<number | null>(\n      switchMap(countdownSeconds => {\n        console.debug('launchCountdown', countdownSeconds);\n        if (countdownSeconds === null) {\n          return EMPTY;\n        }\n        return timer(0, 1000).pipe(\n          scan(acc => --acc, countdownSeconds + 1),\n          take(countdownSeconds + 1),\n          tap(countdown => {\n            console.debug('countdown', countdown);\n            patchState(store, () => ({\n              countdown,\n            }));\n          })\n        );\n      })\n    );\n    const stopCountdown = rxMethod<void>(\n      switchMap(() => {\n        // workaround to make countdown stop instead of using launchCountdown.unsubscribe\n        // because it seems to prevent countdown from being started ever again afterward\n        launchCountdown(null);\n        // no idea why this is necessary instead of synchronously calling patchState...\n        return timer(0, 1000).pipe(\n          take(1),\n          tap(() =>\n            patchState(store, () => ({\n              countdown: null,\n            }))\n          )\n        );\n      })\n    );\n\n    function getCurrentRound(name: string) {\n      console.debug('getCurrentRound', name);\n      return roomService.getCurrentRound(name).pipe(\n        tapResponse({\n          next: (currentRound: number) => {\n            console.debug('service getCurrentRound', name, currentRound);\n            patchState(store, state => {\n              if (state.currentRoom.currentRound !== currentRound) {\n                const currentPlayers = Object.keys(\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ]\n                );\n                // update round, clone player\n                return {\n                  countdown: null,\n                  currentRoom: {\n                    ...state.currentRoom,\n                    currentRound,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [currentRound]: Object.fromEntries(\n                        currentPlayers.map(player => [player, null])\n                      ),\n                    },\n                  } as RoomModel,\n                };\n              } else {\n                return {};\n              }\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getPlayers(name: string) {\n      console.debug('getPlayers', name);\n      return roomService.getPlayers(name).pipe(\n        tapResponse({\n          next: ({ player, isDeleted }) => {\n            console.debug('service getPlayers', name, player, isDeleted);\n            patchState(store, state => {\n              if (isDeleted) {\n                const { [player]: removedKey, ...roundVoteWithoutPlayer } =\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ];\n                if (\n                  Object.values(roundVoteWithoutPlayer).every(\n                    voteOption => voteOption !== null\n                  )\n                ) {\n                  // without that player, all votes have been received\n                  launchCountdown(environment.defaultCountdown);\n                }\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [state.currentRoom.currentRound]: roundVoteWithoutPlayer,\n                    },\n                  } as RoomModel,\n                };\n              }\n              stopCountdown();\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [state.currentRoom.currentRound]: {\n                      ...state.currentRoom.votePerRoundPerPlayer[\n                        state.currentRoom.currentRound\n                      ],\n                      [player]: null,\n                    },\n                  },\n                },\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getVotes(name: string) {\n      console.debug('getVotes', name);\n      return roomService.getVotes(name).pipe(\n        tapResponse({\n          next: ({ roundNumber, player, voteOption }) => {\n            console.debug(\n              'service getVotes',\n              name,\n              roundNumber,\n              player,\n              voteOption\n            );\n            patchState(store, state => {\n              const newResult = {\n                ...state.currentRoom.votePerRoundPerPlayer[roundNumber],\n                [player]: voteOption,\n              };\n              if (\n                Object.values(newResult).every(\n                  voteOption => voteOption !== null\n                )\n              ) {\n                // all votes have been received\n                launchCountdown(environment.defaultCountdown);\n              }\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [roundNumber]: newResult,\n                  },\n                } as RoomModel,\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    return {\n      listAll: rxMethod<void>(\n        exhaustMap(() => {\n          console.debug('listAll');\n          return roomService.listAll().pipe(\n            tapResponse({\n              next: (availableRoom: string) =>\n                patchState(store, state => ({\n                  availableRooms: [...state.availableRooms, availableRoom],\n                })),\n              error: console.error,\n            })\n          );\n        })\n      ),\n\n      addPlayerToRoom(\n        playerName: string,\n        onComplete: (() => void) | undefined = undefined\n      ): void {\n        const state = getState(store);\n        console.debug('addPlayerToRoom', state.currentRoom.name, playerName);\n        roomService.addPlayerToRoom(\n          state.currentRoom.name,\n          playerName,\n          onComplete\n        );\n      },\n\n      removePlayerFromRoom(playerName: string): void {\n        const state = getState(store);\n        console.debug(\n          'removePlayerFromRoom',\n          state.currentRoom.name,\n          playerName\n        );\n        roomService.removePlayerFromRoom(state.currentRoom.name, playerName);\n      },\n\n      vote(user: UserModel | null, voteOption: VoteChoice): void {\n        const state = getState(store);\n        console.debug('vote', state.currentRoom, user, voteOption);\n        roomService.vote(\n          state.currentRoom.name,\n          state.currentRoom.currentRound,\n          user,\n          voteOption\n        );\n      },\n\n      incrementRound(): void {\n        const state = getState(store);\n        console.debug('incrementRound', state.currentRoom.currentRound);\n        roomService.setRound(\n          state.currentRoom.name,\n          state.currentRoom.currentRound + 1\n        );\n      },\n\n      getOne: rxMethod<string>(\n        exhaustMap((name: string) => {\n          console.debug('getOne', name);\n          patchState(store, state => ({\n            currentRoom: {\n              ...state.currentRoom,\n              name,\n            } as RoomModel,\n          }));\n          return merge(getPlayers(name), getCurrentRound(name), getVotes(name));\n        })\n      ),\n\n      launchCountdown,\n      stopCountdown,\n    };\n  })\n)"
         }
       ],
       ".storybook/preview.ts": [
@@ -2958,12 +3219,21 @@
         "status": "low"
       },
       {
+        "filePath": "src/app/room/room-timer/room-timer.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "RoomTimerComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/4",
+        "status": "low"
+      },
+      {
         "filePath": "src/app/room/room.component.ts",
         "type": "component",
         "linktype": "component",
         "name": "RoomComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/11",
+        "coverageCount": "0/13",
         "status": "low"
       },
       {
@@ -3003,12 +3273,12 @@
         "status": "low"
       },
       {
-        "filePath": "src/app/user/user-profile/user-profile.component.ts",
+        "filePath": "src/app/user/user-profile/user-settings.component.ts",
         "type": "component",
         "linktype": "component",
-        "name": "UserProfileComponent",
+        "name": "UserSettingsComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/4",
+        "coverageCount": "0/5",
         "status": "low"
       },
       {
@@ -3017,7 +3287,7 @@
         "linktype": "interface",
         "name": "EnvironmentConfig",
         "coveragePercent": 0,
-        "coverageCount": "0/5",
+        "coverageCount": "0/6",
         "status": "low"
       },
       {
@@ -3096,7 +3366,7 @@
         "linktype": "injectable",
         "name": "RoomService",
         "coveragePercent": 0,
-        "coverageCount": "0/8",
+        "coverageCount": "0/10",
         "status": "low"
       },
       {

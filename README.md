@@ -1,15 +1,19 @@
 # PokerPlannerLite
 
-Simple app to have poker planning session
+Simple app to run poker planning session in a scrum team
 
 Inspiration: [PlanningPokerOnline](https://planningpokeronline.com/)
 
-We absolutely don't want all features of this app.
-We only need the ability to join a room and vote.
+The goal was not to reproduce all features of this app;
+we only wanted the ability to join a room and vote.
 And vote. And vote again.
 Simplicity and usability is a must!
 
-Often in a team, we already have our own issue tracker with weight and needed a small supplementary tool for our poker planning session.
+User need analysis:
+
+We already have our own ticket tracker with weight that can be assigned to each issue.
+We wanted a small supplementary tool just to run our poker planning session without needing any data retention in it.
+Dev should be able to vote easily and PO should be able to observe the session
 
 ## Project commands
 
@@ -18,6 +22,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+### Storybook
+
+Run `npm run storybook` for a dev server. Navigate to `http://localhost:6006/`.
 
 ### Code scaffolding
 
