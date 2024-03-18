@@ -53,30 +53,6 @@
       "extends": []
     },
     {
-      "name": "User",
-      "id": "interface-User-d4821beac0e4a852e513391b7470981c4353fdd95a18628bb68136c8695b489ee15b926e2e5031bc26cf30e1508e0a362c3ee13a06734702b4d15af140e485d5",
-      "file": "src/stories/user.ts",
-      "deprecated": false,
-      "deprecationMessage": "",
-      "type": "interface",
-      "sourceCode": "export interface User {\n  name: string;\n}\n",
-      "properties": [
-        {
-          "name": "name",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "string",
-          "optional": false,
-          "description": "",
-          "line": 2
-        }
-      ],
-      "indexSignatures": [],
-      "kind": 171,
-      "methods": [],
-      "extends": []
-    },
-    {
       "name": "Window",
       "id": "interface-Window-5737635310ac7872b7ea4fb6d1080eb56ec1480ae82eb201454729579370f16e10a30d55bc3a9421de0d3e0939e3cd63f9b19f7968cfa7b3591475eee373a55d",
       "file": "src/libs/utils/with-devtools.ts",
@@ -498,223 +474,8 @@
       "extends": []
     },
     {
-      "name": "ButtonComponent",
-      "id": "component-ButtonComponent-86e2311c54fbca7431c12e070d0fd5b0ebe343eec0553a392f182ba0e04a8f86613233d26ee47718fd0e7a65078f580c76a1fcc928ce55de81193d6618025bc4",
-      "file": "src/stories/button.component.ts",
-      "encapsulation": [],
-      "entryComponents": [],
-      "inputs": [],
-      "outputs": [],
-      "providers": [],
-      "selector": "storybook-button",
-      "styleUrls": ["./button.css"],
-      "styles": [],
-      "template": "<button   type=\"button\"\n   (click)=\"onClick.emit($event)\"\n   [ngClass]=\"classes\"\n   [ngStyle]=\"{ 'background-color': backgroundColor }\"\n >\n   {{ label }}\n </button>",
-      "templateUrl": [],
-      "viewProviders": [],
-      "hostDirectives": [],
-      "inputsClass": [
-        {
-          "name": "backgroundColor",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "rawdescription": "\n\nWhat background color to use\n",
-          "description": "<p>What background color to use</p>\n",
-          "line": 29,
-          "type": "string",
-          "decorators": []
-        },
-        {
-          "name": "label",
-          "defaultValue": "'Button'",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "jsdoctags": [
-            {
-              "pos": 798,
-              "end": 811,
-              "flags": 16842752,
-              "modifierFlagsCache": 0,
-              "transformFlags": 0,
-              "kind": 334,
-              "tagName": {
-                "pos": 799,
-                "end": 807,
-                "flags": 16842752,
-                "modifierFlagsCache": 0,
-                "transformFlags": 0,
-                "kind": 80,
-                "escapedText": "required"
-              },
-              "comment": ""
-            }
-          ],
-          "rawdescription": "\n\nButton contents\n\n",
-          "description": "<p>Button contents</p>\n",
-          "line": 43,
-          "type": "string",
-          "decorators": []
-        },
-        {
-          "name": "primary",
-          "defaultValue": "false",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "rawdescription": "\n\nIs this the principal call to action on the page?\n",
-          "description": "<p>Is this the principal call to action on the page?</p>\n",
-          "line": 23,
-          "type": "boolean",
-          "decorators": []
-        },
-        {
-          "name": "size",
-          "defaultValue": "'medium'",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "rawdescription": "\n\nHow large should the button be?\n",
-          "description": "<p>How large should the button be?</p>\n",
-          "line": 35,
-          "type": "\"small\" | \"medium\" | \"large\"",
-          "decorators": []
-        }
-      ],
-      "outputsClass": [
-        {
-          "name": "onClick",
-          "defaultValue": "new EventEmitter<Event>()",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "rawdescription": "\n\nOptional click handler\n",
-          "description": "<p>Optional click handler</p>\n",
-          "line": 49,
-          "type": "EventEmitter"
-        }
-      ],
-      "propertiesClass": [],
-      "methodsClass": [],
-      "deprecated": false,
-      "deprecationMessage": "",
-      "hostBindings": [],
-      "hostListeners": [],
-      "standalone": true,
-      "imports": [
-        {
-          "name": "CommonModule",
-          "type": "module"
-        }
-      ],
-      "description": "",
-      "rawdescription": "\n",
-      "type": "component",
-      "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  standalone: true,\n  imports: [CommonModule],\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
-      "assetsDirs": [],
-      "styleUrlsData": [
-        {
-          "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
-          "styleUrl": "./button.css"
-        }
-      ],
-      "stylesData": "",
-      "extends": [],
-      "accessors": {
-        "classes": {
-          "name": "classes",
-          "getSignature": {
-            "name": "classes",
-            "type": "[]",
-            "returnType": "string[]",
-            "line": 51
-          }
-        }
-      }
-    },
-    {
-      "name": "HeaderComponent",
-      "id": "component-HeaderComponent-cad94b233ec8e80ceb541e7972c5f9737e08237b4e137112f3987ca48ee0cce5c0d57798d41daa5d4d24d6bdbb2df1606ab68cca2aa0a1785e38f99f3cac0729",
-      "file": "src/stories/header.component.ts",
-      "encapsulation": [],
-      "entryComponents": [],
-      "inputs": [],
-      "outputs": [],
-      "providers": [],
-      "selector": "storybook-header",
-      "styleUrls": ["./header.css"],
-      "styles": [],
-      "template": "<header>    <div class=\"storybook-header\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <storybook-button\n            *ngIf=\"user\"\n            size=\"small\"\n            (onClick)=\"onLogout.emit($event)\"\n            label=\"Log out\"\n          ></storybook-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            class=\"margin-left\"\n            (onClick)=\"onLogin.emit($event)\"\n            label=\"Log in\"\n          ></storybook-button>\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            [primary]=\"true\"\n            class=\"margin-left\"\n            (onClick)=\"onCreateAccount.emit($event)\"\n            label=\"Sign up\"\n          ></storybook-button>\n        </div>\n      </div>\n    </div>\n  </header>",
-      "templateUrl": [],
-      "viewProviders": [],
-      "hostDirectives": [],
-      "inputsClass": [
-        {
-          "name": "user",
-          "defaultValue": "null",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 69,
-          "type": "User | null",
-          "decorators": []
-        }
-      ],
-      "outputsClass": [
-        {
-          "name": "onCreateAccount",
-          "defaultValue": "new EventEmitter<Event>()",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 78,
-          "type": "EventEmitter"
-        },
-        {
-          "name": "onLogin",
-          "defaultValue": "new EventEmitter<Event>()",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 72,
-          "type": "EventEmitter"
-        },
-        {
-          "name": "onLogout",
-          "defaultValue": "new EventEmitter<Event>()",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 75,
-          "type": "EventEmitter"
-        }
-      ],
-      "propertiesClass": [],
-      "methodsClass": [],
-      "deprecated": false,
-      "deprecationMessage": "",
-      "hostBindings": [],
-      "hostListeners": [],
-      "standalone": true,
-      "imports": [
-        {
-          "name": "CommonModule",
-          "type": "module"
-        },
-        {
-          "name": "ButtonComponent",
-          "type": "component"
-        }
-      ],
-      "description": "",
-      "rawdescription": "\n",
-      "type": "component",
-      "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\nimport { ButtonComponent } from './button.component';\nimport type { User } from './user';\n\n@Component({\n  selector: 'storybook-header',\n  standalone: true,\n  imports: [CommonModule, ButtonComponent],\n  template: `<header>\n    <div class=\"storybook-header\">\n      <div>\n        <svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z\"\n              fill=\"#FFF\"\n            />\n            <path\n              d=\"M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z\"\n              fill=\"#555AB9\"\n            />\n            <path\n              d=\"M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z\"\n              fill=\"#91BAF8\"\n            />\n          </g>\n        </svg>\n        <h1>Acme</h1>\n      </div>\n      <div>\n        <div *ngIf=\"user\">\n          <span class=\"welcome\">\n            Welcome, <b>{{ user.name }}</b\n            >!\n          </span>\n          <storybook-button\n            *ngIf=\"user\"\n            size=\"small\"\n            (onClick)=\"onLogout.emit($event)\"\n            label=\"Log out\"\n          ></storybook-button>\n        </div>\n        <div *ngIf=\"!user\">\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            class=\"margin-left\"\n            (onClick)=\"onLogin.emit($event)\"\n            label=\"Log in\"\n          ></storybook-button>\n          <storybook-button\n            *ngIf=\"!user\"\n            size=\"small\"\n            [primary]=\"true\"\n            class=\"margin-left\"\n            (onClick)=\"onCreateAccount.emit($event)\"\n            label=\"Sign up\"\n          ></storybook-button>\n        </div>\n      </div>\n    </div>\n  </header>`,\n  styleUrls: ['./header.css'],\n})\nexport class HeaderComponent {\n  @Input()\n  user: User | null = null;\n\n  @Output()\n  onLogin = new EventEmitter<Event>();\n\n  @Output()\n  onLogout = new EventEmitter<Event>();\n\n  @Output()\n  onCreateAccount = new EventEmitter<Event>();\n}\n",
-      "assetsDirs": [],
-      "styleUrlsData": [
-        {
-          "data": ".storybook-header {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  padding: 15px 20px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.storybook-header svg {\n  display: inline-block;\n  vertical-align: top;\n}\n\n.storybook-header h1 {\n  font-weight: 700;\n  font-size: 20px;\n  line-height: 1;\n  margin: 6px 0 6px 10px;\n  display: inline-block;\n  vertical-align: top;\n}\n\n.storybook-header button + button {\n  margin-left: 10px;\n}\n\n.storybook-header .welcome {\n  color: #333;\n  font-size: 14px;\n  margin-right: 10px;\n}\n",
-          "styleUrl": "./header.css"
-        }
-      ],
-      "stylesData": "",
-      "extends": []
-    },
-    {
       "name": "LobbyComponent",
-      "id": "component-LobbyComponent-5240aa4f95a8fd289396a52a2cbbe953165083e67da4aa91b000141b1c679993f846093dd1d59f7232bd15657fb122367a22d7a17b3bea82e3d8a80121378fd0",
+      "id": "component-LobbyComponent-a1e22fe9d5e86722cde6c6eca04c21bc72dbfe919c25cc62278a28634d705deb7f828350ce0ca317d5de48c39e439ff48d56b0cdea3cd3a3e91daa9650189419",
       "file": "src/app/lobby/lobby.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -792,7 +553,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport { MatCardModule } from '@angular/material/card';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDialog } from '@angular/material/dialog';\nimport { RoomListDialogComponent } from './room-list-dialog/room-list-dialog.component';\nimport { NgOptimizedImage } from '@angular/common';\n\n@Component({\n  selector: 'app-lobby',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [NgOptimizedImage, MatCardModule, MatButtonModule],\n  template: `\n    <div class=\"p-4\">\n      <div class=\"flex gap-1 items-center place-content-center\">\n        <img\n          class=\"max-w-28\"\n          ngSrc=\"assets/logo.svg\"\n          alt=\"Poker Planner Lite logo\"\n          width=\"289.25\"\n          height=\"284.7\"\n          priority />\n        <h1>Poker Planner Lite</h1>\n      </div>\n      <div class=\"flex justify-evenly pt-10\">\n        <button mat-flat-button color=\"primary\" (click)=\"openDialog()\">\n          Join a room\n        </button>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore],\n})\nexport class LobbyComponent {\n  readonly store = inject(RoomStore);\n  readonly dialog = inject(MatDialog);\n\n  constructor() {\n    this.store.listAll();\n  }\n\n  openDialog(): void {\n    this.dialog.open(RoomListDialogComponent, {\n      data: this.store,\n      maxHeight: '80vh',\n    });\n  }\n}\n",
+      "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport { MatCardModule } from '@angular/material/card';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatDialog } from '@angular/material/dialog';\nimport { RoomListDialogComponent } from './room-list-dialog/room-list-dialog.component';\nimport { NgOptimizedImage } from '@angular/common';\n\n@Component({\n  selector: 'app-lobby',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [NgOptimizedImage, MatCardModule, MatButtonModule],\n  template: `\n    <div class=\"p-4\">\n      <div class=\"flex gap-1 items-center place-content-center\">\n        <img\n          class=\"max-w-28\"\n          ngSrc=\"assets/logo.svg\"\n          alt=\"Poker Planner Lite logo\"\n          width=\"289.25\"\n          height=\"284.7\"\n          priority />\n        <h1>Poker Planner Lite</h1>\n      </div>\n      <div class=\"flex justify-evenly pt-10\">\n        <button mat-flat-button color=\"primary\" (click)=\"openDialog()\">\n          Join a room\n        </button>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore],\n})\nexport class LobbyComponent {\n  readonly store = inject(RoomStore);\n  readonly dialog = inject(MatDialog);\n\n  constructor() {\n    this.store.listAll();\n  }\n\n  openDialog(): void {\n    this.dialog.open(RoomListDialogComponent, {\n      data: this.store,\n      maxHeight: '80vh',\n      panelClass: 'w-full',\n    });\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -804,97 +565,6 @@
         "args": [],
         "line": 38
       },
-      "extends": []
-    },
-    {
-      "name": "PageComponent",
-      "id": "component-PageComponent-d32b0f19628254ea3fc5526c4d4564ada1cc83cf936759006d90a46f5874b02a3359e331bddda20b22e74a616a6443c660602ba74dd38ebe1160759e0de6f7ba",
-      "file": "src/stories/page.component.ts",
-      "encapsulation": [],
-      "entryComponents": [],
-      "inputs": [],
-      "outputs": [],
-      "providers": [],
-      "selector": "storybook-page",
-      "styleUrls": ["./page.css"],
-      "styles": [],
-      "template": "<article>    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section class=\"storybook-page\">\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>",
-      "templateUrl": [],
-      "viewProviders": [],
-      "hostDirectives": [],
-      "inputsClass": [],
-      "outputsClass": [],
-      "propertiesClass": [
-        {
-          "name": "user",
-          "defaultValue": "null",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "User | null",
-          "optional": false,
-          "description": "",
-          "line": 69
-        }
-      ],
-      "methodsClass": [
-        {
-          "name": "doCreateAccount",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 79,
-          "deprecated": false,
-          "deprecationMessage": ""
-        },
-        {
-          "name": "doLogin",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 75,
-          "deprecated": false,
-          "deprecationMessage": ""
-        },
-        {
-          "name": "doLogout",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 71,
-          "deprecated": false,
-          "deprecationMessage": ""
-        }
-      ],
-      "deprecated": false,
-      "deprecationMessage": "",
-      "hostBindings": [],
-      "hostListeners": [],
-      "standalone": true,
-      "imports": [
-        {
-          "name": "CommonModule",
-          "type": "module"
-        },
-        {
-          "name": "HeaderComponent",
-          "type": "component"
-        }
-      ],
-      "description": "",
-      "rawdescription": "\n",
-      "type": "component",
-      "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\nimport { HeaderComponent } from './header.component';\nimport type { User } from './user';\n\n@Component({\n  selector: 'storybook-page',\n  standalone: true,\n  imports: [CommonModule, HeaderComponent],\n  template: `<article>\n    <storybook-header\n      [user]=\"user\"\n      (onLogout)=\"doLogout()\"\n      (onLogin)=\"doLogin()\"\n      (onCreateAccount)=\"doCreateAccount()\"\n    ></storybook-header>\n    <section class=\"storybook-page\">\n      <h2>Pages in Storybook</h2>\n      <p>\n        We recommend building UIs with a\n        <a href=\"https://componentdriven.org\" target=\"_blank\" rel=\"noopener noreferrer\">\n          <strong>component-driven</strong>\n        </a>\n        process starting with atomic components and ending with pages.\n      </p>\n      <p>\n        Render pages with mock data. This makes it easy to build and review page states without\n        needing to navigate to them in your app. Here are some handy patterns for managing page data\n        in Storybook:\n      </p>\n      <ul>\n        <li>\n          Use a higher-level connected component. Storybook helps you compose such data from the\n          \"args\" of child component stories\n        </li>\n        <li>\n          Assemble data in the page component from your services. You can mock these services out\n          using Storybook.\n        </li>\n      </ul>\n      <p>\n        Get a guided tutorial on component-driven development at\n        <a href=\"https://storybook.js.org/tutorials/\" target=\"_blank\" rel=\"noopener noreferrer\">\n          Storybook tutorials\n        </a>\n        . Read more in the\n        <a href=\"https://storybook.js.org/docs\" target=\"_blank\" rel=\"noopener noreferrer\"> docs </a>\n        .\n      </p>\n      <div class=\"tip-wrapper\">\n        <span class=\"tip\">Tip</span> Adjust the width of the canvas with the\n        <svg width=\"10\" height=\"10\" viewBox=\"0 0 12 12\" xmlns=\"http://www.w3.org/2000/svg\">\n          <g fill=\"none\" fillRule=\"evenodd\">\n            <path\n              d=\"M1.5 5.2h4.8c.3 0 .5.2.5.4v5.1c-.1.2-.3.3-.4.3H1.4a.5.5 0 01-.5-.4V5.7c0-.3.2-.5.5-.5zm0-2.1h6.9c.3 0 .5.2.5.4v7a.5.5 0 01-1 0V4H1.5a.5.5 0 010-1zm0-2.1h9c.3 0 .5.2.5.4v9.1a.5.5 0 01-1 0V2H1.5a.5.5 0 010-1zm4.3 5.2H2V10h3.8V6.2z\"\n              id=\"a\"\n              fill=\"#999\"\n            />\n          </g>\n        </svg>\n        Viewports addon in the toolbar\n      </div>\n    </section>\n  </article>`,\n  styleUrls: ['./page.css'],\n})\nexport class PageComponent {\n  user: User | null = null;\n\n  doLogout() {\n    this.user = null;\n  }\n\n  doLogin() {\n    this.user = { name: 'Jane Doe' };\n  }\n\n  doCreateAccount() {\n    this.user = { name: 'Jane Doe' };\n  }\n}\n",
-      "assetsDirs": [],
-      "styleUrlsData": [
-        {
-          "data": ".storybook-page {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  line-height: 24px;\n  padding: 48px 20px;\n  margin: 0 auto;\n  max-width: 600px;\n  color: #333;\n}\n\n.storybook-page h2 {\n  font-weight: 700;\n  font-size: 32px;\n  line-height: 1;\n  margin: 0 0 4px;\n  display: inline-block;\n  vertical-align: top;\n}\n\n.storybook-page p {\n  margin: 1em 0;\n}\n\n.storybook-page a {\n  text-decoration: none;\n  color: #1ea7fd;\n}\n\n.storybook-page ul {\n  padding-left: 30px;\n  margin: 1em 0;\n}\n\n.storybook-page li {\n  margin-bottom: 8px;\n}\n\n.storybook-page .tip {\n  display: inline-block;\n  border-radius: 1em;\n  font-size: 11px;\n  line-height: 12px;\n  font-weight: 700;\n  background: #e7fdd8;\n  color: #66bf3c;\n  padding: 4px 12px;\n  margin-right: 10px;\n  vertical-align: top;\n}\n\n.storybook-page .tip-wrapper {\n  font-size: 13px;\n  line-height: 20px;\n  margin-top: 40px;\n  margin-bottom: 40px;\n}\n\n.storybook-page .tip-wrapper svg {\n  display: inline-block;\n  height: 12px;\n  width: 12px;\n  margin-right: 4px;\n  vertical-align: top;\n  margin-top: 3px;\n}\n\n.storybook-page .tip-wrapper svg path {\n  fill: #1ea7fd;\n}\n",
-          "styleUrl": "./page.css"
-        }
-      ],
-      "stylesData": "",
       "extends": []
     },
     {
@@ -935,7 +605,7 @@
     },
     {
       "name": "PokerCardComponent",
-      "id": "component-PokerCardComponent-18a16354452efa10d0568d8efffc2fbec378bbc99cd004c8ccbc5c3eb6c4cce2f341e9d64b2e6e87d075cbeb4edc44c77a32d7e3e7d65e601cce340f818da878",
+      "id": "component-PokerCardComponent-74f321346812cb663c5fd21eca8f634379e5e51a1861acf947da96527ebd4db85fc083bcc9dd011539358b280dc00d1352c57bb19c92d0c362bb784159d262f9",
       "file": "src/app/room/poker-card/poker-card.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -946,9 +616,9 @@
       "selector": "app-poker-card",
       "styleUrls": [],
       "styles": [
-        "\n    .private {\n      @apply bg-gray-200 hover:bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 hover:bg-emerald-300 border-emerald-500;\n    }\n    .active:not(.private) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n  "
+        "\n    .private {\n      @apply bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 border-emerald-500;\n    }\n    .active:not([disabled]) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n    .poker-card:not(.active, .private) {\n      @apply border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300;\n    }\n  "
       ],
-      "template": "<button\n  class=\"p-3 shadow group border-4 rounded-lg border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300\"\n  [ngClass]=\"\n    size() === 'S' ? ['w-16', 'h-20', 'p-2'] : ['w-20', 'h-28', 'p-3']\n  \"\n  [class.private]=\"private()\"\n  [class.active]=\"active()\"\n  [disabled]=\"disabled()\">\n  @if (private()) {\n    <div\n      class=\"h-full w-full bg-stripes\"\n      [ngClass]=\"\n        active()\n          ? ['bg-emerald-500', 'bg-stripes-emerald-300']\n          : ['bg-gray-400', 'bg-stripes-gray-200']\n      \"></div>\n  } @else {\n    <div\n      class=\"h-full w-full flex flex-col place-content-center rounded-md border\"\n      [ngClass]=\"\n        active()\n          ? [\n              'border-emerald-500',\n              'bg-slate-100',\n              'group-hover:bg-slate-50',\n              'group-hover:border-emerald-400'\n            ]\n          : [\n              'border-blue-400',\n              'bg-slate-100',\n              'group-hover:bg-slate-50',\n              'group-hover:border-blue-300'\n            ]\n      \">\n      <span class=\"\" [ngClass]=\"{ 'text-2xl': size() === 'L' }\">\n        {{ content() }}\n      </span>\n    </div>\n  }\n</button>\n",
+      "template": "<button\n  class=\"poker-card p-3 shadow group border-4 rounded-lg\"\n  [class]=\"\n    size() === 'S' ? ['w-16', 'h-20', 'p-2'] : ['w-20', 'h-28', 'p-3']\n  \"\n  [class.private]=\"private()\"\n  [class.active]=\"active()\"\n  [disabled]=\"disabled() || private()\">\n  @if (private()) {\n    <div\n      class=\"h-full w-full bg-stripes\"\n      [class]=\"\n        active()\n          ? ['bg-emerald-500', 'bg-stripes-emerald-300']\n          : ['bg-gray-400', 'bg-stripes-gray-200']\n      \"></div>\n  } @else {\n    <div\n      class=\"h-full w-full flex flex-col place-content-center rounded-md border\"\n      [class]=\"\n        active()\n          ? disabled()\n            ? ['border-emerald-500', 'bg-slate-100']\n            : [\n                'border-emerald-500',\n                'bg-slate-100',\n                'group-hover:bg-slate-50',\n                'group-hover:border-emerald-400'\n              ]\n          : [\n              'border-blue-400',\n              'bg-slate-100',\n              'group-hover:bg-slate-50',\n              'group-hover:border-blue-300'\n            ]\n      \">\n      <span class=\"\" [class]=\"{ 'text-2xl': size() === 'L' }\">\n        {{ content() }}\n      </span>\n    </div>\n  }\n</button>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -963,7 +633,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 68
+          "line": 73
         },
         {
           "name": "content",
@@ -973,7 +643,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 64
+          "line": 69
         },
         {
           "name": "disabled",
@@ -983,7 +653,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 66
+          "line": 71
         },
         {
           "name": "private",
@@ -993,7 +663,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 67
+          "line": 72
         },
         {
           "name": "size",
@@ -1003,7 +673,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 65
+          "line": 70
         }
       ],
       "methodsClass": [],
@@ -1020,10 +690,10 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\nimport { NgClass } from '@angular/common';\n\n@Component({\n  selector: 'app-poker-card',\n  standalone: true,\n  imports: [NgClass],\n  template: `\n    <button\n      class=\"p-3 shadow group border-4 rounded-lg border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300\"\n      [ngClass]=\"\n        size() === 'S' ? ['w-16', 'h-20', 'p-2'] : ['w-20', 'h-28', 'p-3']\n      \"\n      [class.private]=\"private()\"\n      [class.active]=\"active()\"\n      [disabled]=\"disabled()\">\n      @if (private()) {\n        <div\n          class=\"h-full w-full bg-stripes\"\n          [ngClass]=\"\n            active()\n              ? ['bg-emerald-500', 'bg-stripes-emerald-300']\n              : ['bg-gray-400', 'bg-stripes-gray-200']\n          \"></div>\n      } @else {\n        <div\n          class=\"h-full w-full flex flex-col place-content-center rounded-md border\"\n          [ngClass]=\"\n            active()\n              ? [\n                  'border-emerald-500',\n                  'bg-slate-100',\n                  'group-hover:bg-slate-50',\n                  'group-hover:border-emerald-400'\n                ]\n              : [\n                  'border-blue-400',\n                  'bg-slate-100',\n                  'group-hover:bg-slate-50',\n                  'group-hover:border-blue-300'\n                ]\n          \">\n          <span class=\"\" [ngClass]=\"{ 'text-2xl': size() === 'L' }\">\n            {{ content() }}\n          </span>\n        </div>\n      }\n    </button>\n  `,\n  styles: `\n    .private {\n      @apply bg-gray-200 hover:bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 hover:bg-emerald-300 border-emerald-500;\n    }\n    .active:not(.private) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PokerCardComponent {\n  content = input.required<string | null>();\n  size = input<'S' | 'L'>('S');\n  disabled = input<boolean>(false);\n  private = input<boolean>(false);\n  active = input<boolean>(false);\n}\n",
+      "sourceCode": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\nimport { NgClass } from '@angular/common';\n\n@Component({\n  selector: 'app-poker-card',\n  standalone: true,\n  imports: [NgClass],\n  template: `\n    <button\n      class=\"poker-card p-3 shadow group border-4 rounded-lg\"\n      [class]=\"\n        size() === 'S' ? ['w-16', 'h-20', 'p-2'] : ['w-20', 'h-28', 'p-3']\n      \"\n      [class.private]=\"private()\"\n      [class.active]=\"active()\"\n      [disabled]=\"disabled() || private()\">\n      @if (private()) {\n        <div\n          class=\"h-full w-full bg-stripes\"\n          [class]=\"\n            active()\n              ? ['bg-emerald-500', 'bg-stripes-emerald-300']\n              : ['bg-gray-400', 'bg-stripes-gray-200']\n          \"></div>\n      } @else {\n        <div\n          class=\"h-full w-full flex flex-col place-content-center rounded-md border\"\n          [class]=\"\n            active()\n              ? disabled()\n                ? ['border-emerald-500', 'bg-slate-100']\n                : [\n                    'border-emerald-500',\n                    'bg-slate-100',\n                    'group-hover:bg-slate-50',\n                    'group-hover:border-emerald-400'\n                  ]\n              : [\n                  'border-blue-400',\n                  'bg-slate-100',\n                  'group-hover:bg-slate-50',\n                  'group-hover:border-blue-300'\n                ]\n          \">\n          <span class=\"\" [class]=\"{ 'text-2xl': size() === 'L' }\">\n            {{ content() }}\n          </span>\n        </div>\n      }\n    </button>\n  `,\n  styles: `\n    .private {\n      @apply bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 border-emerald-500;\n    }\n    .active:not([disabled]) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n    .poker-card:not(.active, .private) {\n      @apply border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class PokerCardComponent {\n  content = input.required<string | null>();\n  size = input<'S' | 'L'>('S');\n  disabled = input<boolean>(false);\n  private = input<boolean>(false);\n  active = input<boolean>(false);\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
-      "stylesData": "\n    .private {\n      @apply bg-gray-200 hover:bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 hover:bg-emerald-300 border-emerald-500;\n    }\n    .active:not(.private) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n  \n",
+      "stylesData": "\n    .private {\n      @apply bg-gray-200 border-gray-400;\n    }\n    .active {\n      @apply bg-emerald-300 border-emerald-500;\n    }\n    .active:not([disabled]) {\n      @apply hover:bg-emerald-200 hover:border-emerald-400;\n    }\n    .poker-card:not(.active, .private) {\n      @apply border-blue-400 bg-blue-100 hover:bg-blue-50 hover:border-blue-300;\n    }\n  \n",
       "extends": []
     },
     {
@@ -1096,7 +766,7 @@
     },
     {
       "name": "RoomComponent",
-      "id": "component-RoomComponent-cc01e9b5769d2fceabe3846baa289b96c42e5cd586bcb8ce8beab079e3228bfab26b1963b3172f4e64c77a79b35a4f525eb081519ca26153056a179b17bc4483",
+      "id": "component-RoomComponent-904b2af951005df1b88ce99e80fe4085ef58c5537655e39c48e1c663ee368197a75d107cb623607b7982e8ecf512de6ae3c2433e9e4e8f292734474e016c1616",
       "file": "src/app/room/room.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1210,7 +880,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 161,
+          "line": 162,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -1293,7 +963,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  Signal,\n  signal,\n  WritableSignal,\n} from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';\nimport { RoomStore, UserStore } from '@poker/data-models';\nimport { JsonPipe, KeyValuePipe } from '@angular/common';\nimport {\n  MatAnchor,\n  MatButton,\n  MatMiniFabButton,\n} from '@angular/material/button';\nimport { MatIcon } from '@angular/material/icon';\nimport { MatTooltip } from '@angular/material/tooltip';\nimport { MatBottomSheet } from '@angular/material/bottom-sheet';\nimport { UserProfileComponent } from '../user/user-profile/user-profile.component';\nimport { ShareRoomComponent } from './share-room/share-room.component';\nimport {\n  MatCard,\n  MatCardActions,\n  MatCardContent,\n} from '@angular/material/card';\nimport { MatProgressSpinner } from '@angular/material/progress-spinner';\nimport { PokerCardComponent } from './poker-card/poker-card.component';\nimport { VoteHistoryComponent } from './vote-history/vote-history.component';\nimport { UserDeckComponent } from '../user/user-deck/user-deck.component';\nimport { PokerTableComponent } from './poker-table/poker-table.component';\n\n@Component({\n  selector: 'app-room',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    JsonPipe,\n    MatButton,\n    MatAnchor,\n    MatIcon,\n    MatMiniFabButton,\n    MatTooltip,\n    MatCard,\n    MatCardActions,\n    MatCardContent,\n    MatProgressSpinner,\n    PokerCardComponent,\n    KeyValuePipe,\n    UserDeckComponent,\n    PokerTableComponent,\n  ],\n  template: `\n    <div class=\"p-4 h-svh flex flex-col\">\n      <div>\n        <div class=\"flex w-full justify-between\">\n          <a mat-stroked-button href=\"/lobby\">\n            <mat-icon>home</mat-icon> Back to lobby\n          </a>\n\n          <div class=\"text-center\">\n            <h1>Room {{ roomName() }}</h1>\n            <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n          </div>\n\n          <div class=\"flex gap-3\">\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"User info\"\n              aria-label=\"Button to open user info\"\n              (click)=\"openBottomSheet('USER')\">\n              <mat-icon>person</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"Open vote history\"\n              aria-label=\"Button to open vote history\"\n              (click)=\"openBottomSheet('HISTORY')\">\n              <mat-icon>history</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"accent\"\n              matTooltip=\"Open sharing options\"\n              aria-label=\"Button to open sharing options\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon>\n            </button>\n          </div>\n        </div>\n\n        @if (!roomStore.currentPlayers().length) {\n          <mat-card\n            tabindex=\"-1\"\n            class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n            <mat-card-content class=\"bg-gray-100\">\n              <div class=\"flex flex-row justify-between items-center\">\n                <span>This room has no player yet</span>\n                <button\n                  mat-flat-button\n                  color=\"accent\"\n                  (click)=\"openBottomSheet('SHARE')\">\n                  <mat-icon>ios_share</mat-icon> Share it\n                </button>\n              </div>\n            </mat-card-content>\n          </mat-card>\n        }\n        <div class=\"relative w-min\">\n          <mat-progress-spinner\n            [color]=\"timerColor()\"\n            mode=\"determinate\"\n            [value]=\"timerValue()\">\n            test\n          </mat-progress-spinner>\n          <div\n            class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n            {{ timerValue() }}\n          </div>\n        </div>\n        <app-poker-table></app-poker-table>\n      </div>\n      <div class=\"mt-auto\">\n        <app-user-deck></app-user-deck>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore, UserStore],\n})\nexport class RoomComponent {\n  roomName = input.required<string>();\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  readonly dialog = inject(MatDialog);\n  readonly bottomSheet = inject(MatBottomSheet);\n\n  timerValue: WritableSignal<number> = signal(70);\n  timerColor: Signal<string> = computed(() =>\n    this.timerValue() < 30 ? 'warn' : 'primary'\n  );\n\n  constructor() {\n    this.roomStore.getOne(this.roomName);\n    this.openDialog();\n  }\n\n  openDialog(): void {\n    this.dialog.open(UserCreationDialogComponent, {\n      disableClose: true,\n      data: { roomStore: this.roomStore, userStore: this.userStore },\n      maxHeight: '80vh',\n    });\n  }\n\n  openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {\n    const panelClass = ['h-4/5'];\n    if (sheetType == 'USER') {\n      this.bottomSheet.open(UserProfileComponent, {\n        data: this.userStore,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'SHARE') {\n      this.bottomSheet.open(ShareRoomComponent, {\n        data: this.roomName,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'HISTORY') {\n      this.bottomSheet.open(VoteHistoryComponent, {\n        data: this.roomStore,\n        panelClass,\n      });\n      return;\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  Signal,\n  signal,\n  WritableSignal,\n} from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';\nimport { RoomStore, UserStore } from '@poker/data-models';\nimport { JsonPipe, KeyValuePipe } from '@angular/common';\nimport {\n  MatAnchor,\n  MatButton,\n  MatMiniFabButton,\n} from '@angular/material/button';\nimport { MatIcon } from '@angular/material/icon';\nimport { MatTooltip } from '@angular/material/tooltip';\nimport { MatBottomSheet } from '@angular/material/bottom-sheet';\nimport { UserProfileComponent } from '../user/user-profile/user-profile.component';\nimport { ShareRoomComponent } from './share-room/share-room.component';\nimport {\n  MatCard,\n  MatCardActions,\n  MatCardContent,\n} from '@angular/material/card';\nimport { MatProgressSpinner } from '@angular/material/progress-spinner';\nimport { PokerCardComponent } from './poker-card/poker-card.component';\nimport { VoteHistoryComponent } from './vote-history/vote-history.component';\nimport { UserDeckComponent } from '../user/user-deck/user-deck.component';\nimport { PokerTableComponent } from './poker-table/poker-table.component';\n\n@Component({\n  selector: 'app-room',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    JsonPipe,\n    MatButton,\n    MatAnchor,\n    MatIcon,\n    MatMiniFabButton,\n    MatTooltip,\n    MatCard,\n    MatCardActions,\n    MatCardContent,\n    MatProgressSpinner,\n    PokerCardComponent,\n    KeyValuePipe,\n    UserDeckComponent,\n    PokerTableComponent,\n  ],\n  template: `\n    <div class=\"p-4 h-svh flex flex-col\">\n      <div>\n        <div class=\"flex w-full justify-between\">\n          <a mat-stroked-button href=\"/lobby\">\n            <mat-icon>home</mat-icon> Back to lobby\n          </a>\n\n          <div class=\"text-center\">\n            <h1>Room {{ roomName() }}</h1>\n            <h4>Current round: {{ roomStore.currentRoom().currentRound }}</h4>\n          </div>\n\n          <div class=\"flex gap-3\">\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"User info\"\n              aria-label=\"Button to open user info\"\n              (click)=\"openBottomSheet('USER')\">\n              <mat-icon>person</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"primary\"\n              matTooltip=\"Open vote history\"\n              aria-label=\"Button to open vote history\"\n              (click)=\"openBottomSheet('HISTORY')\">\n              <mat-icon>history</mat-icon>\n            </button>\n            <button\n              mat-mini-fab\n              color=\"accent\"\n              matTooltip=\"Open sharing options\"\n              aria-label=\"Button to open sharing options\"\n              (click)=\"openBottomSheet('SHARE')\">\n              <mat-icon>ios_share</mat-icon>\n            </button>\n          </div>\n        </div>\n\n        @if (!roomStore.currentPlayers().length) {\n          <mat-card\n            tabindex=\"-1\"\n            class=\"fixed z-50 w-[calc(100%-2rem)] -translate-x-1/2 lg:max-w-7xl left-1/2 top-6\">\n            <mat-card-content class=\"bg-gray-100\">\n              <div class=\"flex flex-row justify-between items-center\">\n                <span>This room has no player yet</span>\n                <button\n                  mat-flat-button\n                  color=\"accent\"\n                  (click)=\"openBottomSheet('SHARE')\">\n                  <mat-icon>ios_share</mat-icon> Share it\n                </button>\n              </div>\n            </mat-card-content>\n          </mat-card>\n        }\n        <div class=\"relative w-min\">\n          <mat-progress-spinner\n            [color]=\"timerColor()\"\n            mode=\"determinate\"\n            [value]=\"timerValue()\">\n            test\n          </mat-progress-spinner>\n          <div\n            class=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl\">\n            {{ timerValue() }}\n          </div>\n        </div>\n        <app-poker-table></app-poker-table>\n      </div>\n      <div class=\"mt-auto\">\n        <app-user-deck></app-user-deck>\n      </div>\n    </div>\n  `,\n  styles: ``,\n  providers: [RoomStore, UserStore],\n})\nexport class RoomComponent {\n  roomName = input.required<string>();\n  readonly roomStore = inject(RoomStore);\n  readonly userStore = inject(UserStore);\n  readonly dialog = inject(MatDialog);\n  readonly bottomSheet = inject(MatBottomSheet);\n\n  timerValue: WritableSignal<number> = signal(70);\n  timerColor: Signal<string> = computed(() =>\n    this.timerValue() < 30 ? 'warn' : 'primary'\n  );\n\n  constructor() {\n    this.roomStore.getOne(this.roomName);\n    this.openDialog();\n  }\n\n  openDialog(): void {\n    this.dialog.open(UserCreationDialogComponent, {\n      disableClose: true,\n      data: { roomStore: this.roomStore, userStore: this.userStore },\n      maxHeight: '80vh',\n      panelClass: 'w-full',\n    });\n  }\n\n  openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {\n    const panelClass = ['h-4/5'];\n    if (sheetType == 'USER') {\n      this.bottomSheet.open(UserProfileComponent, {\n        data: this.userStore,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'SHARE') {\n      this.bottomSheet.open(ShareRoomComponent, {\n        data: this.roomName,\n        panelClass,\n      });\n      return;\n    }\n    if (sheetType == 'HISTORY') {\n      this.bottomSheet.open(VoteHistoryComponent, {\n        data: this.roomStore,\n        panelClass,\n      });\n      return;\n    }\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -1309,7 +979,7 @@
     },
     {
       "name": "RoomListDialogComponent",
-      "id": "component-RoomListDialogComponent-f5fc3c1b69eeed92560efb025aef095d65294dd20b491b1c10f611450dca12f58a432a9426ead06865dd0f23d48f5c2309e2302a67acdd8b0a52af1cc926a7dc",
+      "id": "component-RoomListDialogComponent-ca3c40e4e627b039de286b62fb9f60fd6a1f79ba75f8b10bb152d699dc6a38b0e6b618e3d8d89d7c93c213d905d8c2a7f3824ee3585164e3da8b4c488474745d",
       "file": "src/app/lobby/room-list-dialog/room-list-dialog.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1320,7 +990,7 @@
       "selector": "app-room-list-dialog",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"min-w-96 w-full p-3\">\n  <h2>Create a room</h2>\n  <form\n    [formGroup]=\"newRoomForm()\"\n    class=\"flex flex-row gap-4\"\n    (ngSubmit)=\"createRoom()\">\n    <mat-form-field>\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter the name of the room\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n        @if (name.errors?.['forbiddenValue']) {\n          <mat-error>\n            Name cannot be an existing room.\n            <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n            instead?\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newRoomForm().valid\">\n      Create\n    </button>\n  </form>\n\n  <p>or</p>\n  <h2>Join an active room</h2>\n  <mat-nav-list>\n    @for (roomName of dialogData.availableRooms(); track roomName) {\n      <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n    }\n  </mat-nav-list>\n</div>\n",
+      "template": "<div class=\"w-full p-3\">\n  <h2>Create a room</h2>\n  <form\n    [formGroup]=\"newRoomForm()\"\n    class=\"flex flex-row gap-4\"\n    (ngSubmit)=\"createRoom()\">\n    <mat-form-field class=\"grow\">\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter the name of the room\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n        @if (name.errors?.['forbiddenValue']) {\n          <mat-error>\n            Name cannot be an existing room.\n            <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n            instead?\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newRoomForm().valid\">\n      Create\n    </button>\n  </form>\n\n  <p>or</p>\n  <h2>Join an active room</h2>\n  <mat-nav-list>\n    @for (roomName of dialogData.availableRooms(); track roomName) {\n      <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n    }\n  </mat-nav-list>\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -1418,7 +1088,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  Validators,\n} from '@angular/forms';\nimport { MatError, MatFormField, MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { MatButton } from '@angular/material/button';\nimport { JsonPipe } from '@angular/common';\nimport { MatListModule } from '@angular/material/list';\nimport { Router } from '@angular/router';\n\n@Component({\n  selector: 'app-room-list-dialog',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    MatInput,\n    MatButton,\n    JsonPipe,\n    MatListModule,\n    MatError,\n    MatFormField,\n  ],\n  template: `\n    <div class=\"min-w-96 w-full p-3\">\n      <h2>Create a room</h2>\n      <form\n        [formGroup]=\"newRoomForm()\"\n        class=\"flex flex-row gap-4\"\n        (ngSubmit)=\"createRoom()\">\n        <mat-form-field>\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter the name of the room\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n            @if (name.errors?.['forbiddenValue']) {\n              <mat-error>\n                Name cannot be an existing room.\n                <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n                instead?\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newRoomForm().valid\">\n          Create\n        </button>\n      </form>\n\n      <p>or</p>\n      <h2>Join an active room</h2>\n      <mat-nav-list>\n        @for (roomName of dialogData.availableRooms(); track roomName) {\n          <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n        }\n      </mat-nav-list>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class RoomListDialogComponent {\n  readonly dialogData: RoomStore = inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<RoomListDialogComponent>);\n  readonly router = inject(Router);\n\n  newRoomForm = computed(() => {\n    return new FormGroup({\n      name: new FormControl('', [\n        Validators.required,\n        Validators.pattern(/^[-\\w]+$/),\n        forbiddenValuesValidator(this.dialogData.availableRooms()),\n      ]),\n    });\n  });\n\n  get name() {\n    return this.newRoomForm().get('name');\n  }\n\n  async createRoom() {\n    if (this.name?.value) {\n      await this.router.navigate(['room', this.name.value]);\n      this.dialogRef.close();\n    }\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport { RoomStore } from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  Validators,\n} from '@angular/forms';\nimport { MatError, MatFormField, MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { MatButton } from '@angular/material/button';\nimport { JsonPipe } from '@angular/common';\nimport { MatListModule } from '@angular/material/list';\nimport { Router } from '@angular/router';\n\n@Component({\n  selector: 'app-room-list-dialog',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    MatInput,\n    MatButton,\n    JsonPipe,\n    MatListModule,\n    MatError,\n    MatFormField,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Create a room</h2>\n      <form\n        [formGroup]=\"newRoomForm()\"\n        class=\"flex flex-row gap-4\"\n        (ngSubmit)=\"createRoom()\">\n        <mat-form-field class=\"grow\">\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter the name of the room\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n            @if (name.errors?.['forbiddenValue']) {\n              <mat-error>\n                Name cannot be an existing room.\n                <a class=\"underline\" href=\"/room/{{ name.value }}\">Join it</a>\n                instead?\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newRoomForm().valid\">\n          Create\n        </button>\n      </form>\n\n      <p>or</p>\n      <h2>Join an active room</h2>\n      <mat-nav-list>\n        @for (roomName of dialogData.availableRooms(); track roomName) {\n          <a mat-list-item href=\"/room/{{ roomName }}\">{{ roomName }}</a>\n        }\n      </mat-nav-list>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class RoomListDialogComponent {\n  readonly dialogData: RoomStore = inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<RoomListDialogComponent>);\n  readonly router = inject(Router);\n\n  newRoomForm = computed(() => {\n    return new FormGroup({\n      name: new FormControl('', [\n        Validators.required,\n        Validators.pattern(/^[-\\w]+$/),\n        forbiddenValuesValidator(this.dialogData.availableRooms()),\n      ]),\n    });\n  });\n\n  get name() {\n    return this.newRoomForm().get('name');\n  }\n\n  async createRoom() {\n    if (this.name?.value) {\n      await this.router.navigate(['room', this.name.value]);\n      this.dialogRef.close();\n    }\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -1561,7 +1231,7 @@
     },
     {
       "name": "UserCreationDialogComponent",
-      "id": "component-UserCreationDialogComponent-e53e7e800786b2a698646ff9dc3dd3373552ad18e237bf99911784aab05e7792ab02cad92df6bb1a3a2b29c6c30263afdc5630437fb60214dbe93e15e0d622ea",
+      "id": "component-UserCreationDialogComponent-e32e76a6151bbf1d702f5de9b11b6fd06f5d08e3566489154c182698237dc62922d11331953402a618e48d342cdb56d013ca2f2d0e6b2349ae6cb3361176fda1",
       "file": "src/app/user/user-creation-dialog/user-creation-dialog.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1572,7 +1242,7 @@
       "selector": "app-user-creation-dialog",
       "styleUrls": [],
       "styles": [""],
-      "template": "<div class=\"min-w-96 w-full p-3\">\n  <h2>Welcome</h2>\n  <form\n    [formGroup]=\"newUserForm()\"\n    class=\"flex flex-col gap-2\"\n    (ngSubmit)=\"joinRoom()\">\n    <mat-form-field>\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter your name\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n\n    <mat-form-field>\n      <mat-label>Your role</mat-label>\n      <mat-select formControlName=\"role\" required>\n        @for (role of UserRoleEnumChoices; track role) {\n          <mat-option [value]=\"role\">{{ UserRoleEnum[role] }}</mat-option>\n        }\n      </mat-select>\n    </mat-form-field>\n    @if (newUserForm().errors?.['forbiddenValue']) {\n      <mat-error>\n        There is already a Player with that name, change your role if that's\n        you, else change your name\n      </mat-error>\n    }\n\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newUserForm().valid\">\n      Join\n    </button>\n  </form>\n</div>\n",
+      "template": "<div class=\"w-full p-3\">\n  <h2>Welcome</h2>\n  <form\n    [formGroup]=\"newUserForm()\"\n    class=\"flex flex-col gap-2\"\n    (ngSubmit)=\"joinRoom()\">\n    <mat-form-field>\n      <input\n        type=\"text\"\n        formControlName=\"name\"\n        matInput\n        placeholder=\"Enter your name\"\n        required />\n\n      @if (name && name.invalid && (name.dirty || name.touched)) {\n        @if (name.errors?.['required']) {\n          <mat-error> You must enter a value. </mat-error>\n        }\n        @if (name.errors?.['pattern']) {\n          <mat-error>\n            You must only use unaccented letter, number, underscore or dash\n            characters.\n          </mat-error>\n        }\n      }\n    </mat-form-field>\n\n    <mat-radio-group formControlName=\"role\" required>\n      <mat-label>Your role</mat-label>\n      @for (role of UserRoleEnumChoices; track role) {\n        <mat-radio-button [value]=\"role\">{{\n          UserRoleEnum[role]\n        }}</mat-radio-button>\n      }\n    </mat-radio-group>\n    @if (newUserForm().errors?.['forbiddenValue']) {\n      <mat-error>\n        There is already a Player with that name, change your role if that's\n        you, else change your name\n      </mat-error>\n    }\n\n    <button\n      mat-flat-button\n      color=\"accent\"\n      type=\"submit\"\n      [disabled]=\"!newUserForm().valid\">\n      Join\n    </button>\n  </form>\n</div>\n",
       "templateUrl": [],
       "viewProviders": [],
       "hostDirectives": [],
@@ -1700,20 +1370,20 @@
           "type": "module"
         },
         {
-          "name": "MatSelect"
-        },
-        {
-          "name": "MatOption"
-        },
-        {
           "name": "JsonPipe",
           "type": "pipe"
+        },
+        {
+          "name": "MatRadioButton"
+        },
+        {
+          "name": "MatRadioGroup"
         }
       ],
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserRoleEnumChoices,\n  UserStore,\n} from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  AbstractControl,\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  ValidationErrors,\n  ValidatorFn,\n  Validators,\n} from '@angular/forms';\nimport { MatButton } from '@angular/material/button';\nimport { MatError, MatFormField, MatLabel } from '@angular/material/form-field';\nimport { MatInput } from '@angular/material/input';\nimport { MatOption, MatSelect } from '@angular/material/select';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { JsonPipe } from '@angular/common';\n\n@Component({\n  selector: 'app-user-creation-dialog',\n  standalone: true,\n  imports: [\n    MatButton,\n    MatError,\n    MatFormField,\n    MatInput,\n    MatLabel,\n    ReactiveFormsModule,\n    MatSelect,\n    MatOption,\n    JsonPipe,\n  ],\n  template: `\n    <div class=\"min-w-96 w-full p-3\">\n      <h2>Welcome</h2>\n      <form\n        [formGroup]=\"newUserForm()\"\n        class=\"flex flex-col gap-2\"\n        (ngSubmit)=\"joinRoom()\">\n        <mat-form-field>\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter your name\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n\n        <mat-form-field>\n          <mat-label>Your role</mat-label>\n          <mat-select formControlName=\"role\" required>\n            @for (role of UserRoleEnumChoices; track role) {\n              <mat-option [value]=\"role\">{{ UserRoleEnum[role] }}</mat-option>\n            }\n          </mat-select>\n        </mat-form-field>\n        @if (newUserForm().errors?.['forbiddenValue']) {\n          <mat-error>\n            There is already a Player with that name, change your role if that's\n            you, else change your name\n          </mat-error>\n        }\n\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newUserForm().valid\">\n          Join\n        </button>\n      </form>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserCreationDialogComponent {\n  readonly dialogData: { roomStore: RoomStore; userStore: UserStore } =\n    inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);\n\n  newUserForm = computed(() => {\n    return new FormGroup(\n      {\n        name: new FormControl(this.dialogData.userStore.user()?.name || '', [\n          Validators.required,\n          Validators.pattern(/^[-\\w]+$/),\n        ]),\n        role: new FormControl(\n          this.dialogData.userStore.user()?.role || UserRoleEnum.Player,\n          [Validators.required]\n        ),\n      },\n      {\n        validators: [\n          this.observerWithPlayerName(\n            this.dialogData.roomStore.currentPlayers()\n          ),\n        ],\n      }\n    );\n  });\n\n  get name() {\n    return this.newUserForm().get('name');\n  }\n\n  get role() {\n    return this.newUserForm().get('role');\n  }\n\n  observerWithPlayerName(forbiddenValues: string[]): ValidatorFn {\n    return (control: AbstractControl): ValidationErrors | null => {\n      const name = control.get('name');\n      const role = control.get('role');\n\n      return (\n        (role &&\n          name &&\n          role.value === UserRoleEnum.Observer &&\n          forbiddenValuesValidator(forbiddenValues)(name)) ||\n        null\n      );\n    };\n  }\n\n  joinRoom(): void {\n    if (this.name?.value && this.role?.value != null) {\n      this.dialogData.userStore.setUser({\n        name: this.name.value,\n        role: this.role.value,\n      });\n      if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {\n        this.dialogData.roomStore.addPlayerToRoom(\n          this.dialogData.roomStore.currentRoom().name,\n          this.name.value,\n          () => this.dialogRef.close()\n        );\n      } else {\n        this.dialogRef.close();\n      }\n    }\n  }\n\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly UserRoleEnumChoices = UserRoleEnumChoices;\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n} from '@angular/core';\nimport {\n  RoomStore,\n  UserRoleEnum,\n  UserRoleEnumChoices,\n  UserStore,\n} from '@poker/data-models';\nimport { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\nimport {\n  AbstractControl,\n  FormControl,\n  FormGroup,\n  ReactiveFormsModule,\n  ValidationErrors,\n  ValidatorFn,\n  Validators,\n} from '@angular/forms';\nimport { MatButton } from '@angular/material/button';\nimport { MatError, MatFormField, MatLabel } from '@angular/material/form-field';\nimport { MatInput } from '@angular/material/input';\nimport { forbiddenValuesValidator } from '@poker/utils';\nimport { JsonPipe } from '@angular/common';\nimport { MatRadioButton, MatRadioGroup } from '@angular/material/radio';\n\n@Component({\n  selector: 'app-user-creation-dialog',\n  standalone: true,\n  imports: [\n    MatButton,\n    MatError,\n    MatFormField,\n    MatInput,\n    MatLabel,\n    ReactiveFormsModule,\n    JsonPipe,\n    MatRadioButton,\n    MatRadioGroup,\n  ],\n  template: `\n    <div class=\"w-full p-3\">\n      <h2>Welcome</h2>\n      <form\n        [formGroup]=\"newUserForm()\"\n        class=\"flex flex-col gap-2\"\n        (ngSubmit)=\"joinRoom()\">\n        <mat-form-field>\n          <input\n            type=\"text\"\n            formControlName=\"name\"\n            matInput\n            placeholder=\"Enter your name\"\n            required />\n\n          @if (name && name.invalid && (name.dirty || name.touched)) {\n            @if (name.errors?.['required']) {\n              <mat-error> You must enter a value. </mat-error>\n            }\n            @if (name.errors?.['pattern']) {\n              <mat-error>\n                You must only use unaccented letter, number, underscore or dash\n                characters.\n              </mat-error>\n            }\n          }\n        </mat-form-field>\n\n        <mat-radio-group formControlName=\"role\" required>\n          <mat-label>Your role</mat-label>\n          @for (role of UserRoleEnumChoices; track role) {\n            <mat-radio-button [value]=\"role\">{{\n              UserRoleEnum[role]\n            }}</mat-radio-button>\n          }\n        </mat-radio-group>\n        @if (newUserForm().errors?.['forbiddenValue']) {\n          <mat-error>\n            There is already a Player with that name, change your role if that's\n            you, else change your name\n          </mat-error>\n        }\n\n        <button\n          mat-flat-button\n          color=\"accent\"\n          type=\"submit\"\n          [disabled]=\"!newUserForm().valid\">\n          Join\n        </button>\n      </form>\n    </div>\n  `,\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class UserCreationDialogComponent {\n  readonly dialogData: { roomStore: RoomStore; userStore: UserStore } =\n    inject(MAT_DIALOG_DATA);\n  readonly dialogRef = inject(MatDialogRef<UserCreationDialogComponent>);\n\n  newUserForm = computed(() => {\n    return new FormGroup(\n      {\n        name: new FormControl(this.dialogData.userStore.user()?.name || '', [\n          Validators.required,\n          Validators.pattern(/^[-\\w]+$/),\n        ]),\n        role: new FormControl(\n          this.dialogData.userStore.user()?.role || UserRoleEnum.Player,\n          [Validators.required]\n        ),\n      },\n      {\n        validators: [\n          this.observerWithPlayerName(\n            this.dialogData.roomStore.currentPlayers()\n          ),\n        ],\n      }\n    );\n  });\n\n  get name() {\n    return this.newUserForm().get('name');\n  }\n\n  get role() {\n    return this.newUserForm().get('role');\n  }\n\n  observerWithPlayerName(forbiddenValues: string[]): ValidatorFn {\n    return (control: AbstractControl): ValidationErrors | null => {\n      const name = control.get('name');\n      const role = control.get('role');\n\n      return (\n        (role &&\n          name &&\n          role.value === UserRoleEnum.Observer &&\n          forbiddenValuesValidator(forbiddenValues)(name)) ||\n        null\n      );\n    };\n  }\n\n  joinRoom(): void {\n    if (this.name?.value && this.role?.value != null) {\n      this.dialogData.userStore.setUser({\n        name: this.name.value,\n        role: this.role.value,\n      });\n      if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {\n        this.dialogData.roomStore.addPlayerToRoom(\n          this.dialogData.roomStore.currentRoom().name,\n          this.name.value,\n          () => this.dialogRef.close()\n        );\n      } else {\n        this.dialogRef.close();\n      }\n    }\n  }\n\n  protected readonly UserRoleEnum = UserRoleEnum;\n  protected readonly UserRoleEnumChoices = UserRoleEnumChoices;\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -2044,7 +1714,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story",
-        "defaultValue": "{\n  args: {\n    // @ts-ignore\n    content: signal('Test'),\n    // @ts-ignore\n    size: 'S',\n    // @ts-ignore\n    disabled: false,\n    // @ts-ignore\n    private: false,\n    // @ts-ignore\n    active: false,\n  },\n}"
+        "defaultValue": "{\n  // waiting for https://github.com/storybookjs/storybook/issues/25784 to remove ts annotation\n  args: {\n    // @ts-expect-error waiting for storybook support of angular input signal\n    content: 'Test',\n    // @ts-expect-error waiting for storybook support of angular input signal\n    size: 'S',\n    // @ts-expect-error waiting for storybook support of angular input signal\n    disabled: false,\n    // @ts-expect-error waiting for storybook support of angular input signal\n    private: false,\n    // @ts-expect-error waiting for storybook support of angular input signal\n    active: false,\n  },\n}"
       },
       {
         "name": "environment",
@@ -2107,86 +1777,6 @@
         "defaultValue": "{\n  user: null,\n}"
       },
       {
-        "name": "Large",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  args: {\n    size: 'large',\n    label: 'Button',\n  },\n}"
-      },
-      {
-        "name": "LoggedIn",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/header.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  args: {\n    user: {\n      name: 'Jane Doe',\n    },\n  },\n}"
-      },
-      {
-        "name": "LoggedIn",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/page.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    const loginButton = canvas.getByRole('button', { name: /Log in/i });\n    await expect(loginButton).toBeInTheDocument();\n    await userEvent.click(loginButton);\n    await expect(loginButton).not.toBeInTheDocument();\n\n    const logoutButton = canvas.getByRole('button', { name: /Log out/i });\n    await expect(logoutButton).toBeInTheDocument();\n  },\n}"
-      },
-      {
-        "name": "LoggedOut",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/header.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{}"
-      },
-      {
-        "name": "LoggedOut",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/page.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{}"
-      },
-      {
-        "name": "meta",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Meta<ButtonComponent>",
-        "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  render: (args: ButtonComponent) => ({\n    props: {\n      backgroundColor: null,\n      ...args,\n    },\n  }),\n  argTypes: {\n    backgroundColor: {\n      control: 'color',\n    },\n  },\n}"
-      },
-      {
-        "name": "meta",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/header.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Meta<HeaderComponent>",
-        "defaultValue": "{\n  title: 'Example/Header',\n  component: HeaderComponent,\n  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs\n  tags: ['autodocs'],\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
-      },
-      {
-        "name": "meta",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/page.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Meta<PageComponent>",
-        "defaultValue": "{\n  title: 'Example/Page',\n  component: PageComponent,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
-      },
-      {
         "name": "meta",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -2194,7 +1784,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta<PokerCardComponent>",
-        "defaultValue": "{\n  title: 'Example/Button',\n  component: PokerCardComponent,\n  tags: ['autodocs'],\n}"
+        "defaultValue": "{\n  title: 'PokerCard',\n  component: PokerCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    content: { type: 'string' },\n    size: { type: { name: 'enum', value: ['S', 'L'] } },\n    disabled: { type: 'boolean' },\n    private: { type: 'boolean' },\n    active: { type: 'boolean' },\n  },\n}"
       },
       {
         "name": "mqttDefaults",
@@ -2215,16 +1805,6 @@
         "deprecationMessage": "",
         "type": "Preview",
         "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: '^on[A-Z].*' },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
-      },
-      {
-        "name": "Primary",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
       },
       {
         "name": "resolvedRoomTitle",
@@ -2255,26 +1835,6 @@
         "deprecationMessage": "",
         "type": "",
         "defaultValue": "signalStore(\n  withDevtools('rooms'),\n  withState<RoomState>(initialState),\n  withComputed(({ currentRoom }) => ({\n    currentVotes: computed(\n      () => currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n    ),\n    historyVotes: computed(() => {\n      return Object.fromEntries(\n        Object.entries(currentRoom.votePerRoundPerPlayer()).filter(\n          ([round]) => Number(round) != currentRoom.currentRound()\n        )\n      );\n    }),\n    currentPlayers: computed(() =>\n      Object.keys(\n        currentRoom.votePerRoundPerPlayer()[currentRoom.currentRound()]\n      )\n    ),\n  })),\n  withMethods((store, roomService = inject(RoomService)) => {\n    function getCurrentRound(name: string) {\n      console.debug('getCurrentRound', name);\n      return roomService.getCurrentRound(name).pipe(\n        tapResponse({\n          next: (currentRound: number) => {\n            console.debug('service getCurrentRound', name, currentRound);\n            patchState(store, state => {\n              if (state.currentRoom.currentRound !== currentRound) {\n                const currentPlayers = Object.keys(\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ]\n                );\n                // update round, clone player\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    currentRound,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [currentRound]: Object.fromEntries(\n                        currentPlayers.map(player => [player, null])\n                      ),\n                    },\n                  } as RoomModel,\n                };\n              } else {\n                return {};\n              }\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getPlayers(name: string) {\n      console.debug('getPlayers', name);\n      return roomService.getPlayers(name).pipe(\n        tapResponse({\n          next: ({ player, isDeleted }) => {\n            console.debug('service getPlayers', name, player, isDeleted);\n            patchState(store, state => {\n              if (isDeleted) {\n                const { [player]: removedKey, ...roundVoteWithoutPlayer } =\n                  state.currentRoom.votePerRoundPerPlayer[\n                    state.currentRoom.currentRound\n                  ];\n                return {\n                  currentRoom: {\n                    ...state.currentRoom,\n                    votePerRoundPerPlayer: {\n                      ...state.currentRoom.votePerRoundPerPlayer,\n                      [state.currentRoom.currentRound]: roundVoteWithoutPlayer,\n                    },\n                  } as RoomModel,\n                };\n              }\n              return {\n                currentRoom: {\n                  ...state.currentRoom,\n                  votePerRoundPerPlayer: {\n                    ...state.currentRoom.votePerRoundPerPlayer,\n                    [state.currentRoom.currentRound]: {\n                      ...state.currentRoom.votePerRoundPerPlayer[\n                        state.currentRoom.currentRound\n                      ],\n                      [player]: null,\n                    },\n                  },\n                },\n              };\n            });\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    function getVotes(name: string) {\n      console.debug('getVotes', name);\n      return roomService.getVotes(name).pipe(\n        tapResponse({\n          next: ({ roundNumber, player, voteOption }) => {\n            console.debug(\n              'service getVotes',\n              name,\n              roundNumber,\n              player,\n              voteOption\n            );\n            patchState(store, state => ({\n              currentRoom: {\n                ...state.currentRoom,\n                votePerRoundPerPlayer: {\n                  ...state.currentRoom.votePerRoundPerPlayer,\n                  [roundNumber]: {\n                    ...state.currentRoom.votePerRoundPerPlayer[roundNumber],\n                    [player]: voteOption,\n                  },\n                },\n              } as RoomModel,\n            }));\n          },\n          error: console.error,\n        })\n      );\n    }\n\n    return {\n      listAll: rxMethod<void>(\n        exhaustMap(() => {\n          console.debug('listAll');\n          return roomService.listAll().pipe(\n            tapResponse({\n              next: (availableRoom: string) =>\n                patchState(store, state => ({\n                  availableRooms: [...state.availableRooms, availableRoom],\n                })),\n              error: console.error,\n            })\n          );\n        })\n      ),\n\n      addPlayerToRoom(\n        roomName: string,\n        playerName: string,\n        onComplete: (() => void) | undefined = undefined\n      ): void {\n        console.debug('addPlayerToRoom', roomName, playerName);\n        roomService.addPlayerToRoom(roomName, playerName, onComplete);\n      },\n\n      vote(\n        currentRoom: RoomModel,\n        user: UserModel | null,\n        voteOption: VoteChoice\n      ): void {\n        console.debug('vote', currentRoom, user, voteOption);\n        return roomService.vote(\n          currentRoom.name,\n          currentRoom.currentRound,\n          user,\n          voteOption\n        );\n      },\n\n      getOne: rxMethod<string>(\n        exhaustMap((name: string) => {\n          console.debug('getOne', name);\n          patchState(store, state => ({\n            currentRoom: {\n              ...state.currentRoom,\n              name,\n            } as RoomModel,\n          }));\n          return merge(getPlayers(name), getCurrentRound(name), getVotes(name));\n        })\n      ),\n    };\n  })\n)"
-      },
-      {
-        "name": "Secondary",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  args: {\n    label: 'Button',\n  },\n}"
-      },
-      {
-        "name": "Small",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Story",
-        "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
       },
       {
         "name": "storeRegistry",
@@ -2608,39 +2168,6 @@
         "name": "Story",
         "ctype": "miscellaneous",
         "subtype": "typealias",
-        "rawtype": "StoryObj<ButtonComponent>",
-        "file": "src/stories/button.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 183
-      },
-      {
-        "name": "Story",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
-        "rawtype": "StoryObj<HeaderComponent>",
-        "file": "src/stories/header.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 183
-      },
-      {
-        "name": "Story",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
-        "rawtype": "StoryObj<PageComponent>",
-        "file": "src/stories/page.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 183
-      },
-      {
-        "name": "Story",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
         "rawtype": "StoryObj<PokerCardComponent>",
         "file": "src/stories/poker-card.stories.ts",
         "deprecated": false,
@@ -2779,7 +2306,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Story",
-          "defaultValue": "{\n  args: {\n    // @ts-ignore\n    content: signal('Test'),\n    // @ts-ignore\n    size: 'S',\n    // @ts-ignore\n    disabled: false,\n    // @ts-ignore\n    private: false,\n    // @ts-ignore\n    active: false,\n  },\n}"
+          "defaultValue": "{\n  // waiting for https://github.com/storybookjs/storybook/issues/25784 to remove ts annotation\n  args: {\n    // @ts-expect-error waiting for storybook support of angular input signal\n    content: 'Test',\n    // @ts-expect-error waiting for storybook support of angular input signal\n    size: 'S',\n    // @ts-expect-error waiting for storybook support of angular input signal\n    disabled: false,\n    // @ts-expect-error waiting for storybook support of angular input signal\n    private: false,\n    // @ts-expect-error waiting for storybook support of angular input signal\n    active: false,\n  },\n}"
         },
         {
           "name": "meta",
@@ -2789,7 +2316,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Meta<PokerCardComponent>",
-          "defaultValue": "{\n  title: 'Example/Button',\n  component: PokerCardComponent,\n  tags: ['autodocs'],\n}"
+          "defaultValue": "{\n  title: 'PokerCard',\n  component: PokerCardComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    content: { type: 'string' },\n    size: { type: { name: 'enum', value: ['S', 'L'] } },\n    disabled: { type: 'boolean' },\n    private: { type: 'boolean' },\n    active: { type: 'boolean' },\n  },\n}"
         }
       ],
       "src/environments/environment.production.ts": [
@@ -2892,122 +2419,6 @@
           "deprecationMessage": "",
           "type": "",
           "defaultValue": "signalStore(\n  withDevtools('users'),\n  withState<UserState>(initialState),\n  withComputed(({ user }) => ({\n    userDisplayRole: computed(() => {\n      const currentUser = user();\n      if (currentUser != null) {\n        return UserRoleEnum[currentUser.role];\n      }\n      return null;\n    }),\n  })),\n  withMethods(store => ({\n    syncCachedUser(): void {\n      const savedUser: string | null = localStorage.getItem('user');\n      if (savedUser) {\n        const user: UserModel = JSON.parse(savedUser);\n        patchState(store, () => ({ user }));\n      }\n    },\n    setUser(user: UserModel): void {\n      patchState(store, () => ({ user }));\n      localStorage.setItem('user', JSON.stringify(user));\n    },\n  })),\n  withHooks({\n    onInit(store) {\n      store.syncCachedUser();\n    },\n  })\n)"
-        }
-      ],
-      "src/stories/button.stories.ts": [
-        {
-          "name": "Large",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  args: {\n    size: 'large',\n    label: 'Button',\n  },\n}"
-        },
-        {
-          "name": "meta",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Meta<ButtonComponent>",
-          "defaultValue": "{\n  title: 'Example/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  render: (args: ButtonComponent) => ({\n    props: {\n      backgroundColor: null,\n      ...args,\n    },\n  }),\n  argTypes: {\n    backgroundColor: {\n      control: 'color',\n    },\n  },\n}"
-        },
-        {
-          "name": "Primary",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  args: {\n    primary: true,\n    label: 'Button',\n  },\n}"
-        },
-        {
-          "name": "Secondary",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  args: {\n    label: 'Button',\n  },\n}"
-        },
-        {
-          "name": "Small",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  args: {\n    size: 'small',\n    label: 'Button',\n  },\n}"
-        }
-      ],
-      "src/stories/header.stories.ts": [
-        {
-          "name": "LoggedIn",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/header.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  args: {\n    user: {\n      name: 'Jane Doe',\n    },\n  },\n}"
-        },
-        {
-          "name": "LoggedOut",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/header.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{}"
-        },
-        {
-          "name": "meta",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/header.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Meta<HeaderComponent>",
-          "defaultValue": "{\n  title: 'Example/Header',\n  component: HeaderComponent,\n  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs\n  tags: ['autodocs'],\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
-        }
-      ],
-      "src/stories/page.stories.ts": [
-        {
-          "name": "LoggedIn",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/page.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{\n  play: async ({ canvasElement }) => {\n    const canvas = within(canvasElement);\n    const loginButton = canvas.getByRole('button', { name: /Log in/i });\n    await expect(loginButton).toBeInTheDocument();\n    await userEvent.click(loginButton);\n    await expect(loginButton).not.toBeInTheDocument();\n\n    const logoutButton = canvas.getByRole('button', { name: /Log out/i });\n    await expect(logoutButton).toBeInTheDocument();\n  },\n}"
-        },
-        {
-          "name": "LoggedOut",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/page.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Story",
-          "defaultValue": "{}"
-        },
-        {
-          "name": "meta",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "src/stories/page.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Meta<PageComponent>",
-          "defaultValue": "{\n  title: 'Example/Page',\n  component: PageComponent,\n  parameters: {\n    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout\n    layout: 'fullscreen',\n  },\n}"
         }
       ],
       ".storybook/preview.ts": [
@@ -3396,45 +2807,6 @@
           "kind": 183
         }
       ],
-      "src/stories/button.stories.ts": [
-        {
-          "name": "Story",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "StoryObj<ButtonComponent>",
-          "file": "src/stories/button.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 183
-        }
-      ],
-      "src/stories/header.stories.ts": [
-        {
-          "name": "Story",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "StoryObj<HeaderComponent>",
-          "file": "src/stories/header.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 183
-        }
-      ],
-      "src/stories/page.stories.ts": [
-        {
-          "name": "Story",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "StoryObj<PageComponent>",
-          "file": "src/stories/page.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 183
-        }
-      ],
       "src/stories/poker-card.stories.ts": [
         {
           "name": "Story",
@@ -3489,7 +2861,7 @@
   },
   "routes": [],
   "coverage": {
-    "count": 3,
+    "count": 2,
     "status": "low",
     "files": [
       {
@@ -3906,143 +3278,6 @@
         "status": "low"
       },
       {
-        "filePath": "src/stories/button.component.ts",
-        "type": "component",
-        "linktype": "component",
-        "name": "ButtonComponent",
-        "coveragePercent": 83,
-        "coverageCount": "5/6",
-        "status": "very-good"
-      },
-      {
-        "filePath": "src/stories/button.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Large",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/button.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "meta",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/button.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Primary",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/button.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Secondary",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/button.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Small",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/header.component.ts",
-        "type": "component",
-        "linktype": "component",
-        "name": "HeaderComponent",
-        "coveragePercent": 0,
-        "coverageCount": "0/5",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/header.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "LoggedIn",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/header.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "LoggedOut",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/header.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "meta",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/page.component.ts",
-        "type": "component",
-        "linktype": "component",
-        "name": "PageComponent",
-        "coveragePercent": 0,
-        "coverageCount": "0/5",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/page.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "LoggedIn",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/page.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "LoggedOut",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/page.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "meta",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
         "filePath": "src/stories/poker-card.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
@@ -4060,15 +3295,6 @@
         "name": "meta",
         "coveragePercent": 0,
         "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "src/stories/user.ts",
-        "type": "interface",
-        "linktype": "interface",
-        "name": "User",
-        "coveragePercent": 0,
-        "coverageCount": "0/2",
         "status": "low"
       }
     ]

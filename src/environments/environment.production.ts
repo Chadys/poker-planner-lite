@@ -5,6 +5,7 @@ export const environment: EnvironmentConfig = {
   production: false,
   env: 'production',
 
+  defaultCountdown: 3,
   mqttConfigOptions: {
     ...mqttDefaults,
     hostname: '#MQTT_HOST',

@@ -8,6 +8,7 @@ export interface EnvironmentConfig {
   production: boolean;
   env: 'dev' | 'staging' | 'production';
 
+  defaultCountdown: number; // in seconds
   mqttConfigOptions: IMqttServiceOptions;
 }
 

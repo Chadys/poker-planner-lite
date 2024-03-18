@@ -1,12 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   input,
-  Signal,
-  signal,
-  WritableSignal,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';
@@ -27,11 +23,11 @@ import {
   MatCardActions,
   MatCardContent,
 } from '@angular/material/card';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { PokerCardComponent } from './poker-card/poker-card.component';
 import { VoteHistoryComponent } from './vote-history/vote-history.component';
 import { UserDeckComponent } from '../user/user-deck/user-deck.component';
 import { PokerTableComponent } from './poker-table/poker-table.component';
+import { RoomTimerComponent } from './room-timer/room-timer.component';
 
 @Component({
   selector: 'app-room',
@@ -47,11 +43,11 @@ import { PokerTableComponent } from './poker-table/poker-table.component';
     MatCard,
     MatCardActions,
     MatCardContent,
-    MatProgressSpinner,
     PokerCardComponent,
     KeyValuePipe,
     UserDeckComponent,
     PokerTableComponent,
+    RoomTimerComponent,
   ],
   template: `
     <div class="p-4 h-svh flex flex-col">
@@ -111,18 +107,7 @@ import { PokerTableComponent } from './poker-table/poker-table.component';
             </mat-card-content>
           </mat-card>
         }
-        <div class="relative w-min">
-          <mat-progress-spinner
-            [color]="timerColor()"
-            mode="determinate"
-            [value]="timerValue()">
-            test
-          </mat-progress-spinner>
-          <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl">
-            {{ timerValue() }}
-          </div>
-        </div>
+        <app-room-timer [countdown]="roomStore.countdown()"></app-room-timer>
         <app-poker-table></app-poker-table>
       </div>
       <div class="mt-auto">
@@ -139,11 +124,6 @@ export class RoomComponent {
   readonly userStore = inject(UserStore);
   readonly dialog = inject(MatDialog);
   readonly bottomSheet = inject(MatBottomSheet);
-
-  timerValue: WritableSignal<number> = signal(70);
-  timerColor: Signal<string> = computed(() =>
-    this.timerValue() < 30 ? 'warn' : 'primary'
-  );
 
   constructor() {
     this.roomStore.getOne(this.roomName);

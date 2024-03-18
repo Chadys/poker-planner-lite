@@ -9,19 +9,22 @@ import { withDevtools } from '@poker/utils';
 import { roomDefault, RoomModel, VoteChoice } from './room.model';
 import { computed, inject } from '@angular/core';
 import { RoomService } from './room.service';
-import { exhaustMap, merge } from 'rxjs';
+import { timer, exhaustMap, merge, scan, switchMap, take, tap } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { UserModel } from '../user';
+import { environment } from '../../../environments/environment';
 
 export type RoomState = {
   currentRoom: RoomModel;
   availableRooms: string[];
+  countdown: number; // in seconds
 };
 
 const initialState: RoomState = {
   currentRoom: roomDefault,
   availableRooms: [],
+  countdown: 0,
 };
 
 export const RoomStore = signalStore(
@@ -45,6 +48,22 @@ export const RoomStore = signalStore(
     ),
   })),
   withMethods((store, roomService = inject(RoomService)) => {
+    const launchCountdown = rxMethod<number>(
+      switchMap(countdownSeconds => {
+        console.debug('launchCountdown', countdownSeconds);
+        return timer(0, 1000).pipe(
+          scan(acc => --acc, countdownSeconds + 1),
+          take(countdownSeconds + 1),
+          tap(countdown => {
+            console.debug('countdown', countdown);
+            patchState(store, () => ({
+              countdown,
+            }));
+          })
+        );
+      })
+    );
+
     function getCurrentRound(name: string) {
       console.debug('getCurrentRound', name);
       return roomService.getCurrentRound(name).pipe(
@@ -136,18 +155,29 @@ export const RoomStore = signalStore(
               player,
               voteOption
             );
-            patchState(store, state => ({
-              currentRoom: {
-                ...state.currentRoom,
-                votePerRoundPerPlayer: {
-                  ...state.currentRoom.votePerRoundPerPlayer,
-                  [roundNumber]: {
-                    ...state.currentRoom.votePerRoundPerPlayer[roundNumber],
-                    [player]: voteOption,
+            patchState(store, state => {
+              const newResult = {
+                ...state.currentRoom.votePerRoundPerPlayer[roundNumber],
+                [player]: voteOption,
+              };
+              if (
+                Object.values(newResult).every(
+                  voteOption => voteOption !== null
+                )
+              ) {
+                // all votes have been received
+                launchCountdown(environment.defaultCountdown);
+              }
+              return {
+                currentRoom: {
+                  ...state.currentRoom,
+                  votePerRoundPerPlayer: {
+                    ...state.currentRoom.votePerRoundPerPlayer,
+                    [roundNumber]: newResult,
                   },
-                },
-              } as RoomModel,
-            }));
+                } as RoomModel,
+              };
+            });
           },
           error: console.error,
         })
@@ -185,7 +215,7 @@ export const RoomStore = signalStore(
         voteOption: VoteChoice
       ): void {
         console.debug('vote', currentRoom, user, voteOption);
-        return roomService.vote(
+        roomService.vote(
           currentRoom.name,
           currentRoom.currentRound,
           user,
