@@ -19,7 +19,7 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { UserProfileComponent } from '../user/user-profile/user-profile.component';
+import { UserSettingsComponent } from '../user/user-profile/user-settings.component';
 import { ShareRoomComponent } from './share-room/share-room.component';
 import {
   MatCard,
@@ -72,10 +72,10 @@ import { RouterLink } from '@angular/router';
             <button
               mat-mini-fab
               color="primary"
-              matTooltip="User info"
-              aria-label="Button to open user info"
+              matTooltip="User & players settings"
+              aria-label="Button to open user & players settings"
               (click)="openBottomSheet('USER')">
-              <mat-icon>person</mat-icon>
+              <mat-icon>manage_accounts</mat-icon>
             </button>
             <button
               mat-mini-fab
@@ -159,8 +159,8 @@ export class RoomComponent implements OnDestroy {
   openBottomSheet(sheetType: 'USER' | 'SHARE' | 'HISTORY') {
     const panelClass = ['h-4/5'];
     if (sheetType == 'USER') {
-      this.bottomSheet.open(UserProfileComponent, {
-        data: this.userStore,
+      this.bottomSheet.open(UserSettingsComponent, {
+        data: { roomStore: this.roomStore, userStore: this.userStore },
         panelClass,
       });
       return;
