@@ -114,4 +114,18 @@ export class RoomService {
       .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
       .subscribe({ error: console.error });
   }
+
+  setRound(roomName: string, newRound: number) {
+    this.mqttService
+      .publish(`rooms/${roomName}/current-round/`, newRound.toString(), {
+        qos: 1,
+        retain: true,
+        properties: {
+          payloadFormatIndicator: true,
+          messageExpiryInterval: 21600, // 6h
+        },
+      })
+      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
+      .subscribe({ error: console.error });
+  }
 }

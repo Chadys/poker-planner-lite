@@ -40,8 +40,11 @@ import { PokerCardComponent } from '../../room/poker-card/poker-card.component';
             [class]="
               voteOption === userVote()
                 ? ['pb-2', 'pt-0']
-                : ['hover:pb-2', 'hover:pt-0', 'pt-2']
+                : roomStore.countdown() === 0
+                  ? ['pt-2']
+                  : ['hover:pb-2', 'hover:pt-0', 'pt-2']
             "
+            [disabled]="roomStore.countdown() === 0"
             [active]="voteOption === userVote()"
             (click)="vote(voteOption)"></app-poker-card>
         }
@@ -66,10 +69,6 @@ export class UserDeckComponent {
   });
 
   vote(voteOption: VoteChoice) {
-    this.roomStore.vote(
-      this.roomStore.currentRoom(),
-      this.userStore.user(),
-      voteOption
-    );
+    this.roomStore.vote(this.userStore.user(), voteOption);
   }
 }

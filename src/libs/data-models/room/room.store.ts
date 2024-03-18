@@ -1,4 +1,5 @@
 import {
+  getState,
   patchState,
   signalStore,
   withComputed,
@@ -210,17 +211,23 @@ export const RoomStore = signalStore(
         roomService.addPlayerToRoom(roomName, playerName, onComplete);
       },
 
-      vote(
-        currentRoom: RoomModel,
-        user: UserModel | null,
-        voteOption: VoteChoice
-      ): void {
-        console.debug('vote', currentRoom, user, voteOption);
+      vote(user: UserModel | null, voteOption: VoteChoice): void {
+        const state = getState(store);
+        console.debug('vote', state.currentRoom, user, voteOption);
         roomService.vote(
-          currentRoom.name,
-          currentRoom.currentRound,
+          state.currentRoom.name,
+          state.currentRoom.currentRound,
           user,
           voteOption
+        );
+      },
+
+      incrementRound(): void {
+        const state = getState(store);
+        console.debug('incrementRound', state.currentRoom.currentRound);
+        roomService.setRound(
+          state.currentRoom.name,
+          state.currentRoom.currentRound + 1
         );
       },
 

@@ -39,6 +39,6 @@ export class RoomTimerComponent {
     () => ((this.countdown() || 0) / environment.defaultCountdown) * 100
   );
   timerColor: Signal<string> = computed(() =>
-    this.timerValue() < 40 ? 'warn' : 'primary'
+    this.timerValue() < 40 ? 'warn' : 'accent'
   );
 }

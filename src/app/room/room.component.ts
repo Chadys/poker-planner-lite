@@ -11,6 +11,7 @@ import { JsonPipe, KeyValuePipe } from '@angular/common';
 import {
   MatAnchor,
   MatButton,
+  MatFabButton,
   MatMiniFabButton,
 } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -48,6 +49,7 @@ import { RoomTimerComponent } from './room-timer/room-timer.component';
     UserDeckComponent,
     PokerTableComponent,
     RoomTimerComponent,
+    MatFabButton,
   ],
   template: `
     <div class="p-4 h-svh flex flex-col">
@@ -109,6 +111,13 @@ import { RoomTimerComponent } from './room-timer/room-timer.component';
         }
         <app-room-timer [countdown]="roomStore.countdown()"></app-room-timer>
         <app-poker-table></app-poker-table>
+        @if (roomStore.countdown() === 0) {
+          <div class="flex w-full justify-center mt-8">
+            <button mat-fab extended color="primary" (click)="nextRound()">
+              <mat-icon>arrow_forward_ios</mat-icon> Next round
+            </button>
+          </div>
+        }
       </div>
       <div class="mt-auto">
         <app-user-deck></app-user-deck>
@@ -162,5 +171,9 @@ export class RoomComponent {
       });
       return;
     }
+  }
+
+  nextRound() {
+    this.roomStore.incrementRound();
   }
 }
