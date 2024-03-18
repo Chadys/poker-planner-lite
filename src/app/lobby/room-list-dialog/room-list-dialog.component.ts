@@ -5,7 +5,11 @@ import {
   inject,
 } from '@angular/core';
 import { RoomStore } from '@poker/data-models';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogClose,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +21,7 @@ import { forbiddenValuesValidator } from '@poker/utils';
 import { MatButton } from '@angular/material/button';
 import { JsonPipe } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-room-list-dialog',
@@ -30,6 +34,8 @@ import { Router } from '@angular/router';
     MatListModule,
     MatError,
     MatFormField,
+    RouterLink,
+    MatDialogClose,
   ],
   template: `
     <div class="w-full p-3">
@@ -59,7 +65,12 @@ import { Router } from '@angular/router';
             @if (name.errors?.['forbiddenValue']) {
               <mat-error>
                 Name cannot be an existing room.
-                <a class="underline" href="/room/{{ name.value }}">Join it</a>
+                <a
+                  class="underline"
+                  routerLink="/room/{{ name.value }}"
+                  matDialogClose
+                  >Join it</a
+                >
                 instead?
               </mat-error>
             }
@@ -78,7 +89,9 @@ import { Router } from '@angular/router';
       <h2>Join an active room</h2>
       <mat-nav-list>
         @for (roomName of dialogData.availableRooms(); track roomName) {
-          <a mat-list-item href="/room/{{ roomName }}">{{ roomName }}</a>
+          <a mat-list-item routerLink="/room/{{ roomName }}" matDialogClose>{{
+            roomName
+          }}</a>
         }
       </mat-nav-list>
     </div>

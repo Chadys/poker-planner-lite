@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostListener,
   inject,
   input,
+  OnDestroy,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserCreationDialogComponent } from '../user/user-creation-dialog/user-creation-dialog.component';
-import { RoomStore, UserStore } from '@poker/data-models';
+import { RoomStore, UserRoleEnum, UserStore } from '@poker/data-models';
 import { JsonPipe, KeyValuePipe } from '@angular/common';
 import {
   MatAnchor,
@@ -29,6 +31,7 @@ import { VoteHistoryComponent } from './vote-history/vote-history.component';
 import { UserDeckComponent } from '../user/user-deck/user-deck.component';
 import { PokerTableComponent } from './poker-table/poker-table.component';
 import { RoomTimerComponent } from './room-timer/room-timer.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -50,12 +53,13 @@ import { RoomTimerComponent } from './room-timer/room-timer.component';
     PokerTableComponent,
     RoomTimerComponent,
     MatFabButton,
+    RouterLink,
   ],
   template: `
     <div class="p-4 h-svh flex flex-col">
       <div>
         <div class="flex w-full justify-between">
-          <a mat-stroked-button href="/lobby">
+          <a mat-stroked-button routerLink="/lobby">
             <mat-icon>home</mat-icon> Back to lobby
           </a>
 
@@ -111,7 +115,10 @@ import { RoomTimerComponent } from './room-timer/room-timer.component';
         }
         <app-room-timer [countdown]="roomStore.countdown()"></app-room-timer>
         <app-poker-table></app-poker-table>
-        @if (roomStore.countdown() === 0) {
+        @if (
+          userStore.user()?.role === UserRoleEnum.Player &&
+          roomStore.countdown() === 0
+        ) {
           <div class="flex w-full justify-center mt-8">
             <button mat-fab extended color="primary" (click)="nextRound()">
               <mat-icon>arrow_forward_ios</mat-icon> Next round
@@ -127,7 +134,7 @@ import { RoomTimerComponent } from './room-timer/room-timer.component';
   styles: ``,
   providers: [RoomStore, UserStore],
 })
-export class RoomComponent {
+export class RoomComponent implements OnDestroy {
   roomName = input.required<string>();
   readonly roomStore = inject(RoomStore);
   readonly userStore = inject(UserStore);
@@ -137,6 +144,7 @@ export class RoomComponent {
   constructor() {
     this.roomStore.getOne(this.roomName);
     this.openDialog();
+    this.roomStore.stopCountdown();
   }
 
   openDialog(): void {
@@ -176,4 +184,14 @@ export class RoomComponent {
   nextRound() {
     this.roomStore.incrementRound();
   }
+
+  @HostListener('window:beforeunload')
+  ngOnDestroy() {
+    const user = this.userStore.user();
+    if (user?.role == UserRoleEnum.Player) {
+      this.roomStore.removePlayerFromRoom(user.name);
+    }
+  }
+
+  protected readonly UserRoleEnum = UserRoleEnum;
 }

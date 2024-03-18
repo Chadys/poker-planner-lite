@@ -24,7 +24,7 @@ import { JsonPipe } from '@angular/common';
       @if (countdown()) {
         <div
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl">
-          {{ countdown() | json }}
+          {{ countdown() }}
         </div>
       }
     </div>

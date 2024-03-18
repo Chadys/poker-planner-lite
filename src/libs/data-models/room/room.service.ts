@@ -39,6 +39,20 @@ export class RoomService {
       .subscribe({ complete: onComplete, error: console.error });
   }
 
+  removePlayerFromRoom(roomName: string, playerName: string) {
+    this.mqttService
+      .publish(`rooms/${roomName}/connected-players/${playerName}`, '', {
+        qos: 1,
+        retain: true,
+        properties: {
+          payloadFormatIndicator: true,
+          messageExpiryInterval: 21600, // 6 hours
+        },
+      })
+      .pipe(retry({ count: 3, delay: 1000, resetOnSuccess: true }))
+      .subscribe({ error: console.error });
+  }
+
   getPlayers(
     roomName: string
   ): Observable<{ player: string; isDeleted: boolean }> {

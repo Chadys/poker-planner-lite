@@ -154,10 +154,8 @@ export class UserCreationDialogComponent {
         role: this.role.value,
       });
       if ((this.role.value as UserRoleEnum) == UserRoleEnum.Player) {
-        this.dialogData.roomStore.addPlayerToRoom(
-          this.dialogData.roomStore.currentRoom().name,
-          this.name.value,
-          () => this.dialogRef.close()
+        this.dialogData.roomStore.addPlayerToRoom(this.name.value, () =>
+          this.dialogRef.close()
         );
       } else {
         this.dialogRef.close();

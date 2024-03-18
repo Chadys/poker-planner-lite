@@ -10,7 +10,16 @@ import { withDevtools } from '@poker/utils';
 import { roomDefault, RoomModel, VoteChoice } from './room.model';
 import { computed, inject } from '@angular/core';
 import { RoomService } from './room.service';
-import { timer, exhaustMap, merge, scan, switchMap, take, tap } from 'rxjs';
+import {
+  timer,
+  exhaustMap,
+  merge,
+  scan,
+  switchMap,
+  take,
+  tap,
+  EMPTY,
+} from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { tapResponse } from '@ngrx/operators';
 import { UserModel } from '../user';
@@ -49,9 +58,12 @@ export const RoomStore = signalStore(
     ),
   })),
   withMethods((store, roomService = inject(RoomService)) => {
-    const launchCountdown = rxMethod<number>(
+    const launchCountdown = rxMethod<number | null>(
       switchMap(countdownSeconds => {
         console.debug('launchCountdown', countdownSeconds);
+        if (countdownSeconds === null) {
+          return EMPTY;
+        }
         return timer(0, 1000).pipe(
           scan(acc => --acc, countdownSeconds + 1),
           take(countdownSeconds + 1),
@@ -61,6 +73,22 @@ export const RoomStore = signalStore(
               countdown,
             }));
           })
+        );
+      })
+    );
+    const stopCountdown = rxMethod<void>(
+      switchMap(() => {
+        // workaround to make countdown stop instead of using launchCountdown.unsubscribe
+        // because it seems to prevent countdown from being started ever again afterward
+        launchCountdown(null);
+        // no idea why this is necessary instead of synchronously calling patchState...
+        return timer(0, 1000).pipe(
+          take(1),
+          tap(() =>
+            patchState(store, () => ({
+              countdown: null,
+            }))
+          )
         );
       })
     );
@@ -114,6 +142,14 @@ export const RoomStore = signalStore(
                   state.currentRoom.votePerRoundPerPlayer[
                     state.currentRoom.currentRound
                   ];
+                if (
+                  Object.values(roundVoteWithoutPlayer).every(
+                    voteOption => voteOption !== null
+                  )
+                ) {
+                  // without that player, all votes have been received
+                  launchCountdown(environment.defaultCountdown);
+                }
                 return {
                   currentRoom: {
                     ...state.currentRoom,
@@ -124,6 +160,7 @@ export const RoomStore = signalStore(
                   } as RoomModel,
                 };
               }
+              stopCountdown();
               return {
                 currentRoom: {
                   ...state.currentRoom,
@@ -203,12 +240,26 @@ export const RoomStore = signalStore(
       ),
 
       addPlayerToRoom(
-        roomName: string,
         playerName: string,
         onComplete: (() => void) | undefined = undefined
       ): void {
-        console.debug('addPlayerToRoom', roomName, playerName);
-        roomService.addPlayerToRoom(roomName, playerName, onComplete);
+        const state = getState(store);
+        console.debug('addPlayerToRoom', state.currentRoom.name, playerName);
+        roomService.addPlayerToRoom(
+          state.currentRoom.name,
+          playerName,
+          onComplete
+        );
+      },
+
+      removePlayerFromRoom(playerName: string): void {
+        const state = getState(store);
+        console.debug(
+          'removePlayerFromRoom',
+          state.currentRoom.name,
+          playerName
+        );
+        roomService.removePlayerFromRoom(state.currentRoom.name, playerName);
       },
 
       vote(user: UserModel | null, voteOption: VoteChoice): void {
@@ -243,6 +294,9 @@ export const RoomStore = signalStore(
           return merge(getPlayers(name), getCurrentRound(name), getVotes(name));
         })
       ),
+
+      launchCountdown,
+      stopCountdown,
     };
   })
 );
