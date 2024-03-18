@@ -37,9 +37,11 @@ import { PokerCardComponent } from '../../room/poker-card/poker-card.component';
           <app-poker-card
             [content]="voteOption"
             size="L"
-            class="hover:pb-2 pt-2 hover:pt-0"
-            [class.pb-2]="voteOption === userVote()"
-            [class.pt-0]="voteOption === userVote()"
+            [class]="
+              voteOption === userVote()
+                ? ['pb-2', 'pt-0']
+                : ['hover:pb-2', 'hover:pt-0', 'pt-2']
+            "
             [active]="voteOption === userVote()"
             (click)="vote(voteOption)"></app-poker-card>
         }

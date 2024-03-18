@@ -18,13 +18,13 @@ import { environment } from '../../../environments/environment';
 export type RoomState = {
   currentRoom: RoomModel;
   availableRooms: string[];
-  countdown: number; // in seconds
+  countdown: number | null; // in seconds
 };
 
 const initialState: RoomState = {
   currentRoom: roomDefault,
   availableRooms: [],
-  countdown: 0,
+  countdown: null,
 };
 
 export const RoomStore = signalStore(
@@ -79,6 +79,7 @@ export const RoomStore = signalStore(
                 );
                 // update round, clone player
                 return {
+                  countdown: null,
                   currentRoom: {
                     ...state.currentRoom,
                     currentRound,

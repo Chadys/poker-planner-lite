@@ -16,7 +16,7 @@ import { RoomStore, UserStore } from '@poker/data-models';
               [content]="item.value"
               size="S"
               [disabled]="true"
-              [private]="true"
+              [private]="roomStore.countdown() !== 0"
               [active]="item.value !== null"></app-poker-card>
             <span class="text-center">{{ item.key }}</span>
           </div>
