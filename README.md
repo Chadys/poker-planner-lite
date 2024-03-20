@@ -3,6 +3,8 @@
 Simple app to run poker planning session in a scrum team
 ![Demo Timeout](docs/demo.gif)
 
+## Goal of the project
+
 Inspiration: [PlanningPokerOnline](https://planningpokeronline.com/)
 
 The goal was not to reproduce all features of this app;
@@ -10,11 +12,17 @@ we only wanted the ability to join a room and vote.
 And vote. And vote again.
 Simplicity and usability is a must!
 
-User need analysis:
-
 We already have our own ticket tracker with weight that can be assigned to each issue.
 We wanted a small supplementary tool just to run our poker planning session without needing any data retention in it.
-Dev should be able to vote easily and PO should be able to observe the session
+Dev should be able to vote easily and Scrum Master or others should be able to observe the session.
+No need for authentication since we will deploy only as an internal tool with access limited to specific users.
+
+## Tech Stack
+
+We use Angular for the frontend and communicate via websocket to a MQTT server supporting protocol version 5 (in our case we use VerneMQ).
+We do not need to keep voting data for long, hence MQTT was a good solution to handle clients communication.
+
+Just a SPA frontend and an MQTT server, nothing else.
 
 ## Project commands
 
