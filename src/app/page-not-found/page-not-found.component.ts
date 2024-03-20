@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
-  template: `<p>404 page not found</p>`,
+  template: `<h1 class="text-center pt-20">404 page not found</h1>`,
   styles: ``,
 })
 export class PageNotFoundComponent {}

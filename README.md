@@ -1,6 +1,7 @@
 # PokerPlannerLite
 
 Simple app to run poker planning session in a scrum team
+![Demo Timeout](docs/demo.gif)
 
 Inspiration: [PlanningPokerOnline](https://planningpokeronline.com/)
 
