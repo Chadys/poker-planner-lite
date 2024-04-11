@@ -32,7 +32,8 @@ export const UserStore = signalStore(
   })),
   withMethods(store => ({
     syncCachedUser(): void {
-      const savedUser: string | null = localStorage.getItem('user');
+      const savedUser: string | null =
+        sessionStorage.getItem('user') || localStorage.getItem('user');
       if (savedUser) {
         const user: UserModel = JSON.parse(savedUser);
         patchState(store, () => ({ user }));
@@ -41,6 +42,7 @@ export const UserStore = signalStore(
     setUser(user: UserModel): void {
       patchState(store, () => ({ user }));
       localStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('user', JSON.stringify(user));
     },
   })),
   withHooks({
