@@ -1,3 +1,5 @@
+**⚠️ This project is now being maintained at https://github.com/BIRU-Scop/poker-planner-lite ⚠️**
+
 # PokerPlannerLite
 
 Simple app to run poker planning session in a scrum team
